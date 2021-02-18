@@ -23,82 +23,8 @@ a {
   background-color: tomato!important;
 }
 
-#app {
-    padding: 5vh 5vw;
-}
-
-/* Tooltip container */
-.tooltip {
-    position: relative;
-    display: inline-block;
-  }
-  
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  
-  /* Position the tooltip text - see examples below! */
-  position: absolute;
-  z-index: 1;
-}
-  
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
-.popover {
-    /* width: 120px; */
-    background-color: #000000e0;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-}
-
-.popover-body {
-  padding: .5rem .75rem;
-  color: white;
-}
-
-.popover .arrow:after {
-  border-top-color: #000000e0;
-}
-
-.btn-hardcore{
-  background-color: #7d0101;
-}
-
-.label-w {
-  width: 100%;
-}
 @media screen and (max-width: 400px) {
   .label-w { width:50px; }
-}
-
-.nav-tabs .nav-link.active {
-  color: #ffffff;
-  background-color: #2a1b44;
-  border-color: #ffffff #ffffff #2a1b44;
-}
-
-.nav-link .text {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 100%;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.nav-tabs .nav-item {
-  margin-bottom: -1px;
-  max-width: 33%;
 }
 
  /* The switch - the box around the slider */
@@ -142,11 +68,11 @@ a {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #008000;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #008000;
 }
 
 input:checked + .slider:before {

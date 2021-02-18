@@ -7,8 +7,11 @@
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-		
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -21,10 +24,12 @@
                 <label>Total Health</label>
                 <input type="number" class="form-control p-3" min="100" max="1030" value="100" step="10" v-model="TotalHealth" />
               </div>
+              
               <div class="col-6 col-md input-field text-white text-center font-weight-bold my-4">
                 <label>Current DR%</label>
                 <input type="number" class="form-control p-3" min="0" max="87" value="0" v-model="CurrentDR" />
               </div>
+              
               <div class="col-4 col-md text-white text-center font-weight-bold my-4">
                 <label>AutoEat Level</label>
                 <select class="btn btn-secondary dropdown-toggle form-control" v-model="AutoEatLevel">
@@ -33,6 +38,7 @@
                   <option>3</option>
                 </select>
               </div>
+              
               <div class="col-3 col-md text-white text-center font-weight-bold my-4">
                 <label>Wasteful Ring</label>
                 </br>
@@ -41,6 +47,7 @@
                   <span class="slider round"></span>
                 </label>
               </div>
+            
               <div class="col-3 col-md text-white text-center font-weight-bold my-4">
                 <label>Guardian Amulet</label>
                 </br>
@@ -49,6 +56,7 @@
                   <span class="slider round"></span>
                 </label>
               </div>
+              
               <div class="col-4 col-md dropdown text-white text-center font-weight-bold my-4">
                 <label>Combat Style</label>
                 <select class="btn btn-secondary dropdown-toggle form-control" v-model="CombatStyle">
@@ -57,6 +65,7 @@
                   <option>Magic</option>
                 </select>
               </div>
+              
               <div class="col-4 col-md dropdown text-white text-center font-weight-bold my-4">
                 <label>Game Mode</label>
                 <select class="btn btn-secondary dropdown-toggle form-control" v-model="GameMode">
@@ -66,10 +75,16 @@
               </div>
             </div>
 
-            <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#dungeons">Dungeons</a></li>
-              <li><a data-toggle="tab" href="#slayer">Slayer</a></li>
-              <li><a data-toggle="tab" href="#allMonsters">All monsters</a></li>
+            <ul class="nav nav-tabs nav-justified">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#dungeons"><h3>Dungeons</h3></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#slayer"><h3>Slayer</h3></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#allMonsters"><h3>All Monsters</h3></a>
+              </li>
             </ul>
 
             <div class="tab-content">
@@ -203,10 +218,6 @@
     </body>
 
 </html>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 <script>
 
