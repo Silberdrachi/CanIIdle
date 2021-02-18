@@ -1178,6 +1178,64 @@ app = new Vue({
                 return [[1, 1.25, 0.25], [0.75, 1, 1.25], [1.25, 0.75, 1]];
             }
         },
+    },
+    created() {
+      if (localStorage.SlayerTier) {
+        this.SlayerTier = localStorage.SlayerTier;
+      }
+      if (localStorage.TotalHealth) {
+        this.TotalHealth = localStorage.TotalHealth;
+      }
+      if (localStorage.CurrentDR) {
+        this.CurrentDR = localStorage.CurrentDR;
+      }
+      if (localStorage.AutoEatLevel) {
+        this.AutoEatLevel = localStorage.AutoEatLevel;
+      }
+      if (localStorage.CombatStyle) {
+        this.CombatStyle = localStorage.CombatStyle;
+      }
+      if (localStorage.GameMode) {
+        this.GameMode = localStorage.GameMode;
+      }
+      if (localStorage.WastefulRing == "true") {
+        this.WastefulRing = localStorage.WastefulRing;
+      }
+      if (localStorage.GuardianAmulet == "true") {
+        this.GuardianAmulet = localStorage.GuardianAmulet;
+      }
+      if (localStorage.DungeonChoice) {
+        this.DungeonChoice = localStorage.DungeonChoice;
+      }
+    },
+    watch: {
+      SlayerTier(newSlayerTier) {
+        localStorage.SlayerTier = newSlayerTier;
+      },
+      TotalHealth(newTotalHealth) {
+        localStorage.TotalHealth = newTotalHealth;
+      },
+      CurrentDR(newCurrentDR) {
+        localStorage.CurrentDR = newCurrentDR;
+      },
+      AutoEatLevel(newAutoEatLevel) {
+        localStorage.AutoEatLevel = newAutoEatLevel;
+      },
+      CombatStyle(newCombatStyle) {
+        localStorage.CombatStyle = newCombatStyle;
+      },
+      GameMode(newGameMode) {
+        localStorage.GameMode = newGameMode;
+      },
+      WastefulRing(newWastefulRing) {
+        localStorage.WastefulRing = newWastefulRing;
+      },
+      GuardianAmulet(newGuardianAmulet) {
+        localStorage.GuardianAmulet = newGuardianAmulet;
+      },
+      DungeonChoice(newDungeonChoice) {
+        localStorage.DungeonChoice = newDungeonChoice;
+      }
     }
 });
 
