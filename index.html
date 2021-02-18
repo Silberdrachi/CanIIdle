@@ -52,7 +52,7 @@
                 <label>Guardian Amulet</label>
                 </br>
                 <label class="switch">
-                  <input type="checkbox" v-model="GuardianAmulet">
+                  <input type="checkbox disabled" v-model="GuardianAmulet">
                   <span class="slider round"></span>
                 </label>
               </div>
@@ -1145,9 +1145,6 @@ app = new Vue({
                 case "Magic":
                     return 2;
             }
-        },
-        wheel(){
-            // do nothing
         }
     },
     computed: {
