@@ -5,12 +5,15 @@
       <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
       <meta content="utf-8" http-equiv="encoding">
       <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
+      
       <!-- Vue Stuff -->
       <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-      <!-- Bootstrap Stuff -->
+      
+      <!-- Bootstrap Stuff 4.6 -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+      
       <!-- My stuff --> 
       <link rel="stylesheet" href="style.css">
    </head>
@@ -19,208 +22,212 @@
          <h1 class="text-white text-center my-4">Can I Idle Everything?</h1>
          <p class="text-white text-center my-4">(Up to date as of v0.18.2)
          </h1>
-         <div id="content">
-            <div class="row">
-               <div class="col-sm input-group">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="TotalHealth">Total Health</span>
-                  </div>
-                  <input id="TotalHealth" type="number" class="form-control" min="100" max="1030" value="100" step="10" v-model="TotalHealth" />
-               </div>
-               <div class="col-sm input-group">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="CurrentDR">Current DR%</span>
-                  </div>
-                  <input id="CurrentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="CurrentDR" />
-               </div>
-               <div class="col-sm input-group">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="AutoEatLevel">Auto Eat Level:</label>
-                  </div>
-                  <select class="custom-select" id="AutoEatLevel" v-model="AutoEatLevel">
-                     <option>1</option>
-                     <option>2</option>
-                     <option>3</option>
-                  </select>
-               </div>
-               <div class="col-sm input-group">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="WastefulRing">Wasteful Ring</label>
-                  </div>
-                  <select id="WastefulRing" class="custom-select" v-model="WastefulRing">
-                     <option>Yes</option>
-                     <option selected>No</option>
-                  </select>
-               </div>
-               <div class="col-sm input-group">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="GuardianAmulet">Guardian Amulet</label>
-                  </div>
-                  <select id="GuardianAmulet" class="custom-select" v-model="GuardianAmulet" disabled>
-                     <option>Yes</option>
-                     <option selected>No</option>
-                  </select>
-               </div>
-               <div class="col-sm input-group">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="CombatStyle">Combat Style</label>
-                  </div>
-                  <select id="CombatStyle" class="custom-select" v-model="CombatStyle">
-                     <option>Melee</option>
-                     <option>Ranged</option>
-                     <option>Magic</option>
-                  </select>
-               </div>
-               <div class="col-sm input-group">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="GameMode">Game Mode</label>
-                  </div>
-                  <select id="GameMode" class="custom-select" v-model="GameMode">
-                     <option>Normal</option>
-                     <option>Hardcore</option>
-                  </select>
-               </div>
-            </div>
-            <hr>
-            <ul class="nav nav-pills nav-fill">
-               <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#dungeons">
-                     <h3>Dungeons</h3>
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#slayer">
-                     <h3>Slayer</h3>
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#allMonsters">
-                     <h3>All Monsters</h3>
-                  </a>
-               </li>
-            </ul>
-            <div class="tab-content">
-               <div id="dungeons" class="tab-pane fade show active">
-                  <div class="input-group mb-3">
+         <div class="row">
+            <div class="col-sm"></div>
+            <div id="content" class="col-lg-10">
+               <div class="row">
+                  <div class="col-sm input-group">
                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="DungeonChoice">Dungeon:</label>
+                        <span class="input-group-text" id="TotalHealth">Total Health</span>
                      </div>
-                     <select class="custom-select" id="DungeonChoice" v-model="DungeonChoice">
-                        <option selected hidden>Choose Dungeon</option>
-                        <option>Chicken Coop</option>
-                        <option>Undead Graveyard</option>
-                        <option>Bandit Base</option>
-                        <option>Hall of Wizards</option>
-                        <option>Spider Forest</option>
-                        <option>Miolite Caves</option>
-                        <option>Deep Sea Ship</option>
-                        <option>Frozen Cove</option>
-                        <option>Dragons Den</option>
-                        <option>Volcanic Cave</option>
-                        <option>Infernal Stronghold</option>
-                        <option>Air God Dungeon</option>
-                        <option>Water God Dungeon</option>
-                        <option>Earth God Dungeon</option>
-                        <option>Fire God Dungeon</option>
+                     <input id="TotalHealth" type="number" class="form-control" min="100" max="1030" value="100" step="10" v-model="TotalHealth" />
+                  </div>
+                  <div class="col-sm input-group">
+                     <div class="input-group-prepend">
+                        <span class="input-group-text" id="CurrentDR">Current DR%</span>
+                     </div>
+                     <input id="CurrentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="CurrentDR" />
+                  </div>
+                  <div class="col-sm input-group">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="AutoEatLevel">Auto Eat Level:</label>
+                     </div>
+                     <select class="custom-select" id="AutoEatLevel" v-model="AutoEatLevel">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
                      </select>
                   </div>
-                  <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
-                     <thead>
-                        <tr>
-                           <th style="width: 11%" scope="col">
-                              <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                           </th>
-                           <th style="width: 11%" scope="col">
-                              <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                           </th>
-                           <th style="width: 20%" scope="col">Monster Name</th>
-                           <th style="width: 11%" scope="col">Style</th>
-                           <th style="width: 11%" scope="col">Max Hit</th>
-                           <th style="width: 11%" scope="col">Reduced Max hit</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr v-for="monster in monsters.filter(m => m.dungeon == this.DungeonChoice)" :class="{idleable : isIdleable(monster)}">
-                           <td>{{minDR(monster)}}</td>
-                           <td>{{minHP(monster)}}</td>
-                           <td>{{monster.name}}</td>
-                           <td>{{monster.attackStyle}}</td>
-                           <td>{{monster.maxHit}}</td>
-                           <td>{{reducedMaxHit(monster)}}</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-               <div id="slayer" class="tab-pane fade">
-                  <div class="input-group mb-3">
+                  <div class="col-sm input-group">
                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="SlayerTier">Slayer Tier:</label>
+                        <label class="input-group-text" for="WastefulRing">Wasteful Ring</label>
                      </div>
-                     <select class="custom-select" id="SlayerTier" v-model="SlayerTier">
-                        <option selected hidden>Choose Tier</option>
-                        <option>Easy</option>
+                     <select id="WastefulRing" class="custom-select" v-model="WastefulRing">
+                        <option>Yes</option>
+                        <option selected>No</option>
+                     </select>
+                  </div>
+                  <div class="col-sm input-group">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="GuardianAmulet">Guardian Amulet</label>
+                     </div>
+                     <select id="GuardianAmulet" class="custom-select" v-model="GuardianAmulet" disabled>
+                        <option>Yes</option>
+                        <option selected>No</option>
+                     </select>
+                  </div>
+                  <div class="col-sm input-group">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="CombatStyle">Combat Style</label>
+                     </div>
+                     <select id="CombatStyle" class="custom-select" v-model="CombatStyle">
+                        <option>Melee</option>
+                        <option>Ranged</option>
+                        <option>Magic</option>
+                     </select>
+                  </div>
+                  <div class="col-sm input-group">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="GameMode">Game Mode</label>
+                     </div>
+                     <select id="GameMode" class="custom-select" v-model="GameMode">
                         <option>Normal</option>
-                        <option>Hard</option>
-                        <option>Elite</option>
-                        <option>Master</option>
+                        <option>Hardcore</option>
                      </select>
                   </div>
-                  <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
-                     <thead>
-                        <tr>
-                           <th style="width: 11%" scope="col">
-                              <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                           </th>
-                           <th style="width: 11%" scope="col">
-                              <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                           </th>
-                           <th style="width: 20%" scope="col">Monster Name</th>
-                           <th style="width: 11%" scope="col">Style</th>
-                           <th style="width: 11%" scope="col">Max Hit</th>
-                           <th style="width: 11%" scope="col">Reduced Max hit</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr v-for="monster in monsters.filter(m => m.slayerTier == this.SlayerTier)" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
-                           <td>{{minDR(monster)}}</td>
-                           <td>{{minHP(monster)}}</td>
-                           <td>{{monster.name}}</td>
-                           <td>{{monster.attackStyle}}</td>
-                           <td>{{monster.maxHit}}</td>
-                           <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
-                        </tr>
-                     </tbody>
-                  </table>
                </div>
-               <div id="allMonsters" class="tab-pane fade">
-                  <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
-                     <thead>
-                        <tr>
-                           <th style="width: 11%" scope="col">
-                              <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                           </th>
-                           <th style="width: 11%" scope="col">
-                              <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                           </th>
-                           <th style="width: 20%" scope="col">Monster Name</th>
-                           <th style="width: 11%" scope="col">Style</th>
-                           <th style="width: 11%" scope="col">Max Hit</th>
-                           <th style="width: 11%" scope="col">Reduced Max hit</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr v-for="monster in monsters.filter(m => m.dungeon != '')" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
-                           <td>{{minDR(monster)}}</td>
-                           <td>{{minHP(monster)}}</td>
-                           <td>{{monster.name}}</td>
-                           <td>{{monster.attackStyle}}</td>
-                           <td>{{monster.maxHit}}</td>
-                           <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
-                        </tr>
-                     </tbody>
-                  </table>
+               <hr>
+               <ul class="nav nav-pills nav-fill">
+                  <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="#dungeons">
+                        <h3>Dungeons</h3>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="#slayer">
+                        <h3>Slayer</h3>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="#allMonsters">
+                        <h3>All Monsters</h3>
+                     </a>
+                  </li>
+               </ul>
+               <div class="tab-content">
+                  <div id="dungeons" class="tab-pane fade show active">
+                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <label class="input-group-text" for="DungeonChoice">Dungeon:</label>
+                        </div>
+                        <select class="custom-select" id="DungeonChoice" v-model="DungeonChoice">
+                           <option selected hidden>Choose Dungeon</option>
+                           <option>Chicken Coop</option>
+                           <option>Undead Graveyard</option>
+                           <option>Bandit Base</option>
+                           <option>Hall of Wizards</option>
+                           <option>Spider Forest</option>
+                           <option>Miolite Caves</option>
+                           <option>Deep Sea Ship</option>
+                           <option>Frozen Cove</option>
+                           <option>Dragons Den</option>
+                           <option>Volcanic Cave</option>
+                           <option>Infernal Stronghold</option>
+                           <option>Air God Dungeon</option>
+                           <option>Water God Dungeon</option>
+                           <option>Earth God Dungeon</option>
+                           <option>Fire God Dungeon</option>
+                        </select>
+                     </div>
+                     <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
+                        <thead>
+                           <tr>
+                              <th style="width: 11%" scope="col">
+                                 <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                              </th>
+                              <th style="width: 11%" scope="col">
+                                 <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                              </th>
+                              <th style="width: 20%" scope="col">Monster Name</th>
+                              <th style="width: 11%" scope="col">Style</th>
+                              <th style="width: 11%" scope="col">Max Hit</th>
+                              <th style="width: 11%" scope="col">Reduced Max hit</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr v-for="monster in monsters.filter(m => m.dungeon == this.DungeonChoice)" :class="{idleable : isIdleable(monster)}">
+                              <td>{{minDR(monster)}}</td>
+                              <td>{{minHP(monster)}}</td>
+                              <td>{{monster.name}}</td>
+                              <td>{{monster.attackStyle}}</td>
+                              <td>{{monster.maxHit}}</td>
+                              <td>{{reducedMaxHit(monster)}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div id="slayer" class="tab-pane fade">
+                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <label class="input-group-text" for="SlayerTier">Slayer Tier:</label>
+                        </div>
+                        <select class="custom-select" id="SlayerTier" v-model="SlayerTier">
+                           <option selected hidden>Choose Tier</option>
+                           <option>Easy</option>
+                           <option>Normal</option>
+                           <option>Hard</option>
+                           <option>Elite</option>
+                           <option>Master</option>
+                        </select>
+                     </div>
+                     <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
+                        <thead>
+                           <tr>
+                              <th style="width: 11%" scope="col">
+                                 <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                              </th>
+                              <th style="width: 11%" scope="col">
+                                 <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                              </th>
+                              <th style="width: 20%" scope="col">Monster Name</th>
+                              <th style="width: 11%" scope="col">Style</th>
+                              <th style="width: 11%" scope="col">Max Hit</th>
+                              <th style="width: 11%" scope="col">Reduced Max hit</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr v-for="monster in monsters.filter(m => m.slayerTier == this.SlayerTier)" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
+                              <td>{{minDR(monster)}}</td>
+                              <td>{{minHP(monster)}}</td>
+                              <td>{{monster.name}}</td>
+                              <td>{{monster.attackStyle}}</td>
+                              <td>{{monster.maxHit}}</td>
+                              <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div id="allMonsters" class="tab-pane fade">
+                     <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
+                        <thead>
+                           <tr>
+                              <th style="width: 11%" scope="col">
+                                 <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                              </th>
+                              <th style="width: 11%" scope="col">
+                                 <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                              </th>
+                              <th style="width: 20%" scope="col">Monster Name</th>
+                              <th style="width: 11%" scope="col">Style</th>
+                              <th style="width: 11%" scope="col">Max Hit</th>
+                              <th style="width: 11%" scope="col">Reduced Max hit</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr v-for="monster in monsters.filter(m => m.dungeon != '')" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
+                              <td>{{minDR(monster)}}</td>
+                              <td>{{minHP(monster)}}</td>
+                              <td>{{monster.name}}</td>
+                              <td>{{monster.attackStyle}}</td>
+                              <td>{{monster.maxHit}}</td>
+                              <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
                </div>
             </div>
+            <div class="col-sm"></div>
          </div>
          <div class="text-white text-center my-1 mx-auto">
             <p>Styling and formulas used are from the original "Can I Idle This?" website: <a href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
