@@ -1,1206 +1,1189 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Can I Idle EVERYTHING?!?!</title>
-        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-        <meta content="utf-8" http-equiv="encoding">
-        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
-        
-        <!-- Vue Stuff -->
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-        
-        <!-- Bootstrap Stuff -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-        
-        <!-- Bootstrap Toggle Stuff http://www.bootstraptoggle.com/ -->
-        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-        
-        <!-- My stuff --> 
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div id ='app'>
-            <h1 class="text-white text-center my-4">Can I Idle Everything?</h1>
-            <p class="text-white text-center my-4">(Up to date as of v0.18.2)</h1>
-            <div id="content">
-                <div class="row">
-                  <div class="col-4 col-md input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="TotalHealth">Total Health</span>
-                    </div>
-                    <input id="TotalHealth" type="number" class="form-control" min="100" max="1030" value="100" step="10" v-model="TotalHealth" />
+   <head>
+      <title>Can I Idle EVERYTHING?!?!</title>
+      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+      <meta content="utf-8" http-equiv="encoding">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
+      <!-- Vue Stuff -->
+      <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+      <!-- Bootstrap Stuff -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+      <!-- Bootstrap Toggle Stuff http://www.bootstraptoggle.com/ -->
+      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+      <!-- My stuff --> 
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+      <div id ='app'>
+         <h1 class="text-white text-center my-4">Can I Idle Everything?</h1>
+         <p class="text-white text-center my-4">(Up to date as of v0.18.2)
+         </h1>
+         <div id="content">
+            <div class="row">
+               <div class="col-sm input-group">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="TotalHealth">Total Health</span>
                   </div>
-                  
-                  <div class="col-4 col-md input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="CurrentDR">Current DR%</span>
-                    </div>
-                    <input id="CurrentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="CurrentDR" />
+                  <input id="TotalHealth" type="number" class="form-control" min="100" max="1030" value="100" step="10" v-model="TotalHealth" />
+               </div>
+               <div class="col-sm input-group">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="CurrentDR">Current DR%</span>
                   </div>
-                  
-                  <div class="col-4 col-md input-group">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="AutoEatLevel">Auto Eat Level:</label>
-                    </div>
-                    <select class="custom-select" id="AutoEatLevel" v-model="AutoEatLevel">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                    </select>
-                </div>
-                  
-                  
-                  <div class="col-4 col-md input-group">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="WastefulRing">Wasteful Ring</label>
-                    </div>
-                    <input id="WastefulRing" type="checkbox" checked data-toggle="toggle" v-model="WastefulRing">
+                  <input id="CurrentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="CurrentDR" />
+               </div>
+               <div class="col-sm input-group">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="AutoEatLevel">Auto Eat Level:</label>
                   </div>
-                  
-                  <div class="col-4 col-md input-group">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="GuardianAmulet">Guardian Amulet</label>
-                    </div>
-                    <input id="GuardianAmulet" type="checkbox" checked data-toggle="toggle" v-model="GuardianAmulet" disabled>
+                  <select class="custom-select" id="AutoEatLevel" v-model="AutoEatLevel">
+                     <option>1</option>
+                     <option>2</option>
+                     <option>3</option>
+                  </select>
+               </div>
+               <div class="col-sm input-group">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="WastefulRing">Wasteful Ring</label>
                   </div>
-                  
-                  <div class="col-4 col-md input-group">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="CombatStyle">Combat Style</label>
-                    </div>
-                    <select id="CombatStyle" class="custom-select" v-model="CombatStyle">
-                      <option>Melee</option>
-                      <option>Ranged</option>
-                      <option>Magic</option>
-                    </select>
+                  <input id="WastefulRing" type="checkbox" checked data-toggle="toggle" v-model="WastefulRing">
+               </div>
+               <div class="col-sm input-group">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="GuardianAmulet">Guardian Amulet</label>
                   </div>
-                  
-                  <div class="col-4 col-md input-group">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="GameMode">Game Mode</label>
-                    </div>
-                    <select id="GameMode" class="custom-select" v-model="GameMode">
-                      <option>Normal</option>
-                      <option>Hardcore</option>
-                    </select>
+                  <input id="GuardianAmulet" type="checkbox" checked data-toggle="toggle" v-model="GuardianAmulet" disabled>
+               </div>
+               <div class="col-sm input-group">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="CombatStyle">Combat Style</label>
                   </div>
-                </div>
-                
-                <hr>
-    
-                <ul class="nav nav-pills nav-fill">
-                  <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#dungeons"><h3>Dungeons</h3></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#slayer"><h3>Slayer</h3></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#allMonsters"><h3>All Monsters</h3></a>
-                  </li>
-                </ul>
-    
-                <div class="tab-content">
-    
-                  <div id="dungeons" class="tab-pane fade show active">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <label class="input-group-text" for="DungeonChoice">Dungeon:</label>
-                        </div>
-                        <select class="custom-select" id="DungeonChoice" v-model="DungeonChoice">
-                            <option selected hidden>Choose Dungeon</option>
-                            <option>Chicken Coop</option>
-                            <option>Undead Graveyard</option>
-                            <option>Bandit Base</option>
-                            <option>Hall of Wizards</option>
-                            <option>Spider Forest</option>
-                            <option>Miolite Caves</option>
-                            <option>Deep Sea Ship</option>
-                            <option>Frozen Cove</option>
-                            <option>Dragons Den</option>
-                            <option>Volcanic Cave</option>
-                            <option>Infernal Stronghold</option>
-                            <option>Air God Dungeon</option>
-                            <option>Water God Dungeon</option>
-                            <option>Earth God Dungeon</option>
-                            <option>Fire God Dungeon</option>
-                        </select>
-                    </div>
-                    
-                    <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                                </th>
-                                <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                                </th>
-                                <th style="width: 20%" scope="col">Monster Name</th>
-                                <th style="width: 11%" scope="col">Style</th>
-                                <th style="width: 11%" scope="col">Max Hit</th>
-                                <th style="width: 11%" scope="col">Reduced Max hit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="monster in monsters.filter(m => m.dungeon == this.DungeonChoice)" :class="{idleable : isIdleable(monster)}">
-                                <td>{{minDR(monster)}}</td>
-                                <td>{{minHP(monster)}}</td>
-                                <td>{{monster.name}}</td>
-                                <td>{{monster.attackStyle}}</td>
-                                <td>{{monster.maxHit}}</td>
-                                <td>{{reducedMaxHit(monster)}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                  <select id="CombatStyle" class="custom-select" v-model="CombatStyle">
+                     <option>Melee</option>
+                     <option>Ranged</option>
+                     <option>Magic</option>
+                  </select>
+               </div>
+               <div class="col-sm input-group">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="GameMode">Game Mode</label>
                   </div>
-    
-                  <div id="slayer" class="tab-pane fade">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <label class="input-group-text" for="SlayerTier">Slayer Tier:</label>
-                        </div>
-                        <select class="custom-select" id="SlayerTier" v-model="SlayerTier">
-                            <option selected hidden>Choose Tier</option>
-                            <option>Easy</option>
-                            <option>Normal</option>
-                            <option>Hard</option>
-                            <option>Elite</option>
-                            <option>Master</option>
-                        </select>
-                    </div>
-                    
-                    <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                                </th>
-                                <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                                </th>
-                                <th style="width: 20%" scope="col">Monster Name</th>
-                                <th style="width: 11%" scope="col">Style</th>
-                                <th style="width: 11%" scope="col">Max Hit</th>
-                                <th style="width: 11%" scope="col">Reduced Max hit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="monster in monsters.filter(m => m.slayerTier == this.SlayerTier)" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
-                                <td>{{minDR(monster)}}</td>
-                                <td>{{minHP(monster)}}</td>
-                                <td>{{monster.name}}</td>
-                                <td>{{monster.attackStyle}}</td>
-                                <td>{{monster.maxHit}}</td>
-                                <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-    
-                  <div id="allMonsters" class="tab-pane fade">
-                    <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                                </th>
-                                <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                                </th>
-                                <th style="width: 20%" scope="col">Monster Name</th>
-                                <th style="width: 11%" scope="col">Style</th>
-                                <th style="width: 11%" scope="col">Max Hit</th>
-                                <th style="width: 11%" scope="col">Reduced Max hit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="monster in monsters.filter(m => m.dungeon != '')" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
-                                <td>{{minDR(monster)}}</td>
-                                <td>{{minHP(monster)}}</td>
-                                <td>{{monster.name}}</td>
-                                <td>{{monster.attackStyle}}</td>
-                                <td>{{monster.maxHit}}</td>
-                                <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
+                  <select id="GameMode" class="custom-select" v-model="GameMode">
+                     <option>Normal</option>
+                     <option>Hardcore</option>
+                  </select>
+               </div>
             </div>
-
-            <div class="text-white text-center my-1 mx-auto">
-              <p>Styling and formulas used are from the original "Can I Idle This?" website: <a href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
-              <p>Further evolved by "Slayer Can I Idle This?" <a href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a></p>
-              <p>Please for the love of god never email me, but you can contact @Silber on the Melvor Idle Discord server.</p>
+            <hr>
+            <ul class="nav nav-pills nav-fill">
+               <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#dungeons">
+                     <h3>Dungeons</h3>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#slayer">
+                     <h3>Slayer</h3>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#allMonsters">
+                     <h3>All Monsters</h3>
+                  </a>
+               </li>
+            </ul>
+            <div class="tab-content">
+               <div id="dungeons" class="tab-pane fade show active">
+                  <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="DungeonChoice">Dungeon:</label>
+                     </div>
+                     <select class="custom-select" id="DungeonChoice" v-model="DungeonChoice">
+                        <option selected hidden>Choose Dungeon</option>
+                        <option>Chicken Coop</option>
+                        <option>Undead Graveyard</option>
+                        <option>Bandit Base</option>
+                        <option>Hall of Wizards</option>
+                        <option>Spider Forest</option>
+                        <option>Miolite Caves</option>
+                        <option>Deep Sea Ship</option>
+                        <option>Frozen Cove</option>
+                        <option>Dragons Den</option>
+                        <option>Volcanic Cave</option>
+                        <option>Infernal Stronghold</option>
+                        <option>Air God Dungeon</option>
+                        <option>Water God Dungeon</option>
+                        <option>Earth God Dungeon</option>
+                        <option>Fire God Dungeon</option>
+                     </select>
+                  </div>
+                  <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
+                     <thead>
+                        <tr>
+                           <th style="width: 11%" scope="col">
+                              <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                           </th>
+                           <th style="width: 11%" scope="col">
+                              <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                           </th>
+                           <th style="width: 20%" scope="col">Monster Name</th>
+                           <th style="width: 11%" scope="col">Style</th>
+                           <th style="width: 11%" scope="col">Max Hit</th>
+                           <th style="width: 11%" scope="col">Reduced Max hit</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr v-for="monster in monsters.filter(m => m.dungeon == this.DungeonChoice)" :class="{idleable : isIdleable(monster)}">
+                           <td>{{minDR(monster)}}</td>
+                           <td>{{minHP(monster)}}</td>
+                           <td>{{monster.name}}</td>
+                           <td>{{monster.attackStyle}}</td>
+                           <td>{{monster.maxHit}}</td>
+                           <td>{{reducedMaxHit(monster)}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div id="slayer" class="tab-pane fade">
+                  <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="SlayerTier">Slayer Tier:</label>
+                     </div>
+                     <select class="custom-select" id="SlayerTier" v-model="SlayerTier">
+                        <option selected hidden>Choose Tier</option>
+                        <option>Easy</option>
+                        <option>Normal</option>
+                        <option>Hard</option>
+                        <option>Elite</option>
+                        <option>Master</option>
+                     </select>
+                  </div>
+                  <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
+                     <thead>
+                        <tr>
+                           <th style="width: 11%" scope="col">
+                              <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                           </th>
+                           <th style="width: 11%" scope="col">
+                              <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                           </th>
+                           <th style="width: 20%" scope="col">Monster Name</th>
+                           <th style="width: 11%" scope="col">Style</th>
+                           <th style="width: 11%" scope="col">Max Hit</th>
+                           <th style="width: 11%" scope="col">Reduced Max hit</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr v-for="monster in monsters.filter(m => m.slayerTier == this.SlayerTier)" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
+                           <td>{{minDR(monster)}}</td>
+                           <td>{{minHP(monster)}}</td>
+                           <td>{{monster.name}}</td>
+                           <td>{{monster.attackStyle}}</td>
+                           <td>{{monster.maxHit}}</td>
+                           <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div id="allMonsters" class="tab-pane fade">
+                  <table class="monster-table table table-responsive-md table-striped table-dark table-bordered table-hover">
+                     <thead>
+                        <tr>
+                           <th style="width: 11%" scope="col">
+                              <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                           </th>
+                           <th style="width: 11%" scope="col">
+                              <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                           </th>
+                           <th style="width: 20%" scope="col">Monster Name</th>
+                           <th style="width: 11%" scope="col">Style</th>
+                           <th style="width: 11%" scope="col">Max Hit</th>
+                           <th style="width: 11%" scope="col">Reduced Max hit</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr v-for="monster in monsters.filter(m => m.dungeon != '')" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
+                           <td>{{minDR(monster)}}</td>
+                           <td>{{minHP(monster)}}</td>
+                           <td>{{monster.name}}</td>
+                           <td>{{monster.attackStyle}}</td>
+                           <td>{{monster.maxHit}}</td>
+                           <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
             </div>
-
-        </div>
-
-    </body>
-
+         </div>
+         <div class="text-white text-center my-1 mx-auto">
+            <p>Styling and formulas used are from the original "Can I Idle This?" website: <a href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
+            <p>Further evolved by "Slayer Can I Idle This?" <a href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a></p>
+            <p>Please for the love of god never email me, but you can contact @Silber on the Melvor Idle Discord server.</p>
+         </div>
+      </div>
+   </body>
 </html>
-
 <script>
-
-app = new Vue({
-    el: '#app',
-    data() {
-        return {
-            SlayerTier: "Choose Tier",
-            TotalHealth: 100,
-            CurrentDR: 0,
-            AutoEatLevel: "1",
-            CombatStyle: "Melee",
-            GameMode: "Normal",
-            WastefulRing: null,
-            GuardianAmulet: null,
-            DungeonChoice: "Choose Dungeon",
-            monsters:
-              [
-                {
-                    name: "Black Knight",
-                    attackStyle: "Melee",
-                    maxHit: 42,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Hill Giant",
-                    attackStyle: "Melee",
-                    maxHit: 53,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Giant Crab",
-                    attackStyle: "Melee",
-                    maxHit: 42,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Tentacle",
-                    attackStyle: "Melee",
-                    maxHit: 34,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Seagull",
-                    attackStyle: "Melee",
-                    maxHit: 23,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Confused Pirate",
-                    attackStyle: "Melee",
-                    maxHit: 46,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Frozen Archer",
-                    attackStyle: "Ranged",
-                    maxHit: 75,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Mummy",
-                    attackStyle: "Melee",
-                    maxHit: 49,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Statue",
-                    attackStyle: "Melee",
-                    maxHit: 58,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Wet Monster",
-                    attackStyle: "Melee",
-                    maxHit: 74,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Moist Monster",
-                    attackStyle: "Melee",
-                    maxHit: 42,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Sweaty Monster",
-                    attackStyle: "Melee",
-                    maxHit: 46,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Many Eyed Monster",
-                    attackStyle: "Ranged",
-                    maxHit: 92,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Lots of Eyes",
-                    attackStyle: "Melee",
-                    maxHit: 68,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Fairy",
-                    attackStyle: "Magic",
-                    maxHit: 170,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Goo Monster",
-                    attackStyle: "Melee",
-                    maxHit: 34,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Green Goo Monster",
-                    attackStyle: "Melee",
-                    maxHit: 42,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Golbin",
-                    attackStyle: "Melee",
-                    maxHit: 23,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Ranged Golbin",
-                    attackStyle: "Ranged",
-                    maxHit: 27,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Chicken",
-                    attackStyle: "Melee",
-                    maxHit: 11,
-                    slayerTier: "Easy",
-                    dungeon: "Chicken Coop"
-                },
-                {
-                    name: "Cow",
-                    attackStyle: "Melee",
-                    maxHit: 18,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Junior Farmer",
-                    attackStyle: "Melee",
-                    maxHit: 27,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Adult Farmer",
-                    attackStyle: "Melee",
-                    maxHit: 42,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Master Farmer",
-                    attackStyle: "Melee",
-                    maxHit: 67,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Wizard",
-                    attackStyle: "Magic",
-                    maxHit: 120,
-                    slayerTier: "Easy",
-                    dungeon: "Hall of Wizards"
-                },
-                {
-                    name: "Steel Knight",
-                    attackStyle: "Melee",
-                    maxHit: 32,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Mithril Knight",
-                    attackStyle: "Melee",
-                    maxHit: 52,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Bandit Trainee",
-                    attackStyle: "Ranged",
-                    maxHit: 42,
-                    slayerTier: "Easy",
-                    dungeon: "Bandit Base"
-                },
-                {
-                    name: "Bandit",
-                    attackStyle: "Ranged",
-                    maxHit: 82,
-                    slayerTier: "Easy",
-                    dungeon: "Bandit Base"
-                },
-                {
-                    name: "Plant",
-                    attackStyle: "Melee",
-                    maxHit: 11,
-                    slayerTier: "Easy"
-                },
-                {
-                    name: "Moss Giant",
-                    attackStyle: "Melee",
-                    maxHit: 124,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Frozen Mammoth",
-                    attackStyle: "Melee",
-                    maxHit: 142,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Stone Snake",
-                    attackStyle: "Magic",
-                    maxHit: 120,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Undead Werewolf",
-                    attackStyle: "Melee",
-                    maxHit: 77,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Vampire",
-                    attackStyle: "Ranged",
-                    maxHit: 105,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Strange Eyed Monster",
-                    attackStyle: "Melee",
-                    maxHit: 87,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Eyes",
-                    attackStyle: "Melee",
-                    maxHit: 125,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Valkyrie",
-                    attackStyle: "Melee",
-                    maxHit: 116,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Angel",
-                    attackStyle: "Magic",
-                    maxHit: 190,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Holy Archer",
-                    attackStyle: "Ranged",
-                    maxHit: 177,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Purple Goo Monster",
-                    attackStyle: "Melee",
-                    maxHit: 63,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Scattered Goo Monster",
-                    attackStyle: "Melee",
-                    maxHit: 103,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Green Dragon",
-                    attackStyle: "Melee",
-                    maxHit: 143,
-                    slayerTier: "Normal",
-                    dungeon: "Dragons Den"
-                },
-                {
-                    name: "Blue Dragon",
-                    attackStyle: "Melee",
-                    maxHit: 168,
-                    slayerTier: "Normal",
-                    dungeon: "Dragons Den"
-                },
-                {
-                    name: "Adamant Knight",
-                    attackStyle: "Melee",
-                    maxHit: 118,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Master Wizard",
-                    attackStyle: "Magic",
-                    maxHit: 170,
-                    slayerTier: "Normal",
-                    dungeon: "Hall of Wizards"
-                },
-                {
-                    name: "Druid",
-                    attackStyle: "Magic",
-                    maxHit: 81,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Thief",
-                    attackStyle: "Ranged",
-                    maxHit: 117,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Shaman",
-                    attackStyle: "Magic",
-                    maxHit: 137,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Turkul Riders",
-                    attackStyle: "Melee",
-                    maxHit: 82,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Turkul Archers",
-                    attackStyle: "Ranged",
-                    maxHit: 112,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Turkul Throwers",
-                    attackStyle: "Melee",
-                    maxHit: 132,
-                    slayerTier: "Normal"
-                },
-                {
-                    name: "Fierce Devil",
-                    attackStyle: "Melee",
-                    maxHit: 128,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Griffin",
-                    attackStyle: "Melee",
-                    maxHit: 128,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Pegasus",
-                    attackStyle: "Melee",
-                    maxHit: 264,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Raging Horned Elite",
-                    attackStyle: "Melee",
-                    maxHit: 146,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Seething Horned Elite",
-                    attackStyle: "Melee",
-                    maxHit: 243,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Red Dragon",
-                    attackStyle: "Melee",
-                    maxHit: 212,
-                    slayerTier: "Hard",
-                    dungeon: "Dragons Den"
-                },
-                {
-                    name: "Black Dragon",
-                    attackStyle: "Melee",
-                    maxHit: 268,
-                    slayerTier: "Hard",
-                    dungeon: "Dragons Den"
-                },
-                {
-                    name: "Rune Knight",
-                    attackStyle: "Melee",
-                    maxHit: 212,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Turkul Giant",
-                    attackStyle: "Melee",
-                    maxHit: 192,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Paladin",
-                    attackStyle: "Melee",
-                    maxHit: 163,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Dark Wizard",
-                    attackStyle: "Magic",
-                    maxHit: 210,
-                    slayerTier: "Hard",
-                    dungeon: "Hall of Wizards"
-                },
-                {
-                    name: "Necromancer",
-                    attackStyle: "Magic",
-                    maxHit: 163,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Elementalist",
-                    attackStyle: "Magic",
-                    maxHit: 240,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Priest",
-                    attackStyle: "Magic",
-                    maxHit: 213,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Turkul General",
-                    attackStyle: "Ranged",
-                    maxHit: 202,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Sand Beast",
-                    attackStyle: "Ranged",
-                    maxHit: 260,
-                    slayerTier: "Hard"
-                },
-                {
-                    name: "Dark Horned Elite",
-                    attackStyle: "Melee",
-                    maxHit: 443,
-                    slayerTier: "Elite"
-                },
-                {
-                    name: "Bounty Hunter",
-                    attackStyle: "Melee",
-                    maxHit: 329,
-                    slayerTier: "Elite"
-                },
-                {
-                    name: "Cursed Maiden",
-                    attackStyle: "Magic",
-                    maxHit: 450,
-                    slayerTier: "Elite"
-                },
-                {
-                    name: "Furious Horned Elite",
-                    attackStyle: "Ranged",
-                    maxHit: 397,
-                    slayerTier: "Elite"
-                },
-                {
-                    name: "Rancora Spider",
-                    attackStyle: "Ranged",
-                    maxHit: 450,
-                    slayerTier: "Elite"
-                },
-                {
-                    name: "Elder Vampire",
-                    attackStyle: "Ranged",
-                    maxHit: 400,
-                    slayerTier: "Elite"
-                },
-                {
-                    name: "Chaotic Greater Dragon",
-                    attackStyle: "Melee",
-                    maxHit: 600,
-                    slayerTier: "Master"
-                },
-                {
-                    name: "Umbora",
-                    attackStyle: "Melee",
-                    maxHit: 930,
-                    slayerTier: "Master"
-                },
-                {
-                    name: "Wicked Greater Dragon",
-                    attackStyle: "Magic",
-                    maxHit: 240,
-                    slayerTier: "Master"
-                },
-                {
-                    name: "Ku-tul",
-                    attackStyle: "Magic",
-                    maxHit: 970,
-                    slayerTier: "Master"
-                },
-                {
-                    name: "Hunting Greater Dragon",
-                    attackStyle: "Ranged",
-                    maxHit: 600,
-                    slayerTier: "Master"
-                },
-                {
-                    name: "Rokken",
-                    attackStyle: "Ranged",
-                    maxHit: 1235,
-                    slayerTier: "Master"
-                },
-                {
-                    name: "Chick",
-                    attackStyle: "Melee",
-                    maxHit: 10,
-                    dungeon: "Chicken Coop"
-                },
-                {
-                    name: "Mumma Chicken",
-                    attackStyle: "Melee",
-                    maxHit: 52,
-                    dungeon: "Chicken Coop"
-                },
-                {
-                    name: "Zombie Hand",
-                    attackStyle: "Melee",
-                    maxHit: 42,
-                    dungeon: "Undead Graveyard"
-                },
-                {
-                    name: "Zombie",
-                    attackStyle: "Melee",
-                    maxHit: 52,
-                    dungeon: "Undead Graveyard"
-                },
-                {
-                    name: "Ghost",
-                    attackStyle: "Melee",
-                    maxHit: 62,
-                    dungeon: "Undead Graveyard"
-                },
-                {
-                    name: "Zombie Leader",
-                    attackStyle: "Melee",
-                    maxHit: 106,
-                    dungeon: "Undead Graveyard"
-                },
-                {
-                    name: "Bandit Leader",
-                    attackStyle: "Ranged",
-                    maxHit: 174,
-                    dungeon: "Bandit Base"
-                },
-                {
-                    name: "Elder Wizard",
-                    attackStyle: "Magic",
-                    maxHit: 210,
-                    dungeon: "Hall of Wizards"
-                },
-                {
-                    name: "Spider (lv. 51)",
-                    attackStyle: "Melee",
-                    maxHit: 72,
-                    dungeon: "Spider Forest"
-                },
-                {
-                    name: "Spider (lv. 52)",
-                    attackStyle: "Melee",
-                    maxHit: 72,
-                    dungeon: "Spider Forest"
-                },
-                {
-                    name: "Evil Spider",
-                    attackStyle: "Melee",
-                    maxHit: 102,
-                    dungeon: "Spider Forest"
-                },
-                {
-                    name: "Spider King",
-                    attackStyle: "Melee",
-                    maxHit: 142,
-                    dungeon: "Spider Forest"
-                },
-                {
-                    name: "Miolite Sprig",
-                    attackStyle: "Melee",
-                    maxHit: 180,
-                    dungeon: "Miolite Caves"
-                },
-                {
-                    name: "Miolite Trio",
-                    attackStyle: "Magic",
-                    maxHit: 180,
-                    dungeon: "Miolite Caves"
-                },
-                {
-                    name: "Miolite Warden",
-                    attackStyle: "Melee",
-                    maxHit: 180,
-                    dungeon: "Miolite Caves"
-                },
-                {
-                    name: "Miolite Monarch",
-                    attackStyle: "Magic",
-                    maxHit: 240,
-                    dungeon: "Miolite Caves"
-                },
-                {
-                    name: "Pirate",
-                    attackStyle: "Melee",
-                    maxHit: 84,
-                    dungeon: "Deep Sea Ship"
-                },
-                {
-                    name: "First Mate",
-                    attackStyle: "Melee",
-                    maxHit: 131,
-                    dungeon: "Deep Sea Ship"
-                },
-                {
-                    name: "Pirate Captain",
-                    attackStyle: "Melee",
-                    maxHit: 177,
-                    dungeon: "Deep Sea Ship"
-                },
-                {
-                    name: "The Kraken",
-                    attackStyle: "Melee",
-                    maxHit: 204,
-                    dungeon: "Deep Sea Ship"
-                },
-                {
-                    name: "Ice Monster",
-                    attackStyle: "Melee",
-                    maxHit: 92,
-                    dungeon: "Frozen Cove"
-                },
-                {
-                    name: "Ice Troll",
-                    attackStyle: "Melee",
-                    maxHit: 102,
-                    dungeon: "Frozen Cove"
-                },
-                {
-                    name: "Ice",
-                    attackStyle: "Melee",
-                    maxHit: 102,
-                    dungeon: "Frozen Cove"
-                },
-                {
-                    name: "Protector of Ice",
-                    attackStyle: "Melee",
-                    maxHit: 172,
-                    dungeon: "Frozen Cove"
-                },
-                {
-                    name: "Elder Dragon",
-                    attackStyle: "Melee",
-                    maxHit: 470,
-                    dungeon: "Dragons Den"
-                },
-                {
-                    name: "Bat",
-                    attackStyle: "Melee",
-                    maxHit: 52,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "Big Bat",
-                    attackStyle: "Melee",
-                    maxHit: 82,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "The Eye",
-                    attackStyle: "Magic",
-                    maxHit: 140,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "Resurrected Eye",
-                    attackStyle: "Magic",
-                    maxHit: 240,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "Vicious Serpent",
-                    attackStyle: "Ranged",
-                    maxHit: 282,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "Fire Spirit",
-                    attackStyle: "Magic",
-                    maxHit: 340,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "Prat, the Protector of Secrets",
-                    attackStyle: "Ranged",
-                    maxHit: 501,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "Malcs, the Guardian of Melvor",
-                    attackStyle: "Melee",
-                    maxHit: 520,
-                    dungeon: "Volcanic Cave"
-                },
-                {
-                    name: "Cerberus",
-                    attackStyle: "Melee",
-                    maxHit: 162,
-                    dungeon: "Infernal Stronghold"
-                },
-                {
-                    name: "Fearful Eye",
-                    attackStyle: "Magic",
-                    maxHit: 236,
-                    dungeon: "Infernal Stronghold"
-                },
-                {
-                    name: "Red Devil",
-                    attackStyle: "Melee",
-                    maxHit: 314,
-                    dungeon: "Infernal Stronghold"
-                },
-                {
-                    name: "Phoenix",
-                    attackStyle: "Magic",
-                    maxHit: 371,
-                    dungeon: "Infernal Stronghold"
-                },
-                {
-                    name: "Incendius",
-                    attackStyle: "Melee",
-                    maxHit: 433,
-                    dungeon: "Infernal Stronghold"
-                },
-                {
-                    name: "Prat, the Guardian of Secrets",
-                    attackStyle: "Ranged",
-                    maxHit: 522,
-                    dungeon: "Infernal Stronghold"
-                },
-                {
-                    name: "Malcs, the Leader of Dragons",
-                    attackStyle: "Melee",
-                    maxHit: 750,
-                    dungeon: "Infernal Stronghold"
-                },
-                {
-                    name: "Air Guard",
-                    attackStyle: "Ranged",
-                    maxHit: 340,
-                    dungeon: "Air God Dungeon"
-                },
-                {
-                    name: "Air Monster",
-                    attackStyle: "Melee",
-                    maxHit: 441,
-                    dungeon: "Air God Dungeon"
-                },
-                {
-                    name: "Air Golem",
-                    attackStyle: "Ranged",
-                    maxHit: 650,
-                    dungeon: "Air God Dungeon"
-                },
-                {
-                    name: "Aleron",
-                    attackStyle: "Melee",
-                    maxHit: 699,
-                    dungeon: "Air God Dungeon"
-                },
-                {
-                    name: "Voltaire",
-                    attackStyle: "Ranged",
-                    maxHit: 713,
-                    dungeon: "Air God Dungeon"
-                },
-                {
-                    name: "Aeris",
-                    attackStyle: "Ranged",
-                    maxHit: 650,
-                    dungeon: "Air God Dungeon"
-                },
-                {
-                    name: "Water Guard",
-                    attackStyle: "Magic",
-                    maxHit: 370,
-                    dungeon: "Water God Dungeon"
-                },
-                {
-                    name: "Water Monster",
-                    attackStyle: "Melee",
-                    maxHit: 650,
-                    dungeon: "Water God Dungeon"
-                },
-                {
-                    name: "Water Golem",
-                    attackStyle: "Magic",
-                    maxHit: 845,
-                    dungeon: "Water God Dungeon"
-                },
-                {
-                    name: "Lissia",
-                    attackStyle: "Magic",
-                    maxHit: 720,
-                    dungeon: "Water God Dungeon"
-                },
-                {
-                    name: "Murtia",
-                    attackStyle: "Melee",
-                    maxHit: 733,
-                    dungeon: "Water God Dungeon"
-                },
-                {
-                    name: "Glacia",
-                    attackStyle: "Magic",
-                    maxHit: 1080,
-                    dungeon: "Water God Dungeon"
-                },
-                {
-                    name: "Earth Guard",
-                    attackStyle: "Ranged",
-                    maxHit: 320,
-                    dungeon: "Earth God Dungeon"
-                },
-                {
-                    name: "Earth Monster",
-                    attackStyle: "Melee",
-                    maxHit: 650,
-                    dungeon: "Earth God Dungeon"
-                },
-                {
-                    name: "Earth Golem",
-                    attackStyle: "Melee",
-                    maxHit: 850,
-                    dungeon: "Earth God Dungeon"
-                },
-                {
-                    name: "Mistral",
-                    attackStyle: "Magic",
-                    maxHit: 680,
-                    dungeon: "Earth God Dungeon"
-                },
-                {
-                    name: "Ophidia",
-                    attackStyle: "Melee",
-                    maxHit: 699,
-                    dungeon: "Earth God Dungeon"
-                },
-                {
-                    name: "Terran",
-                    attackStyle: "Melee",
-                    maxHit: 950,
-                    dungeon: "Earth God Dungeon"
-                },
-                {
-                    name: "Fire  Guard",
-                    attackStyle: "Melee",
-                    maxHit: 650,
-                    dungeon: "Fire God Dungeon"
-                },
-                {
-                    name: "Fire  Monster",
-                    attackStyle: "Melee",
-                    maxHit: 487,
-                    dungeon: "Fire God Dungeon"
-                },
-                {
-                    name: "Fire  Golem",
-                    attackStyle: "Magic",
-                    maxHit: 580,
-                    dungeon: "Fire God Dungeon"
-                },
-                {
-                    name: "Pyra",
-                    attackStyle: "Magic",
-                    maxHit: 900,
-                    dungeon: "Fire God Dungeon"
-                },
-                {
-                    name: "Ignis",
-                    attackStyle: "Melee",
-                    maxHit: 900,
-                    dungeon: "Fire God Dungeon"
-                },
-                {
-                    name: "Ragnar",
-                    attackStyle: "Magic",
-                    maxHit: 1300,
-                    dungeon: "Fire God Dungeon"
-                },
-                {
-                    name: "Skeleton",
-                    attackStyle: "Ranged",
-                    maxHit: 32
-                },
-                {
-                    name: "Leech",
-                    attackStyle: "Melee",
-                    maxHit: 42
-                },
-              ]
-          };
-    },
-    methods: {
-        isIdleable(monster){
-            return this.minDR(monster) <= this.CurrentDR;
-        },
-        minDR(monster){
-            return Math.max(0, Math.ceil(Math.ceil(100 - this.TotalHealth / monster.maxHit * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)]));
-        },
-        reducedMaxHit(monster){
-            return monster.maxHit - Math.floor(monster.maxHit * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
-        },
-        minHP(monster){
-            return Math.max(100, Math.ceil((monster.maxHit - Math.floor(monster.maxHit * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
-        },
-        getCombatStyle(style){
-            switch (style) {
-                case "Melee":
-                    return 0;
-                case "Ranged":
-                    return 1;
-                case "Magic":
-                    return 2;
-            }
-        }
-    },
-    computed: {
-        autoEatThreshold(){
-          var aethreshold = 0;
-          switch (this.AutoEatLevel) {
-              case "1":
-                  aethreshold = 0.2;
-                  break;
-              case "2":
-                  aethreshold = 0.3;
-                  break;
-              case "3":
-                  aethreshold = 0.4;
-                  break;
-          }
-          
-          if (this.WastefulRing == true) {
-            aethreshold = aethreshold + 0.05;
-          }
-          
-          return aethreshold;
-        },
-        combatTriangle(){
-            if(this.GameMode === "Normal"){
-                return [[1, 1.25, 0.5], [0.95, 1, 1.25], [1.25, 0.85, 1]];
-            } else {
-                return [[1, 1.25, 0.25], [0.75, 1, 1.25], [1.25, 0.75, 1]];
-            }
-        },
-    },
-});
-
+   app = new Vue({
+       el: '#app',
+       data() {
+           return {
+               SlayerTier: "Choose Tier",
+               TotalHealth: 100,
+               CurrentDR: 0,
+               AutoEatLevel: "1",
+               CombatStyle: "Melee",
+               GameMode: "Normal",
+               WastefulRing: null,
+               GuardianAmulet: null,
+               DungeonChoice: "Choose Dungeon",
+               monsters:
+                 [
+                   {
+                       name: "Black Knight",
+                       attackStyle: "Melee",
+                       maxHit: 42,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Hill Giant",
+                       attackStyle: "Melee",
+                       maxHit: 53,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Giant Crab",
+                       attackStyle: "Melee",
+                       maxHit: 42,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Tentacle",
+                       attackStyle: "Melee",
+                       maxHit: 34,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Seagull",
+                       attackStyle: "Melee",
+                       maxHit: 23,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Confused Pirate",
+                       attackStyle: "Melee",
+                       maxHit: 46,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Frozen Archer",
+                       attackStyle: "Ranged",
+                       maxHit: 75,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Mummy",
+                       attackStyle: "Melee",
+                       maxHit: 49,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Statue",
+                       attackStyle: "Melee",
+                       maxHit: 58,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Wet Monster",
+                       attackStyle: "Melee",
+                       maxHit: 74,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Moist Monster",
+                       attackStyle: "Melee",
+                       maxHit: 42,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Sweaty Monster",
+                       attackStyle: "Melee",
+                       maxHit: 46,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Many Eyed Monster",
+                       attackStyle: "Ranged",
+                       maxHit: 92,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Lots of Eyes",
+                       attackStyle: "Melee",
+                       maxHit: 68,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Fairy",
+                       attackStyle: "Magic",
+                       maxHit: 170,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Goo Monster",
+                       attackStyle: "Melee",
+                       maxHit: 34,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Green Goo Monster",
+                       attackStyle: "Melee",
+                       maxHit: 42,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Golbin",
+                       attackStyle: "Melee",
+                       maxHit: 23,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Ranged Golbin",
+                       attackStyle: "Ranged",
+                       maxHit: 27,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Chicken",
+                       attackStyle: "Melee",
+                       maxHit: 11,
+                       slayerTier: "Easy",
+                       dungeon: "Chicken Coop"
+                   },
+                   {
+                       name: "Cow",
+                       attackStyle: "Melee",
+                       maxHit: 18,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Junior Farmer",
+                       attackStyle: "Melee",
+                       maxHit: 27,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Adult Farmer",
+                       attackStyle: "Melee",
+                       maxHit: 42,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Master Farmer",
+                       attackStyle: "Melee",
+                       maxHit: 67,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Wizard",
+                       attackStyle: "Magic",
+                       maxHit: 120,
+                       slayerTier: "Easy",
+                       dungeon: "Hall of Wizards"
+                   },
+                   {
+                       name: "Steel Knight",
+                       attackStyle: "Melee",
+                       maxHit: 32,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Mithril Knight",
+                       attackStyle: "Melee",
+                       maxHit: 52,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Bandit Trainee",
+                       attackStyle: "Ranged",
+                       maxHit: 42,
+                       slayerTier: "Easy",
+                       dungeon: "Bandit Base"
+                   },
+                   {
+                       name: "Bandit",
+                       attackStyle: "Ranged",
+                       maxHit: 82,
+                       slayerTier: "Easy",
+                       dungeon: "Bandit Base"
+                   },
+                   {
+                       name: "Plant",
+                       attackStyle: "Melee",
+                       maxHit: 11,
+                       slayerTier: "Easy"
+                   },
+                   {
+                       name: "Moss Giant",
+                       attackStyle: "Melee",
+                       maxHit: 124,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Frozen Mammoth",
+                       attackStyle: "Melee",
+                       maxHit: 142,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Stone Snake",
+                       attackStyle: "Magic",
+                       maxHit: 120,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Undead Werewolf",
+                       attackStyle: "Melee",
+                       maxHit: 77,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Vampire",
+                       attackStyle: "Ranged",
+                       maxHit: 105,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Strange Eyed Monster",
+                       attackStyle: "Melee",
+                       maxHit: 87,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Eyes",
+                       attackStyle: "Melee",
+                       maxHit: 125,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Valkyrie",
+                       attackStyle: "Melee",
+                       maxHit: 116,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Angel",
+                       attackStyle: "Magic",
+                       maxHit: 190,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Holy Archer",
+                       attackStyle: "Ranged",
+                       maxHit: 177,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Purple Goo Monster",
+                       attackStyle: "Melee",
+                       maxHit: 63,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Scattered Goo Monster",
+                       attackStyle: "Melee",
+                       maxHit: 103,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Green Dragon",
+                       attackStyle: "Melee",
+                       maxHit: 143,
+                       slayerTier: "Normal",
+                       dungeon: "Dragons Den"
+                   },
+                   {
+                       name: "Blue Dragon",
+                       attackStyle: "Melee",
+                       maxHit: 168,
+                       slayerTier: "Normal",
+                       dungeon: "Dragons Den"
+                   },
+                   {
+                       name: "Adamant Knight",
+                       attackStyle: "Melee",
+                       maxHit: 118,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Master Wizard",
+                       attackStyle: "Magic",
+                       maxHit: 170,
+                       slayerTier: "Normal",
+                       dungeon: "Hall of Wizards"
+                   },
+                   {
+                       name: "Druid",
+                       attackStyle: "Magic",
+                       maxHit: 81,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Thief",
+                       attackStyle: "Ranged",
+                       maxHit: 117,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Shaman",
+                       attackStyle: "Magic",
+                       maxHit: 137,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Turkul Riders",
+                       attackStyle: "Melee",
+                       maxHit: 82,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Turkul Archers",
+                       attackStyle: "Ranged",
+                       maxHit: 112,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Turkul Throwers",
+                       attackStyle: "Melee",
+                       maxHit: 132,
+                       slayerTier: "Normal"
+                   },
+                   {
+                       name: "Fierce Devil",
+                       attackStyle: "Melee",
+                       maxHit: 128,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Griffin",
+                       attackStyle: "Melee",
+                       maxHit: 128,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Pegasus",
+                       attackStyle: "Melee",
+                       maxHit: 264,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Raging Horned Elite",
+                       attackStyle: "Melee",
+                       maxHit: 146,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Seething Horned Elite",
+                       attackStyle: "Melee",
+                       maxHit: 243,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Red Dragon",
+                       attackStyle: "Melee",
+                       maxHit: 212,
+                       slayerTier: "Hard",
+                       dungeon: "Dragons Den"
+                   },
+                   {
+                       name: "Black Dragon",
+                       attackStyle: "Melee",
+                       maxHit: 268,
+                       slayerTier: "Hard",
+                       dungeon: "Dragons Den"
+                   },
+                   {
+                       name: "Rune Knight",
+                       attackStyle: "Melee",
+                       maxHit: 212,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Turkul Giant",
+                       attackStyle: "Melee",
+                       maxHit: 192,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Paladin",
+                       attackStyle: "Melee",
+                       maxHit: 163,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Dark Wizard",
+                       attackStyle: "Magic",
+                       maxHit: 210,
+                       slayerTier: "Hard",
+                       dungeon: "Hall of Wizards"
+                   },
+                   {
+                       name: "Necromancer",
+                       attackStyle: "Magic",
+                       maxHit: 163,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Elementalist",
+                       attackStyle: "Magic",
+                       maxHit: 240,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Priest",
+                       attackStyle: "Magic",
+                       maxHit: 213,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Turkul General",
+                       attackStyle: "Ranged",
+                       maxHit: 202,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Sand Beast",
+                       attackStyle: "Ranged",
+                       maxHit: 260,
+                       slayerTier: "Hard"
+                   },
+                   {
+                       name: "Dark Horned Elite",
+                       attackStyle: "Melee",
+                       maxHit: 443,
+                       slayerTier: "Elite"
+                   },
+                   {
+                       name: "Bounty Hunter",
+                       attackStyle: "Melee",
+                       maxHit: 329,
+                       slayerTier: "Elite"
+                   },
+                   {
+                       name: "Cursed Maiden",
+                       attackStyle: "Magic",
+                       maxHit: 450,
+                       slayerTier: "Elite"
+                   },
+                   {
+                       name: "Furious Horned Elite",
+                       attackStyle: "Ranged",
+                       maxHit: 397,
+                       slayerTier: "Elite"
+                   },
+                   {
+                       name: "Rancora Spider",
+                       attackStyle: "Ranged",
+                       maxHit: 450,
+                       slayerTier: "Elite"
+                   },
+                   {
+                       name: "Elder Vampire",
+                       attackStyle: "Ranged",
+                       maxHit: 400,
+                       slayerTier: "Elite"
+                   },
+                   {
+                       name: "Chaotic Greater Dragon",
+                       attackStyle: "Melee",
+                       maxHit: 600,
+                       slayerTier: "Master"
+                   },
+                   {
+                       name: "Umbora",
+                       attackStyle: "Melee",
+                       maxHit: 930,
+                       slayerTier: "Master"
+                   },
+                   {
+                       name: "Wicked Greater Dragon",
+                       attackStyle: "Magic",
+                       maxHit: 240,
+                       slayerTier: "Master"
+                   },
+                   {
+                       name: "Ku-tul",
+                       attackStyle: "Magic",
+                       maxHit: 970,
+                       slayerTier: "Master"
+                   },
+                   {
+                       name: "Hunting Greater Dragon",
+                       attackStyle: "Ranged",
+                       maxHit: 600,
+                       slayerTier: "Master"
+                   },
+                   {
+                       name: "Rokken",
+                       attackStyle: "Ranged",
+                       maxHit: 1235,
+                       slayerTier: "Master"
+                   },
+                   {
+                       name: "Chick",
+                       attackStyle: "Melee",
+                       maxHit: 10,
+                       dungeon: "Chicken Coop"
+                   },
+                   {
+                       name: "Mumma Chicken",
+                       attackStyle: "Melee",
+                       maxHit: 52,
+                       dungeon: "Chicken Coop"
+                   },
+                   {
+                       name: "Zombie Hand",
+                       attackStyle: "Melee",
+                       maxHit: 42,
+                       dungeon: "Undead Graveyard"
+                   },
+                   {
+                       name: "Zombie",
+                       attackStyle: "Melee",
+                       maxHit: 52,
+                       dungeon: "Undead Graveyard"
+                   },
+                   {
+                       name: "Ghost",
+                       attackStyle: "Melee",
+                       maxHit: 62,
+                       dungeon: "Undead Graveyard"
+                   },
+                   {
+                       name: "Zombie Leader",
+                       attackStyle: "Melee",
+                       maxHit: 106,
+                       dungeon: "Undead Graveyard"
+                   },
+                   {
+                       name: "Bandit Leader",
+                       attackStyle: "Ranged",
+                       maxHit: 174,
+                       dungeon: "Bandit Base"
+                   },
+                   {
+                       name: "Elder Wizard",
+                       attackStyle: "Magic",
+                       maxHit: 210,
+                       dungeon: "Hall of Wizards"
+                   },
+                   {
+                       name: "Spider (lv. 51)",
+                       attackStyle: "Melee",
+                       maxHit: 72,
+                       dungeon: "Spider Forest"
+                   },
+                   {
+                       name: "Spider (lv. 52)",
+                       attackStyle: "Melee",
+                       maxHit: 72,
+                       dungeon: "Spider Forest"
+                   },
+                   {
+                       name: "Evil Spider",
+                       attackStyle: "Melee",
+                       maxHit: 102,
+                       dungeon: "Spider Forest"
+                   },
+                   {
+                       name: "Spider King",
+                       attackStyle: "Melee",
+                       maxHit: 142,
+                       dungeon: "Spider Forest"
+                   },
+                   {
+                       name: "Miolite Sprig",
+                       attackStyle: "Melee",
+                       maxHit: 180,
+                       dungeon: "Miolite Caves"
+                   },
+                   {
+                       name: "Miolite Trio",
+                       attackStyle: "Magic",
+                       maxHit: 180,
+                       dungeon: "Miolite Caves"
+                   },
+                   {
+                       name: "Miolite Warden",
+                       attackStyle: "Melee",
+                       maxHit: 180,
+                       dungeon: "Miolite Caves"
+                   },
+                   {
+                       name: "Miolite Monarch",
+                       attackStyle: "Magic",
+                       maxHit: 240,
+                       dungeon: "Miolite Caves"
+                   },
+                   {
+                       name: "Pirate",
+                       attackStyle: "Melee",
+                       maxHit: 84,
+                       dungeon: "Deep Sea Ship"
+                   },
+                   {
+                       name: "First Mate",
+                       attackStyle: "Melee",
+                       maxHit: 131,
+                       dungeon: "Deep Sea Ship"
+                   },
+                   {
+                       name: "Pirate Captain",
+                       attackStyle: "Melee",
+                       maxHit: 177,
+                       dungeon: "Deep Sea Ship"
+                   },
+                   {
+                       name: "The Kraken",
+                       attackStyle: "Melee",
+                       maxHit: 204,
+                       dungeon: "Deep Sea Ship"
+                   },
+                   {
+                       name: "Ice Monster",
+                       attackStyle: "Melee",
+                       maxHit: 92,
+                       dungeon: "Frozen Cove"
+                   },
+                   {
+                       name: "Ice Troll",
+                       attackStyle: "Melee",
+                       maxHit: 102,
+                       dungeon: "Frozen Cove"
+                   },
+                   {
+                       name: "Ice",
+                       attackStyle: "Melee",
+                       maxHit: 102,
+                       dungeon: "Frozen Cove"
+                   },
+                   {
+                       name: "Protector of Ice",
+                       attackStyle: "Melee",
+                       maxHit: 172,
+                       dungeon: "Frozen Cove"
+                   },
+                   {
+                       name: "Elder Dragon",
+                       attackStyle: "Melee",
+                       maxHit: 470,
+                       dungeon: "Dragons Den"
+                   },
+                   {
+                       name: "Bat",
+                       attackStyle: "Melee",
+                       maxHit: 52,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "Big Bat",
+                       attackStyle: "Melee",
+                       maxHit: 82,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "The Eye",
+                       attackStyle: "Magic",
+                       maxHit: 140,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "Resurrected Eye",
+                       attackStyle: "Magic",
+                       maxHit: 240,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "Vicious Serpent",
+                       attackStyle: "Ranged",
+                       maxHit: 282,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "Fire Spirit",
+                       attackStyle: "Magic",
+                       maxHit: 340,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "Prat, the Protector of Secrets",
+                       attackStyle: "Ranged",
+                       maxHit: 501,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "Malcs, the Guardian of Melvor",
+                       attackStyle: "Melee",
+                       maxHit: 520,
+                       dungeon: "Volcanic Cave"
+                   },
+                   {
+                       name: "Cerberus",
+                       attackStyle: "Melee",
+                       maxHit: 162,
+                       dungeon: "Infernal Stronghold"
+                   },
+                   {
+                       name: "Fearful Eye",
+                       attackStyle: "Magic",
+                       maxHit: 236,
+                       dungeon: "Infernal Stronghold"
+                   },
+                   {
+                       name: "Red Devil",
+                       attackStyle: "Melee",
+                       maxHit: 314,
+                       dungeon: "Infernal Stronghold"
+                   },
+                   {
+                       name: "Phoenix",
+                       attackStyle: "Magic",
+                       maxHit: 371,
+                       dungeon: "Infernal Stronghold"
+                   },
+                   {
+                       name: "Incendius",
+                       attackStyle: "Melee",
+                       maxHit: 433,
+                       dungeon: "Infernal Stronghold"
+                   },
+                   {
+                       name: "Prat, the Guardian of Secrets",
+                       attackStyle: "Ranged",
+                       maxHit: 522,
+                       dungeon: "Infernal Stronghold"
+                   },
+                   {
+                       name: "Malcs, the Leader of Dragons",
+                       attackStyle: "Melee",
+                       maxHit: 750,
+                       dungeon: "Infernal Stronghold"
+                   },
+                   {
+                       name: "Air Guard",
+                       attackStyle: "Ranged",
+                       maxHit: 340,
+                       dungeon: "Air God Dungeon"
+                   },
+                   {
+                       name: "Air Monster",
+                       attackStyle: "Melee",
+                       maxHit: 441,
+                       dungeon: "Air God Dungeon"
+                   },
+                   {
+                       name: "Air Golem",
+                       attackStyle: "Ranged",
+                       maxHit: 650,
+                       dungeon: "Air God Dungeon"
+                   },
+                   {
+                       name: "Aleron",
+                       attackStyle: "Melee",
+                       maxHit: 699,
+                       dungeon: "Air God Dungeon"
+                   },
+                   {
+                       name: "Voltaire",
+                       attackStyle: "Ranged",
+                       maxHit: 713,
+                       dungeon: "Air God Dungeon"
+                   },
+                   {
+                       name: "Aeris",
+                       attackStyle: "Ranged",
+                       maxHit: 650,
+                       dungeon: "Air God Dungeon"
+                   },
+                   {
+                       name: "Water Guard",
+                       attackStyle: "Magic",
+                       maxHit: 370,
+                       dungeon: "Water God Dungeon"
+                   },
+                   {
+                       name: "Water Monster",
+                       attackStyle: "Melee",
+                       maxHit: 650,
+                       dungeon: "Water God Dungeon"
+                   },
+                   {
+                       name: "Water Golem",
+                       attackStyle: "Magic",
+                       maxHit: 845,
+                       dungeon: "Water God Dungeon"
+                   },
+                   {
+                       name: "Lissia",
+                       attackStyle: "Magic",
+                       maxHit: 720,
+                       dungeon: "Water God Dungeon"
+                   },
+                   {
+                       name: "Murtia",
+                       attackStyle: "Melee",
+                       maxHit: 733,
+                       dungeon: "Water God Dungeon"
+                   },
+                   {
+                       name: "Glacia",
+                       attackStyle: "Magic",
+                       maxHit: 1080,
+                       dungeon: "Water God Dungeon"
+                   },
+                   {
+                       name: "Earth Guard",
+                       attackStyle: "Ranged",
+                       maxHit: 320,
+                       dungeon: "Earth God Dungeon"
+                   },
+                   {
+                       name: "Earth Monster",
+                       attackStyle: "Melee",
+                       maxHit: 650,
+                       dungeon: "Earth God Dungeon"
+                   },
+                   {
+                       name: "Earth Golem",
+                       attackStyle: "Melee",
+                       maxHit: 850,
+                       dungeon: "Earth God Dungeon"
+                   },
+                   {
+                       name: "Mistral",
+                       attackStyle: "Magic",
+                       maxHit: 680,
+                       dungeon: "Earth God Dungeon"
+                   },
+                   {
+                       name: "Ophidia",
+                       attackStyle: "Melee",
+                       maxHit: 699,
+                       dungeon: "Earth God Dungeon"
+                   },
+                   {
+                       name: "Terran",
+                       attackStyle: "Melee",
+                       maxHit: 950,
+                       dungeon: "Earth God Dungeon"
+                   },
+                   {
+                       name: "Fire  Guard",
+                       attackStyle: "Melee",
+                       maxHit: 650,
+                       dungeon: "Fire God Dungeon"
+                   },
+                   {
+                       name: "Fire  Monster",
+                       attackStyle: "Melee",
+                       maxHit: 487,
+                       dungeon: "Fire God Dungeon"
+                   },
+                   {
+                       name: "Fire  Golem",
+                       attackStyle: "Magic",
+                       maxHit: 580,
+                       dungeon: "Fire God Dungeon"
+                   },
+                   {
+                       name: "Pyra",
+                       attackStyle: "Magic",
+                       maxHit: 900,
+                       dungeon: "Fire God Dungeon"
+                   },
+                   {
+                       name: "Ignis",
+                       attackStyle: "Melee",
+                       maxHit: 900,
+                       dungeon: "Fire God Dungeon"
+                   },
+                   {
+                       name: "Ragnar",
+                       attackStyle: "Magic",
+                       maxHit: 1300,
+                       dungeon: "Fire God Dungeon"
+                   },
+                   {
+                       name: "Skeleton",
+                       attackStyle: "Ranged",
+                       maxHit: 32
+                   },
+                   {
+                       name: "Leech",
+                       attackStyle: "Melee",
+                       maxHit: 42
+                   },
+                 ]
+             };
+       },
+       methods: {
+           isIdleable(monster){
+               return this.minDR(monster) <= this.CurrentDR;
+           },
+           minDR(monster){
+               return Math.max(0, Math.ceil(Math.ceil(100 - this.TotalHealth / monster.maxHit * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)]));
+           },
+           reducedMaxHit(monster){
+               return monster.maxHit - Math.floor(monster.maxHit * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
+           },
+           minHP(monster){
+               return Math.max(100, Math.ceil((monster.maxHit - Math.floor(monster.maxHit * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
+           },
+           getCombatStyle(style){
+               switch (style) {
+                   case "Melee":
+                       return 0;
+                   case "Ranged":
+                       return 1;
+                   case "Magic":
+                       return 2;
+               }
+           }
+       },
+       computed: {
+           autoEatThreshold(){
+             var aethreshold = 0;
+             switch (this.AutoEatLevel) {
+                 case "1":
+                     aethreshold = 0.2;
+                     break;
+                 case "2":
+                     aethreshold = 0.3;
+                     break;
+                 case "3":
+                     aethreshold = 0.4;
+                     break;
+             }
+             
+             if (this.WastefulRing == true) {
+               aethreshold = aethreshold + 0.05;
+             }
+             
+             return aethreshold;
+           },
+           combatTriangle(){
+               if(this.GameMode === "Normal"){
+                   return [[1, 1.25, 0.5], [0.95, 1, 1.25], [1.25, 0.85, 1]];
+               } else {
+                   return [[1, 1.25, 0.25], [0.75, 1, 1.25], [1.25, 0.75, 1]];
+               }
+           },
+       },
+   });
+   
 </script>
+
