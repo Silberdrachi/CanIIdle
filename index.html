@@ -18,27 +18,27 @@
       <link rel="stylesheet" href="style.css">
    </head>
    <body>
-      <div id ='app'>
+      <div id ='app' class="container-fluid">
          <h1 class="text-white text-center my-4">Can I Idle Everything?</h1>
          <p class="text-white text-center my-4">(Up to date as of v0.18.2)
          </h1>
          <div class="row">
-            <div class="col-sm"></div>
-            <div id="content" class="col-lg-10">
-               <div class="row">
-                  <div class="col-sm input-group">
+            <div class="col-1"></div>
+            <div id="content" class="col-10">
+               <div class="row col-12">
+                  <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="TotalHealth">Total Health</span>
+                        <label class="input-group-text" for="TotalHealth">Total Health</label>
                      </div>
                      <input id="TotalHealth" type="number" class="form-control" min="100" max="1030" value="100" step="10" v-model="TotalHealth" />
                   </div>
-                  <div class="col-sm input-group">
+                  <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="CurrentDR">Current DR%</span>
+                        <label class="input-group-text" for="CurrentDR">Current DR%</label>
                      </div>
                      <input id="CurrentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="CurrentDR" />
                   </div>
-                  <div class="col-sm input-group">
+                  <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="AutoEatLevel">Auto Eat Level:</label>
                      </div>
@@ -48,7 +48,7 @@
                         <option>3</option>
                      </select>
                   </div>
-                  <div class="col-sm input-group">
+                  <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="WastefulRing">Wasteful Ring</label>
                      </div>
@@ -57,7 +57,7 @@
                         <option selected>No</option>
                      </select>
                   </div>
-                  <div class="col-sm input-group">
+                  <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="GuardianAmulet">Guardian Amulet</label>
                      </div>
@@ -66,7 +66,7 @@
                         <option selected>No</option>
                      </select>
                   </div>
-                  <div class="col-sm input-group">
+                  <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="CombatStyle">Combat Style</label>
                      </div>
@@ -76,7 +76,7 @@
                         <option>Magic</option>
                      </select>
                   </div>
-                  <div class="col-sm input-group">
+                  <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="GameMode">Game Mode</label>
                      </div>
@@ -227,12 +227,12 @@
                   </div>
                </div>
             </div>
-            <div class="col-sm"></div>
+            <div class="col-1"></div>
          </div>
          <div class="text-white text-center my-1 mx-auto">
             <p>Styling and formulas used are from the original "Can I Idle This?" website: <a href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
             <p>Further evolved by "Slayer Can I Idle This?" <a href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a></p>
-            <p>Please for the love of god never email me, but you can contact @Silber on the Melvor Idle Discord server.</p>
+            <p>For any issues either file a <a href="https://github.com/Silberdrachi/CanIIdle">GitHub ticket</a> or contact @Silber on the Melvor Idle Discord server.</p>
          </div>
       </div>
    </body>
