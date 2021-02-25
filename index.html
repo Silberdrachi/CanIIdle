@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Can I Idle EVERYTHING?!?!</title>
+      <title>Can I Idle Melvor?</title>
       <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
       <meta content="utf-8" http-equiv="encoding">
       <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
@@ -14,12 +14,12 @@
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
       
-      <!-- My stuff --> 
+      <!-- Site specific style --> 
       <link rel="stylesheet" href="style.css">
    </head>
    <body>
       <div id ='app' class="container-fluid">
-         <h1 class="text-white text-center my-4">Can I Idle Everything?</h1>
+         <h1 class="text-white text-center my-4">Can I Idle Melvor?</h1>
          <p class="text-white text-center my-4">(Up to date as of v0.18.2)
          </h1>
          <div class="row">
@@ -39,6 +39,7 @@
                      <input id="CurrentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="CurrentDR" />
                   </div>
                   <div class="input-group col-xl col-lg-4 col-md-8">
+                     
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="AutoEatLevel">Auto Eat Level:</label>
                      </div>
@@ -48,6 +49,8 @@
                         <option>3</option>
                      </select>
                   </div>
+               </div>
+               <div class="row col-12">
                   <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="WastefulRing">Wasteful Ring</label>
@@ -237,7 +240,8 @@
       </div>
    </body>
 </html>
-<script>
+<script language="javascript">
+   // Enable Bootstrap4 tooltips
    $(function () {
       $('[data-toggle="tooltip"]').tooltip();
    });
