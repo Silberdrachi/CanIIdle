@@ -30,7 +30,7 @@
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="TotalHealth">Total Health</label>
                      </div>
-                     <input id="TotalHealth" type="number" class="form-control" min="100" max="1030" value="100" step="10" v-model="TotalHealth" />
+                     <input id="TotalHealth" type="number" class="form-control" min="100" value="100" step="10" v-model="TotalHealth" />
                   </div>
                   <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
@@ -39,7 +39,6 @@
                      <input id="CurrentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="CurrentDR" />
                   </div>
                   <div class="input-group col-xl col-lg-4 col-md-8">
-                     
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="AutoEatLevel">Auto Eat Level:</label>
                      </div>
@@ -86,6 +85,7 @@
                      <select id="GameMode" class="custom-select" v-model="GameMode">
                         <option>Normal</option>
                         <option>Hardcore</option>
+                        <option>Adventure</option>
                      </select>
                   </div>
                </div>
@@ -153,7 +153,7 @@
                               <td>{{minHP(monster)}}</td>
                               <td>{{monster.name}}</td>
                               <td>{{monster.attackStyle}}</td>
-                              <td>{{monster.maxHit}}</td>
+                              <td>{{adjustedMaxHit(monster)}}</td>
                               <td>{{reducedMaxHit(monster)}}</td>
                            </tr>
                         </tbody>
@@ -194,7 +194,7 @@
                               <td>{{minHP(monster)}}</td>
                               <td>{{monster.name}}</td>
                               <td>{{monster.attackStyle}}</td>
-                              <td>{{monster.maxHit}}</td>
+                              <td>{{adjustedMaxHit(monster)}}</td>
                               <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
                            </tr>
                         </tbody>
@@ -222,7 +222,7 @@
                               <td>{{minHP(monster)}}</td>
                               <td>{{monster.name}}</td>
                               <td>{{monster.attackStyle}}</td>
-                              <td>{{monster.maxHit}}</td>
+                              <td>{{adjustedMaxHit(monster)}}</td>
                               <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
                            </tr>
                         </tbody>
@@ -1151,17 +1151,24 @@
              };
        },
        methods: {
+            adjustedMaxHit(monster){
+                if(this.GameMode === "Adventure"){
+                    return monster.maxHit*10;
+                } else {
+                    return monster.maxHit;
+                }
+            },
            isIdleable(monster){
                return this.minDR(monster) <= this.CurrentDR;
            },
            minDR(monster){
-               return Math.max(0, Math.ceil(Math.ceil(100 - this.TotalHealth / monster.maxHit * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)]));
+               return Math.max(0, Math.ceil(Math.ceil(100 - this.TotalHealth / this.adjustedMaxHit(monster) * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)]));
            },
            reducedMaxHit(monster){
-               return monster.maxHit - Math.floor(monster.maxHit * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
+               return this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
            },
            minHP(monster){
-               return Math.max(100, Math.ceil((monster.maxHit - Math.floor(monster.maxHit * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
+               return Math.max(100, Math.ceil((this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
            },
            getCombatStyle(style){
                switch (style) {
@@ -1198,7 +1205,7 @@
            combatTriangle(){
                if(this.GameMode === "Normal"){
                    return [[1, 1.25, 0.5], [0.95, 1, 1.25], [1.25, 0.85, 1]];
-               } else {
+               } else { // GameModes HC/Adventure
                    return [[1, 1.25, 0.25], [0.75, 1, 1.25], [1.25, 0.75, 1]];
                }
            },
