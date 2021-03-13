@@ -45,4 +45,6 @@ hr {
   border-bottom: 1px solid #ffffff;
 }
 
-tr th div { display: inline }
+tr th div { 
+  display: inline 
+}
