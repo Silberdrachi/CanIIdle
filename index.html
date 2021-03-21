@@ -33,8 +33,8 @@
    <body>
       <div id ='app' class="container-fluid">
          <h1 class="text-white text-center my-4">Can I Idle Melvor?</h1>
-         <p class="text-white text-center my-4">(Up to date as of v0.18.2)
-         </h1>
+         <p class="text-white text-center my-4">(Up to date as of v0.19.1)</p>
+         <p class="text-white text-center my-4">FunGames [420] - 69 69 69 69 69: "Not responsible for losers losing their hardcore accounts or idiots losing their FEZ"</p>
          <div class="row">
             <div class="col-1"></div>
             <div id="content" class="col-10">
@@ -63,7 +63,7 @@
                   </div>
                </div>
                <div class="row col-12">
-                  <div class="input-group col-xl col-lg-4 col-md-8">
+                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Increases autoeat threshold by 5%">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="WastefulRing">Wasteful Ring</label>
                      </div>
@@ -72,14 +72,14 @@
                         <option selected>No</option>
                      </select>
                   </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8">
-                     <div class="input-group-prepend">
+                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Please be aware this is a beta feature and you should double check the math.">
+                    <div class="input-group-prepend">
                         <label class="input-group-text" for="GuardianAmulet">Guardian Amulet</label>
-                     </div>
-                     <select id="GuardianAmulet" class="custom-select" v-model="GuardianAmulet" disabled>
+                    </div>
+                    <select id="GuardianAmulet" class="custom-select" v-model="GuardianAmulet">
                         <option>Yes</option>
                         <option selected>No</option>
-                     </select>
+                    </select>
                   </div>
                   <div class="input-group col-xl col-lg-4 col-md-8">
                      <div class="input-group-prepend">
@@ -161,14 +161,14 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr v-for="monster in monsters.filter(m => m.dungeon == this.DungeonChoice)" :class="{idleable : isIdleable(monster)}">
-                              <td>{{minDR(monster)}}</td>
-                              <td>{{minHP(monster)}}</td>
-                              <td>{{monster.name}}</td>
-                              <td>{{monster.attackStyle}}</td>
-                              <td>{{adjustedMaxHit(monster)}}</td>
-                              <td>{{reducedMaxHit(monster)}}</td>
-                           </tr>
+                            <tr v-for="monster in monsters.filter(m => m.dungeon == this.DungeonChoice)" :class="{idleable : isIdleable(monster), guardianAmmy : requiresGuardianAmmy(monster)}">
+                                <td>{{minDR(monster)}}</td>
+                                <td>{{minHP(monster)}}</td>
+                                <td>{{monster.name}}</td>
+                                <td>{{monster.attackStyle}}</td>
+                                <td>{{adjustedMaxHit(monster)}}</td>
+                                <td>{{requiresGuardianAmmy(monster) ? reducedMaxHit(monster) + " Requires Guardian Amulet" : reducedMaxHit(monster)}}</td>
+                            </tr>
                         </tbody>
                      </table>
                   </div>
@@ -1178,13 +1178,21 @@
                 }
             },
            isIdleable(monster){
-               return this.minDR(monster) <= this.CurrentDR;
+               return this.reducedMaxHit(monster) <= (this.TotalHealth*this.autoEatThreshold);
+           },
+           requiresGuardianAmmy(monster){
+            let reducedHit = this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
+            return (this.GuardianAmulet=="Yes" && reducedHit <= this.TotalHealth*.5 && reducedHit >= this.TotalHealth*this.autoEatThreshold);
            },
            minDR(monster){
                return Math.max(0, Math.ceil(Math.ceil(100 - this.TotalHealth / this.adjustedMaxHit(monster) * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)]));
            },
            reducedMaxHit(monster){
-               return this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
+               let reducedHit = this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
+               if (this.GuardianAmulet=="Yes" && reducedHit <= this.TotalHealth*.5 && reducedHit >= this.TotalHealth*this.autoEatThreshold){
+                   reducedHit = this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor((parseInt(this.CurrentDR) + 5) * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
+               }
+               return reducedHit;
            },
            minHP(monster){
                return Math.max(100, Math.ceil((this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.CurrentDR * this.combatTriangle[this.getCombatStyle(this.CombatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
@@ -1289,4 +1297,3 @@
         }
    });
 </script>
-
