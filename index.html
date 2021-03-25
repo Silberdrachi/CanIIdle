@@ -1208,7 +1208,7 @@
                }
            },
            getShareURL(){
-                navigator.clipboard.writeText(window.location.protocol + "\\" + window.location.hostname + window.location.pathname + "?" + "slayerTier=" + this.SlayerTier + "&" + "totalHealth=" + this.TotalHealth + "&" + "currentDR=" + this.CurrentDR +
+                navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "slayerTier=" + this.SlayerTier + "&" + "totalHealth=" + this.TotalHealth + "&" + "currentDR=" + this.CurrentDR +
                         "&" + "autoEatLevel=" + this.AutoEatLevel + "&" + "combatStyle=" + this.CombatStyle + "&" + "gameMode=" + this.GameMode + "&" + "wastefulRing=" + this.WastefulRing +
                         "&" + "guardianAmulet=" + this.GuardianAmulet + "&" + "dungeonChoice=" + this.DungeonChoice)
                     .catch(err => {
