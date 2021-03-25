@@ -34,7 +34,7 @@
       <div id ='app' class="container-fluid">
          <h1 class="text-white text-center my-4">Can I Idle Melvor?</h1>
          <p class="text-white text-center my-4">(Up to date as of v0.19.1)</p>
-         <p class="text-white text-center my-4">FunGames [420] - 69 69 69 69 69: "Not responsible for losers losing their hardcore accounts or idiots losing their FEZ"</p>
+         <p class="text-white text-center my-4">Copy shareable link to Clipboard: <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button></p>
          <div class="row">
             <div class="col-1"></div>
             <div id="content" class="col-10">
@@ -1206,6 +1206,17 @@
                    case "Magic":
                        return 2;
                }
+           },
+           getShareURL(){
+                navigator.clipboard.writeText(window.location.hostname + window.location.pathname + "?" + "slayerTier=" + this.SlayerTier + "&" + "totalHealth=" + this.TotalHealth + "&" + "currentDR=" + this.CurrentDR +
+                        "&" + "autoEatLevel=" + this.AutoEatLevel + "&" + "combatStyle=" + this.CombatStyle + "&" + "gameMode=" + this.GameMode + "&" + "wastefulRing=" + this.WastefulRing +
+                        "&" + "guardianAmulet=" + this.GuardianAmulet + "&" + "dungeonChoice=" + this.DungeonChoice)
+                    .then(() => {
+                        alert('Text copied to clipboard');
+                    })
+                    .catch(err => {
+                        alert('Error in copying text: ', err);
+                    });
            }
        },
        computed: {
@@ -1238,33 +1249,65 @@
            },
        },
         created() {
-          if (localStorage.SlayerTier) {
-            this.SlayerTier = localStorage.SlayerTier;
-          }
-          if (localStorage.TotalHealth) {
-            this.TotalHealth = localStorage.TotalHealth;
-          }
-          if (localStorage.CurrentDR) {
-            this.CurrentDR = localStorage.CurrentDR;
-          }
-          if (localStorage.AutoEatLevel) {
-            this.AutoEatLevel = localStorage.AutoEatLevel;
-          }
-          if (localStorage.CombatStyle) {
-            this.CombatStyle = localStorage.CombatStyle;
-          }
-          if (localStorage.GameMode) {
-            this.GameMode = localStorage.GameMode;
-          }
-          if (localStorage.WastefulRing) {
-            this.WastefulRing = localStorage.WastefulRing;
-          }
-          if (localStorage.GuardianAmulet) {
-            this.GuardianAmulet = localStorage.GuardianAmulet;
-          }
-          if (localStorage.DungeonChoice) {
-            this.DungeonChoice = localStorage.DungeonChoice;
-          }
+            if(window.location.search){
+                //parse out URL parameters
+                let params = new URLSearchParams(document.location.search.substring(1));
+                if (params.has("slayerTier")){
+                    this.SlayerTier = params.get("slayerTier");
+                }
+                if (params.has("totalHelath")){
+                    this.TotalHealth = parseInt(params.get("totalHelath"));
+                }
+                if (params.has("currentDR")){
+                    this.CurrentDR = parseInt(params.get("currentDR"));
+                }
+                if (params.has("autoEatLevel")){
+                    this.AutoEatLevel = params.get("autoEatLevel");
+                }
+                if (params.has("combatStyle")){
+                    this.CombatStyle = params.get("combatStyle");
+                }
+                if (params.has("gameMode")){
+                    this.GameMode = params.get("gameMode");
+                }
+                if (params.has("wastefulRing")){
+                    this.WastefulRing = params.get("wastefulRing");
+                }
+                if (params.has("guardianAmulet")){
+                    this.GuardianAmulet = params.get("guardianAmulet");
+                }
+                if (params.has("dungeonChoice")){
+                    this.DungeonChoice = params.get("dungeonChoice");
+                }
+            } else {
+                if (localStorage.SlayerTier) {
+                    this.SlayerTier = localStorage.SlayerTier;
+                }
+                if (localStorage.TotalHealth) {
+                    this.TotalHealth = localStorage.TotalHealth;
+                }
+                if (localStorage.CurrentDR) {
+                    this.CurrentDR = localStorage.CurrentDR;
+                }
+                if (localStorage.AutoEatLevel) {
+                    this.AutoEatLevel = localStorage.AutoEatLevel;
+                }
+                if (localStorage.CombatStyle) {
+                    this.CombatStyle = localStorage.CombatStyle;
+                }
+                if (localStorage.GameMode) {
+                    this.GameMode = localStorage.GameMode;
+                }
+                if (localStorage.WastefulRing) {
+                    this.WastefulRing = localStorage.WastefulRing;
+                }
+                if (localStorage.GuardianAmulet) {
+                    this.GuardianAmulet = localStorage.GuardianAmulet;
+                }
+                if (localStorage.DungeonChoice) {
+                    this.DungeonChoice = localStorage.DungeonChoice;
+                }
+            }
         },
         watch: {
           SlayerTier(newSlayerTier) {
