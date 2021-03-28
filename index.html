@@ -1285,17 +1285,17 @@
                        maxHit: 950
                    },
                    {
-                       name: "Fire  Guard",
+                       name: "Fire Guard",
                        attackStyle: "Melee",
                        maxHit: 650
                    },
                    {
-                       name: "Fire  Monster",
+                       name: "Fire Monster",
                        attackStyle: "Melee",
                        maxHit: 487
                    },
                    {
-                       name: "Fire  Golem",
+                       name: "Fire Golem",
                        attackStyle: "Magic",
                        maxHit: 580
                    },
@@ -1393,6 +1393,7 @@
                 instanceMonsters.forEach(monster => {
                     let dr = this.minDR(monster);
                     if (dr>maxDR){
+                        maxDR=dr;
                         currentHighestMonster = {
                             name: instance.name,
                             style: monster.attackStyle,
