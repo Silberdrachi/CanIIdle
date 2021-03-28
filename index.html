@@ -149,7 +149,7 @@
                                      <td>{{calculatedDungeon.name}}</td>
                                      <td>{{calculatedDungeon.style}}</td>
                                      <td>{{calculatedDungeon.maxHit}}</td>
-                                     <td>{{calculatedDungeon.reducedMaxHit}}</td>
+                                     <td>{{calculatedDungeon.requiresGuardianAmmy ? calculatedDungeon.reducedMaxHit + " Requires Guardian Amulet" : calculatedDungeon.reducedMaxHit}}</td>
                                  </tr>
                              </tbody>
                      </table>
@@ -175,7 +175,7 @@
                                     <td>{{calculatedTier.name}}</td>
                                     <td>{{calculatedTier.style}}</td>
                                     <td>{{calculatedTier.maxHit}}</td>
-                                    <td>{{calculatedTier.reducedMaxHit}}</td>
+                                    <td>{{calculatedTier.requiresGuardianAmmy ? calculatedTier.reducedMaxHit + " Requires Guardian Amulet" : calculatedTier.reducedMaxHit}}</td>
                                 </tr>
                             </tbody>
                     </table>
