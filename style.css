@@ -13,6 +13,10 @@ a {
   background-color: transparent;
 }
 
+.text-red{
+  color: red;
+}
+
 .idleable{
     background-color: #324E40!important;
 }
