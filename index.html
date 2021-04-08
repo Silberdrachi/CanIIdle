@@ -1347,7 +1347,7 @@
             },
             requiresGuardianAmmy(monster){
             let reducedHit = this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
-            return (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold);
+            return (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold && this.reducedMaxHit(monster) <= this.totalHealth*this.autoEatThreshold);
             },
             minDR(monster){
                 return Math.max(0, Math.ceil(Math.ceil(100 - this.totalHealth / this.adjustedMaxHit(monster) * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)]));
@@ -1390,12 +1390,12 @@
             },
             calculateInstance(instance){
                 let instanceMonsters = this.monsters.filter(m=> instance.monsters.includes(m.name));
-                let maxDR = -1;
+                let highesDungeonHit = -1;
                 let currentHighestMonster = null;
                 instanceMonsters.forEach(monster => {
-                    let dr = this.minDR(monster);
-                    if (dr>maxDR){
-                        maxDR=dr;
+                    let monsterMaxHit = this.reducedMaxHit(monster);
+                    if (monsterMaxHit>highesDungeonHit){
+                        highesDungeonHit=monsterMaxHit;
                         currentHighestMonster = {
                             name: instance.name,
                             style: monster.attackStyle,
