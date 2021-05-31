@@ -17,26 +17,22 @@
       
       <!-- Site specific style --> 
       <link rel="stylesheet" href="style.css">
-
-      <!-- Sortable table js -->
-      <script src="sorttable.js"></script>
    </head>
    <body>
       <div id ='app' class="container-fluid">
          <h1 class="text-white text-center my-4">Can I Idle Melvor?</h1>
          <p class="text-white text-center my-4">Up to date as of v0.19.2 - Copy shareable link to Clipboard: <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button></p>
-         <p class="text-white text-center my-4">Be aware that a future update will change damage of monsters that are able to stun or sleep to give a base 30% or 20% respectively to all attacks while stunned. The calculator does not account for this now but i should have an update shortly after that change is made.</p>
          <div class="row">
             <div class="col-1"></div>
             <div id="content" class="col-10">
                <div class="row col-12">
-                  <div class="input-group col-xl col-lg-4 col-md-8">
+                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Max health value (not level)">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="totalHealth">Total Health</label>
                      </div>
                      <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10" v-model="totalHealth" />
                   </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8">
+                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Current out of combat DR %">
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="currentDR">Current DR%</label>
                      </div>
@@ -63,7 +59,7 @@
                         <option selected>No</option>
                      </select>
                   </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Please be aware this is a beta feature and you should double check the math.">
+                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Gives 5% more DR if your health falls below 50% of your max health.">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
                     </div>
@@ -117,186 +113,211 @@
                   </li>
                </ul>
                <div class="tab-content">
-                <div id="overview" class="tab-pane fade show active">
-                     <table id='dungeonOverview' class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
-                         <thead>
-                         <tr>
-                             <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                             </th>
-                             <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                             </th>
-                             <th style="width: 20%" scope="col">Dungeon Name</th>
-                             <th style="width: 11%" scope="col">Style</th>
-                             <th style="width: 11%" scope="col">Max Hit</th>
-                             <th style="width: 11%" scope="col">Reduced Max hit</th>
-                         </tr>
-                         </thead>
-                             <tbody>
-                                 <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon); })" :class="{idleable : calculatedDungeon.isIdleable, guardianAmmy : calculatedDungeon.requiresGuardianAmmy}">
-                                     <td>{{calculatedDungeon.minimumDR}}</td>
-                                     <td>{{calculatedDungeon.minimumHP}}</td>
-                                     <td>{{calculatedDungeon.name}}</td>
-                                     <td>{{calculatedDungeon.style}}</td>
-                                     <td>{{calculatedDungeon.maxHit}}</td>
-                                     <td>{{calculatedDungeon.requiresGuardianAmmy ? calculatedDungeon.reducedMaxHit + " Requires Guardian Amulet" : calculatedDungeon.reducedMaxHit}}</td>
-                                 </tr>
-                             </tbody>
-                     </table>
-                    <table id='slayerOverview' class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                            </th>
-                            <th style="width: 11%" scope="col">
-                                <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                            </th>
-                            <th style="width: 20%" scope="col">Slayer Tier</th>
-                            <th style="width: 11%" scope="col">Style</th>
-                            <th style="width: 11%" scope="col">Max Hit</th>
-                            <th style="width: 11%" scope="col">Reduced Max hit</th>
-                        </tr>
-                        </thead>
-                            <tbody>
-                                <tr v-for="calculatedTier in this.slayerTeirs.map(function (dungeon){ return calculateInstance(dungeon); })" :class="{idleable : calculatedTier.isIdleable, guardianAmmy : calculatedTier.requiresGuardianAmmy}">
-                                    <td>{{calculatedTier.minimumDR}}</td>
-                                    <td>{{calculatedTier.minimumHP}}</td>
-                                    <td>{{calculatedTier.name}}</td>
-                                    <td>{{calculatedTier.style}}</td>
-                                    <td>{{calculatedTier.maxHit}}</td>
-                                    <td>{{calculatedTier.requiresGuardianAmmy ? calculatedTier.reducedMaxHit + " Requires Guardian Amulet" : calculatedTier.reducedMaxHit}}</td>
-                                </tr>
-                            </tbody>
-                    </table>
-                </div>
-                  <div id="dungeons" class="tab-pane fade">
-                     <div class="input-group mb-3">
+                    <div id="overview" class="tab-pane fade show active">
+                        <table id='dungeonOverview' class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th style="width: 20%" scope="col">Dungeon Name</th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                </th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                </th>
+                            </tr>
+                            </thead>
+                                <tbody>
+                                    <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon); })" :class="{idleable : calculatedDungeon.isIdleable}">
+                                        <td>{{calculatedDungeon.name}}</td>
+                                        <td>{{calculatedDungeon.minimumDR}}</td>
+                                        <td>{{calculatedDungeon.minimumHP}}</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                        <table id='slayerOverview' class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th style="width: 20%" scope="col">Slayer Tier</th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                </th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                </th>
+                            </tr>
+                            </thead>
+                                <tbody>
+                                    <tr v-for="calculatedTier in this.slayerTeirs.map(function (tier){ return calculateInstance(tier); })" :class="{idleable : calculatedTier.isIdleable}">
+                                        <td>{{calculatedTier.name}}</td>
+                                        <td>{{calculatedTier.minimumDR}}</td>
+                                        <td>{{calculatedTier.minimumHP}}</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                    <div id="dungeons" class="tab-pane fade">
+                        <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                           <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
+                            <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
                         </div>
                         <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
-                           <option selected hidden>Choose Dungeon</option>
-                           <option>Chicken Coop</option>
-                           <option>Undead Graveyard</option>
-                           <option>Bandit Base</option>
-                           <option>Hall of Wizards</option>
-                           <option>Spider Forest</option>
-                           <option>Miolite Caves</option>
-                           <option>Deep Sea Ship</option>
-                           <option>Frozen Cove</option>
-                           <option>Dragons Den</option>
-                           <option>Volcanic Cave</option>
-                           <option>Infernal Stronghold</option>
-                           <option>Air God Dungeon</option>
-                           <option>Water God Dungeon</option>
-                           <option>Earth God Dungeon</option>
-                           <option>Fire God Dungeon</option>
+                            <option selected hidden>Choose Dungeon</option>
+                            <option>Chicken Coop</option>
+                            <option>Undead Graveyard</option>
+                            <option>Bandit Base</option>
+                            <option>Hall of Wizards</option>
+                            <option>Spider Forest</option>
+                            <option>Miolite Caves</option>
+                            <option>Deep Sea Ship</option>
+                            <option>Frozen Cove</option>
+                            <option>Dragons Den</option>
+                            <option>Volcanic Cave</option>
+                            <option>Infernal Stronghold</option>
+                            <option>Air God Dungeon</option>
+                            <option>Water God Dungeon</option>
+                            <option>Earth God Dungeon</option>
+                            <option>Fire God Dungeon</option>
                         </select>
-                     </div>
-                     <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
-                        <thead>
-                           <tr>
-                              <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                              </th>
-                              <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                              </th>
-                              <th style="width: 20%" scope="col">Monster Name</th>
-                              <th style="width: 11%" scope="col">Style</th>
-                              <th style="width: 11%" scope="col">Max Hit</th>
-                              <th style="width: 11%" scope="col">Reduced Max hit</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="monster in findMonstersForDungeon(this.dungeonChoice)" :class="{idleable : isIdleable(monster), guardianAmmy : requiresGuardianAmmy(monster)}">
-                                <td>{{minDR(monster)}}</td>
-                                <td>{{minHP(monster)}}</td>
-                                <td>{{monster.name}}</td>
-                                <td>{{monster.attackStyle}}</td>
-                                <td>{{adjustedMaxHit(monster)}}</td>
-                                <td>{{requiresGuardianAmmy(monster) ? reducedMaxHit(monster) + " Requires Guardian Amulet" : reducedMaxHit(monster)}}</td>
-                            </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div id="slayer" class="tab-pane fade">
-                     <div class="input-group mb-3">
+                        </div>
+                        <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                <th style="width: 20%" scope="col">Monster Name</th>
+                                <th style="width: 11%" scope="col">Style</th>
+                                <th style="width: 11%" scope="col">Attack Name</th>
+                                <th style="width: 11%" scope="col">Max Hit</th>
+                                <th style="width: 11%" scope="col">Reduced Max hit</th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                </th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="monster in findMonstersForDungeon(this.dungeonChoice)">
+                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster)))}">
+                                        <td>{{monster.name}}</td>
+                                        <td>{{monster.attackStyle}}</td>
+                                        <td>Normal Attack</td>
+                                        <td>{{calculateNormalAttack(monster)}}</td>
+                                        <td>{{reducedMaxHit(monster, calculateNormalAttack(monster))}}</td>
+                                        <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
+                                        <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
+                                    </tr>
+                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)))}">
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{specialAttack.name}}</td>
+                                        <td>{{calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)}}</td>
+                                        <td>{{reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{calculateMinimumDR(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{calculateMinimumHP(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="slayer" class="tab-pane fade">
+                        <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                           <label class="input-group-text" for="slayerTier">Slayer Tier:</label>
+                            <label class="input-group-text" for="slayerTier">Slayer Tier:</label>
                         </div>
                         <select class="custom-select" id="slayerTier" v-model="slayerTier">
-                           <option selected hidden>Choose Tier</option>
-                           <option>Easy</option>
-                           <option>Normal</option>
-                           <option>Hard</option>
-                           <option>Elite</option>
-                           <option>Master</option>
+                            <option selected hidden>Choose Tier</option>
+                            <option>Easy</option>
+                            <option>Normal</option>
+                            <option>Hard</option>
+                            <option>Elite</option>
+                            <option>Master</option>
                         </select>
-                     </div>
-                     <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
-                        <thead>
-                           <tr>
-                              <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                              </th>
-                              <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                              </th>
-                              <th style="width: 20%" scope="col">Monster Name</th>
-                              <th style="width: 11%" scope="col">Style</th>
-                              <th style="width: 11%" scope="col">Max Hit</th>
-                              <th style="width: 11%" scope="col">Reduced Max hit</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr v-for="monster in findMonstersForSlayerTier(this.slayerTier)" 
-                               :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
-                              <td>{{minDR(monster)}}</td>
-                              <td>{{minHP(monster)}}</td>
-                              <td>{{monster.name}}</td>
-                              <td>{{monster.attackStyle}}</td>
-                              <td>{{adjustedMaxHit(monster)}}</td>
-                              <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div id="allMonsters" class="tab-pane fade">
-                     <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
-                        <thead>
-                           <tr>
-                              <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                              </th>
-                              <th style="width: 11%" scope="col">
-                                 <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                              </th>
-                              <th style="width: 20%" scope="col">Monster Name</th>
-                              <th style="width: 11%" scope="col">Style</th>
-                              <th style="width: 11%" scope="col">Max Hit</th>
-                              <th style="width: 11%" scope="col">Reduced Max hit</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr v-for="monster in monsters.filter(m => m.dungeon != '')" :class="{idleable : isIdleable(monster) && monster.name !== 'Wicked Greater Dragon', warning: monster.name == 'Wicked Greater Dragon'}">
-                              <td>{{minDR(monster)}}</td>
-                              <td>{{minHP(monster)}}</td>
-                              <td>{{monster.name}}</td>
-                              <td>{{monster.attackStyle}}</td>
-                              <td>{{adjustedMaxHit(monster)}}</td>
-                              <td>{{(monster.name !== 'Wicked Greater Dragon') ? reducedMaxHit(monster) : 'The max hit of this monster depends on your max hit and so cannot be calculated'}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
+                        </div>
+                        <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                <th style="width: 20%" scope="col">Monster Name</th>
+                                <th style="width: 11%" scope="col">Style</th>
+                                <th style="width: 11%" scope="col">Attack Name</th>
+                                <th style="width: 11%" scope="col">Max Hit</th>
+                                <th style="width: 11%" scope="col">Reduced Max hit</th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                </th>
+                                <th style="width: 11%" scope="col">
+                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
+                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster)))}">
+                                        <td>{{monster.name}}</td>
+                                        <td>{{monster.attackStyle}}</td>
+                                        <td>Normal Attack</td>
+                                        <td>{{calculateNormalAttack(monster)}}</td>
+                                        <td>{{reducedMaxHit(monster, calculateNormalAttack(monster))}}</td>
+                                        <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
+                                        <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
+                                    </tr>
+                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)))}">
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{specialAttack.name}}</td>
+                                        <td>{{calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)}}</td>
+                                        <td>{{reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{calculateMinimumDR(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{calculateMinimumHP(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="allMonsters" class="tab-pane fade">
+                        <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                    </th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                    </th>
+                                    <th style="width: 20%" scope="col">Monster Name</th>
+                                    <th style="width: 11%" scope="col">Style</th>
+                                    <th style="width: 11%" scope="col">Max Hit</th>
+                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="monster in monsters.filter(m => m.dungeon != '')">
+                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster)))}">
+                                        <td>{{monster.name}}</td>
+                                        <td>{{monster.attackStyle}}</td>
+                                        <td>Normal Attack</td>
+                                        <td>{{calculateNormalAttack(monster)}}</td>
+                                        <td>{{reducedMaxHit(monster, calculateNormalAttack(monster))}}</td>
+                                        <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
+                                        <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
+                                    </tr>
+                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)))}">
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{specialAttack.name}}</td>
+                                        <td>{{calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)}}</td>
+                                        <td>{{reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{calculateMinimumDR(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{calculateMinimumHP(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
                </div>
-            </div>
             <div class="col-1"></div>
          </div>
          <div class="text-white text-center my-1 mx-auto">
+            <p>To turn on stun damage: Open console and enter "app.stunDamage=true;" or false to disable it.</p>
             <p>DR is always input and displayed as before triangle. Make sure youre double checking which value you use.</p>
             <p>Styling and formulas used are from the original "Can I Idle This?" website: <a href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
             <p>Further evolved by "Slayer Can I Idle This?" <a href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a></p>
@@ -326,6 +347,7 @@
                wastefulRing: "No",
                guardianAmulet: "No",
                dungeonChoice: "Chicken Coop",
+               stunDamage: false,
                dungeons:[
                    {
                        name: "Chicken Coop",
@@ -584,774 +606,1825 @@
                        ]
                    }
                ],
-               monsters:
-                 [
-                   {
-                       name: "Black Knight",
-                       attackStyle: "Melee",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Hill Giant",
-                       attackStyle: "Melee",
-                       maxHit: 53
-                   },
-                   {
-                       name: "Giant Crab",
-                       attackStyle: "Melee",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Tentacle",
-                       attackStyle: "Melee",
-                       maxHit: 34
-                   },
-                   {
-                       name: "Seagull",
-                       attackStyle: "Melee",
-                       maxHit: 23
-                   },
-                   {
-                       name: "Confused Pirate",
-                       attackStyle: "Melee",
-                       maxHit: 46
-                   },
-                   {
-                       name: "Frozen Archer",
-                       attackStyle: "Ranged",
-                       maxHit: 75
-                   },
-                   {
-                       name: "Mummy",
-                       attackStyle: "Melee",
-                       maxHit: 49
-                   },
-                   {
-                       name: "Statue",
-                       attackStyle: "Melee",
-                       maxHit: 58
-                   },
-                   {
-                       name: "Wet Monster",
-                       attackStyle: "Melee",
-                       maxHit: 74
-                   },
-                   {
-                       name: "Moist Monster",
-                       attackStyle: "Melee",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Sweaty Monster",
-                       attackStyle: "Melee",
-                       maxHit: 46
-                   },
-                   {
-                       name: "Many Eyed Monster",
-                       attackStyle: "Ranged",
-                       maxHit: 92
-                   },
-                   {
-                       name: "Lots of Eyes",
-                       attackStyle: "Melee",
-                       maxHit: 68
-                   },
-                   {
-                       name: "Fairy",
-                       attackStyle: "Magic",
-                       maxHit: 170
-                   },
-                   {
-                       name: "Goo Monster",
-                       attackStyle: "Melee",
-                       maxHit: 34
-                   },
-                   {
-                       name: "Green Goo Monster",
-                       attackStyle: "Melee",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Golbin",
-                       attackStyle: "Melee",
-                       maxHit: 23
-                   },
-                   {
-                       name: "Ranged Golbin",
-                       attackStyle: "Ranged",
-                       maxHit: 27
-                   },
-                   {
-                       name: "Chicken",
-                       attackStyle: "Melee",
-                       maxHit: 11
-                   },
-                   {
-                       name: "Cow",
-                       attackStyle: "Melee",
-                       maxHit: 18
-                   },
-                   {
-                       name: "Junior Farmer",
-                       attackStyle: "Melee",
-                       maxHit: 27
-                   },
-                   {
-                       name: "Adult Farmer",
-                       attackStyle: "Melee",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Master Farmer",
-                       attackStyle: "Melee",
-                       maxHit: 67
-                   },
-                   {
-                       name: "Wizard",
-                       attackStyle: "Magic",
-                       maxHit: 120
-                   },
-                   {
-                       name: "Steel Knight",
-                       attackStyle: "Melee",
-                       maxHit: 32
-                   },
-                   {
-                       name: "Mithril Knight",
-                       attackStyle: "Melee",
-                       maxHit: 52
-                   },
-                   {
-                       name: "Bandit Trainee",
-                       attackStyle: "Ranged",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Bandit",
-                       attackStyle: "Ranged",
-                       maxHit: 82
-                   },
-                   {
-                       name: "Plant",
-                       attackStyle: "Melee",
-                       maxHit: 11
-                   },
-                   {
-                       name: "Moss Giant",
-                       attackStyle: "Melee",
-                       maxHit: 124
-                   },
-                   {
-                       name: "Frozen Mammoth",
-                       attackStyle: "Melee",
-                       maxHit: 142
-                   },
-                   {
-                       name: "Stone Snake",
-                       attackStyle: "Magic",
-                       maxHit: 120
-                   },
-                   {
-                       name: "Undead Werewolf",
-                       attackStyle: "Melee",
-                       maxHit: 77
-                   },
-                   {
-                       name: "Vampire",
-                       attackStyle: "Ranged",
-                       maxHit: 105
-                   },
-                   {
-                       name: "Strange Eyed Monster",
-                       attackStyle: "Melee",
-                       maxHit: 87
-                   },
-                   {
-                       name: "Eyes",
-                       attackStyle: "Melee",
-                       maxHit: 125
-                   },
-                   {
-                       name: "Valkyrie",
-                       attackStyle: "Melee",
-                       maxHit: 116
-                   },
-                   {
-                       name: "Angel",
-                       attackStyle: "Magic",
-                       maxHit: 190
-                   },
-                   {
-                       name: "Holy Archer",
-                       attackStyle: "Ranged",
-                       maxHit: 177
-                   },
-                   {
-                       name: "Purple Goo Monster",
-                       attackStyle: "Melee",
-                       maxHit: 63
-                   },
-                   {
-                       name: "Scattered Goo Monster",
-                       attackStyle: "Melee",
-                       maxHit: 103
-                   },
-                   {
-                       name: "Green Dragon",
-                       attackStyle: "Melee",
-                       maxHit: 143
-                   },
-                   {
-                       name: "Blue Dragon",
-                       attackStyle: "Melee",
-                       maxHit: 168
-                   },
-                   {
-                       name: "Adamant Knight",
-                       attackStyle: "Melee",
-                       maxHit: 118
-                   },
-                   {
-                       name: "Master Wizard",
-                       attackStyle: "Magic",
-                       maxHit: 170
-                   },
-                   {
-                       name: "Druid",
-                       attackStyle: "Magic",
-                       maxHit: 81
-                   },
-                   {
-                       name: "Thief",
-                       attackStyle: "Ranged",
-                       maxHit: 117
-                   },
-                   {
-                       name: "Shaman",
-                       attackStyle: "Magic",
-                       maxHit: 137
-                   },
-                   {
-                       name: "Turkul Riders",
-                       attackStyle: "Melee",
-                       maxHit: 82
-                   },
-                   {
-                       name: "Turkul Archers",
-                       attackStyle: "Ranged",
-                       maxHit: 112
-                   },
-                   {
-                       name: "Turkul Throwers",
-                       attackStyle: "Melee",
-                       maxHit: 132
-                   },
-                   {
-                       name: "Fierce Devil",
-                       attackStyle: "Melee",
-                       maxHit: 128
-                   },
-                   {
-                       name: "Griffin",
-                       attackStyle: "Melee",
-                       maxHit: 128
-                   },
-                   {
-                       name: "Pegasus",
-                       attackStyle: "Melee",
-                       maxHit: 264
-                   },
-                   {
-                       name: "Raging Horned Elite",
-                       attackStyle: "Melee",
-                       maxHit: 146
-                   },
-                   {
-                       name: "Seething Horned Elite",
-                       attackStyle: "Melee",
-                       maxHit: 243
-                   },
-                   {
-                       name: "Red Dragon",
-                       attackStyle: "Melee",
-                       maxHit: 212
-                   },
-                   {
-                       name: "Black Dragon",
-                       attackStyle: "Melee",
-                       maxHit: 268
-                   },
-                   {
-                       name: "Rune Knight",
-                       attackStyle: "Melee",
-                       maxHit: 212
-                   },
-                   {
-                       name: "Turkul Giant",
-                       attackStyle: "Melee",
-                       maxHit: 192
-                   },
-                   {
-                       name: "Paladin",
-                       attackStyle: "Melee",
-                       maxHit: 163
-                   },
-                   {
-                       name: "Dark Wizard",
-                       attackStyle: "Magic",
-                       maxHit: 210
-                   },
-                   {
-                       name: "Necromancer",
-                       attackStyle: "Magic",
-                       maxHit: 163
-                   },
-                   {
-                       name: "Elementalist",
-                       attackStyle: "Magic",
-                       maxHit: 240
-                   },
-                   {
-                       name: "Priest",
-                       attackStyle: "Magic",
-                       maxHit: 213
-                   },
-                   {
-                       name: "Turkul General",
-                       attackStyle: "Ranged",
-                       maxHit: 202
-                   },
-                   {
-                       name: "Sand Beast",
-                       attackStyle: "Ranged",
-                       maxHit: 260
-                   },
-                   {
-                       name: "Dark Horned Elite",
-                       attackStyle: "Melee",
-                       maxHit: 443
-                   },
-                   {
-                       name: "Bounty Hunter",
-                       attackStyle: "Melee",
-                       maxHit: 329
-                   },
-                   {
-                       name: "Cursed Maiden",
-                       attackStyle: "Magic",
-                       maxHit: 450
-                   },
-                   {
-                       name: "Furious Horned Elite",
-                       attackStyle: "Ranged",
-                       maxHit: 397
-                   },
-                   {
-                       name: "Rancora Spider",
-                       attackStyle: "Ranged",
-                       maxHit: 450
-                   },
-                   {
-                       name: "Elder Vampire",
-                       attackStyle: "Ranged",
-                       maxHit: 400
-                   },
-                   {
-                       name: "Chaotic Greater Dragon",
-                       attackStyle: "Melee",
-                       maxHit: 600
-                   },
-                   {
-                       name: "Umbora",
-                       attackStyle: "Melee",
-                       maxHit: 930
-                   },
-                   {
-                       name: "Wicked Greater Dragon",
-                       attackStyle: "Magic",
-                       maxHit: 240
-                   },
-                   {
-                       name: "Ku-tul",
-                       attackStyle: "Magic",
-                       maxHit: 970
-                   },
-                   {
-                       name: "Hunting Greater Dragon",
-                       attackStyle: "Ranged",
-                       maxHit: 600
-                   },
-                   {
-                       name: "Rokken",
-                       attackStyle: "Ranged",
-                       maxHit: 1235
-                   },
-                   {
-                       name: "Chick",
-                       attackStyle: "Melee",
-                       maxHit: 10
-                   },
-                   {
-                       name: "Mumma Chicken",
-                       attackStyle: "Melee",
-                       maxHit: 52
-                   },
-                   {
-                       name: "Zombie Hand",
-                       attackStyle: "Melee",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Zombie",
-                       attackStyle: "Melee",
-                       maxHit: 52
-                   },
-                   {
-                       name: "Ghost",
-                       attackStyle: "Melee",
-                       maxHit: 62
-                   },
-                   {
-                       name: "Zombie Leader",
-                       attackStyle: "Melee",
-                       maxHit: 106
-                   },
-                   {
-                       name: "Bandit Leader",
-                       attackStyle: "Ranged",
-                       maxHit: 174
-                   },
-                   {
-                       name: "Elder Wizard",
-                       attackStyle: "Magic",
-                       maxHit: 210
-                   },
-                   {
-                       name: "Spider (lv. 51)",
-                       attackStyle: "Melee",
-                       maxHit: 72
-                   },
-                   {
-                       name: "Spider (lv. 52)",
-                       attackStyle: "Melee",
-                       maxHit: 72
-                   },
-                   {
-                       name: "Evil Spider",
-                       attackStyle: "Melee",
-                       maxHit: 102
-                   },
-                   {
-                       name: "Spider King",
-                       attackStyle: "Melee",
-                       maxHit: 142
-                   },
-                   {
-                       name: "Miolite Sprig",
-                       attackStyle: "Melee",
-                       maxHit: 180
-                   },
-                   {
-                       name: "Miolite Trio",
-                       attackStyle: "Magic",
-                       maxHit: 180
-                   },
-                   {
-                       name: "Miolite Warden",
-                       attackStyle: "Melee",
-                       maxHit: 180
-                   },
-                   {
-                       name: "Miolite Monarch",
-                       attackStyle: "Magic",
-                       maxHit: 240
-                   },
-                   {
-                       name: "Pirate",
-                       attackStyle: "Melee",
-                       maxHit: 84
-                   },
-                   {
-                       name: "First Mate",
-                       attackStyle: "Melee",
-                       maxHit: 131
-                   },
-                   {
-                       name: "Pirate Captain",
-                       attackStyle: "Melee",
-                       maxHit: 177
-                   },
-                   {
-                       name: "The Kraken",
-                       attackStyle: "Melee",
-                       maxHit: 204
-                   },
-                   {
-                       name: "Ice Monster",
-                       attackStyle: "Melee",
-                       maxHit: 92
-                   },
-                   {
-                       name: "Ice Troll",
-                       attackStyle: "Melee",
-                       maxHit: 102
-                   },
-                   {
-                       name: "Ice",
-                       attackStyle: "Melee",
-                       maxHit: 102
-                   },
-                   {
-                       name: "Protector of Ice",
-                       attackStyle: "Melee",
-                       maxHit: 172
-                   },
-                   {
-                       name: "Elder Dragon",
-                       attackStyle: "Melee",
-                       maxHit: 470
-                   },
-                   {
-                       name: "Bat",
-                       attackStyle: "Melee",
-                       maxHit: 52
-                   },
-                   {
-                       name: "Big Bat",
-                       attackStyle: "Melee",
-                       maxHit: 82
-                   },
-                   {
-                       name: "The Eye",
-                       attackStyle: "Magic",
-                       maxHit: 140
-                   },
-                   {
-                       name: "Resurrected Eye",
-                       attackStyle: "Magic",
-                       maxHit: 240
-                   },
-                   {
-                       name: "Vicious Serpent",
-                       attackStyle: "Ranged",
-                       maxHit: 282
-                   },
-                   {
-                       name: "Fire Spirit",
-                       attackStyle: "Magic",
-                       maxHit: 340
-                   },
-                   {
-                       name: "Prat, the Protector of Secrets",
-                       attackStyle: "Ranged",
-                       maxHit: 501
-                   },
-                   {
-                       name: "Malcs, the Guardian of Melvor",
-                       attackStyle: "Melee",
-                       maxHit: 520
-                   },
-                   {
-                       name: "Cerberus",
-                       attackStyle: "Melee",
-                       maxHit: 162
-                   },
-                   {
-                       name: "Fearful Eye",
-                       attackStyle: "Magic",
-                       maxHit: 236
-                   },
-                   {
-                       name: "Red Devil",
-                       attackStyle: "Melee",
-                       maxHit: 314
-                   },
-                   {
-                       name: "Phoenix",
-                       attackStyle: "Magic",
-                       maxHit: 371
-                   },
-                   {
-                       name: "Incendius",
-                       attackStyle: "Melee",
-                       maxHit: 433
-                   },
-                   {
-                       name: "Prat, the Guardian of Secrets",
-                       attackStyle: "Ranged",
-                       maxHit: 522
-                   },
-                   {
-                       name: "Malcs, the Leader of Dragons",
-                       attackStyle: "Melee",
-                       maxHit: 750
-                   },
-                   {
-                       name: "Air Guard",
-                       attackStyle: "Ranged",
-                       maxHit: 340
-                   },
-                   {
-                       name: "Air Monster",
-                       attackStyle: "Melee",
-                       maxHit: 441
-                   },
-                   {
-                       name: "Air Golem",
-                       attackStyle: "Ranged",
-                       maxHit: 650
-                   },
-                   {
-                       name: "Aleron",
-                       attackStyle: "Melee",
-                       maxHit: 699
-                   },
-                   {
-                       name: "Voltaire",
-                       attackStyle: "Ranged",
-                       maxHit: 713
-                   },
-                   {
-                       name: "Aeris",
-                       attackStyle: "Ranged",
-                       maxHit: 650
-                   },
-                   {
-                       name: "Water Guard",
-                       attackStyle: "Magic",
-                       maxHit: 370
-                   },
-                   {
-                       name: "Water Monster",
-                       attackStyle: "Melee",
-                       maxHit: 650
-                   },
-                   {
-                       name: "Water Golem",
-                       attackStyle: "Magic",
-                       maxHit: 845
-                   },
-                   {
-                       name: "Lissia",
-                       attackStyle: "Magic",
-                       maxHit: 720
-                   },
-                   {
-                       name: "Murtia",
-                       attackStyle: "Melee",
-                       maxHit: 733
-                   },
-                   {
-                       name: "Glacia",
-                       attackStyle: "Magic",
-                       maxHit: 1080
-                   },
-                   {
-                       name: "Earth Guard",
-                       attackStyle: "Ranged",
-                       maxHit: 320
-                   },
-                   {
-                       name: "Earth Monster",
-                       attackStyle: "Melee",
-                       maxHit: 650
-                   },
-                   {
-                       name: "Earth Golem",
-                       attackStyle: "Melee",
-                       maxHit: 850
-                   },
-                   {
-                       name: "Mistral",
-                       attackStyle: "Magic",
-                       maxHit: 680
-                   },
-                   {
-                       name: "Ophidia",
-                       attackStyle: "Melee",
-                       maxHit: 699
-                   },
-                   {
-                       name: "Terran",
-                       attackStyle: "Melee",
-                       maxHit: 950
-                   },
-                   {
-                       name: "Fire Guard",
-                       attackStyle: "Melee",
-                       maxHit: 650
-                   },
-                   {
-                       name: "Fire Monster",
-                       attackStyle: "Melee",
-                       maxHit: 487
-                   },
-                   {
-                       name: "Fire Golem",
-                       attackStyle: "Magic",
-                       maxHit: 580
-                   },
-                   {
-                       name: "Pyra",
-                       attackStyle: "Magic",
-                       maxHit: 900
-                   },
-                   {
-                       name: "Ignis",
-                       attackStyle: "Melee",
-                       maxHit: 900
-                   },
-                   {
-                       name: "Ragnar",
-                       attackStyle: "Magic",
-                       maxHit: 1300
-                   },
-                   {
-                       name: "Skeleton",
-                       attackStyle: "Ranged",
-                       maxHit: 32
-                   },
-                   {
-                       name: "Leech",
-                       attackStyle: "Melee",
-                       maxHit: 42
-                   },
-                   {
-                       name: "Wandering Bard",
-                       attackStyle: "Magic",
-                       maxHit: 118
-                   }
-                 ]
+               monsters:[
+                        {
+                            name: "Black Knight",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Hill Giant",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 22,
+                            attackBonus: 16,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Moss Giant",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 50,
+                            attackBonus: 50,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Giant Crab",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 15,
+                            attackBonus: 10,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Tentacle",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 10,
+                            attackBonus: 5,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Seagull",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 1,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Confused Pirate",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 8,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Frozen Mammoth",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 60,
+                            attackBonus: 50,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Frozen Archer",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 40,
+                            attackBonus: 15,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Mummy",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 27,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Statue",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 37,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Stone Snake",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 12,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Wet Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 30,
+                            attackBonus: 31,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Moist Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Sweaty Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 24,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Undead Werewolf",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 55,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Vampire",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 70,
+                            attackBonus: 10,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Fierce Devil",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 90,
+                            attackBonus: 10,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Many Eyed Monster",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 50,
+                            attackBonus: 20,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Strange Eyed Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 65,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Lots of Eyes",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 46,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Eyes",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 70,
+                            attackBonus: 25,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Griffin",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 67,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Pegasus",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 160,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Fairy",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 17,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Valkyrie",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 79,
+                            attackBonus: 10,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Angel",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 19,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Holy Archer",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 80,
+                            attackBonus: 50,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Goo Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 12,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Green Goo Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Purple Goo Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 42,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Scattered Goo Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 50,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Raging Horned Elite",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 79,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Seething Horned Elite",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 130,
+                            attackBonus: 40,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Dark Horned Elite",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 178,
+                            attackBonus: 80,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Golbin",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 1,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Ranged Golbin",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 5,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Chicken",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 1,
+                            attackBonus: -42,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Cow",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 1,
+                            attackBonus: -15,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Chick",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 1,
+                            attackBonus: -45,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Mumma Chicken",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 30,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Pirate",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 50,
+                            attackBonus: 12,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Pirate Captain",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 80,
+                            attackBonus: 50,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "The Kraken",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 100,
+                            attackBonus: 45,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Bat",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 30,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Big Bat",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 60,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "The Eye",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 14,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Resurrected Eye",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 24,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Prat, the Protector of Secrets",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 480,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Volley",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Malcs, the Guardian of Melvor",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 960,
+                            attackBonus: 0,
+                            usesNormalHit: false,
+                            specialAttack: [
+                                {
+                                    name: "Razor-Sharp Claws",
+                                    maxHit: 52
+                                },
+                                {
+                                    name: "Dragonbreath",
+                                    maxHit: 6
+                                }
+                            ]
+                        },
+                        {
+                            name: "Spider",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 50,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Spider",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 50,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Evil Spider",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 80,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Spider King",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 120,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Ice Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 70,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Ice Troll",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 80,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Ice",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 80,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Protector of Ice",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 150,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "First Mate",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 65,
+                            attackBonus: 35,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Zombie Hand",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Zombie",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 30,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Zombie Leader",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 60,
+                            attackBonus: 20,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Ghost",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 40,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Green Dragon",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 68,
+                            attackBonus: 40,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Blue Dragon",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 75,
+                            attackBonus: 50,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Red Dragon",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 90,
+                            attackBonus: 60,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Black Dragon",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 100,
+                            attackBonus: 80,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Junior Farmer",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 5,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Adult Farmer",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Master Farmer",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 45,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Wizard",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 12,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Steel Knight",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 10,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Mithril Knight",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 30,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Adamant Knight",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 60,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Rune Knight",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 90,
+                            attackBonus: 60,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Bandit Trainee",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Bandit",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 60,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Bandit Leader",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 130,
+                            attackBonus: 10,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Dark Wizard",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 5,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Master Wizard",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 17,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Elder Wizard",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 21,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Skeleton",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 10,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Leech",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 20,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Vicious Serpent",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 260,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Fire Spirit",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 34,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Air Guard",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 200,
+                            attackBonus: 35,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Barrage",
+                                    maxHit: 10
+                                }
+                            ]
+                        },
+                        {
+                            name: "Air Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 280,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Wind Blade",
+                                    maxHit: 35
+                                }
+                            ]
+                        },
+                        {
+                            name: "Air Golem",
+                            attackStyle: "Ranged",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 520,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Whirlwind",
+                                    maxHit: 65
+                                }
+                            ]
+                        },
+                        {
+                            name: "Aleron",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 500,
+                            attackBonus: 22,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Tornado",
+                                    maxHit: 40
+                                }
+                            ]
+                        },
+                        {
+                            name: "Voltaire",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 670,
+                            attackBonus: 2,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Tornado",
+                                    maxHit: 40
+                                }
+                            ]
+                        },
+                        {
+                            name: "Aeris",
+                            attackStyle: "Ranged",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 800,
+                            attackBonus: 2,
+                            usesNormalHit: false,
+                            specialAttack: [
+                                {
+                                    name: "Barrage",
+                                    maxHit: 10
+                                },
+                                {
+                                    name: "Wind Blade",
+                                    maxHit: 35
+                                },
+                                {
+                                    name: "Whirlwind",
+                                    maxHit: 65
+                                },
+                                {
+                                    name: "Tornado",
+                                    maxHit: 40
+                                },
+                                {
+                                    name: "Cyclone",
+                                    maxHit: 60
+                                }
+                            ]
+                        },
+                        {
+                            name: "Water Guard",
+                            attackStyle: "Magic",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 37,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Frozen Spears",
+                                    maxHit: 20
+                                }
+                            ]
+                        },
+                        {
+                            name: "Water Monster",
+                            attackStyle: "Melee",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 280,
+                            attackBonus: 35,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Ice Break",
+                                    maxHit: 32.5
+                                }
+                            ]
+                        },
+                        {
+                            name: "Water Golem",
+                            attackStyle: "Magic",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 57,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Flash Freeze",
+                                    maxHit: 65
+                                }
+                            ]
+                        },
+                        {
+                            name: "Lissia",
+                            attackStyle: "Magic",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 72,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Winterland",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Murtia",
+                            attackStyle: "Melee",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 525,
+                            attackBonus: 22,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Winterland",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Glacia",
+                            attackStyle: "Magic",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 85,
+                            attackBonus: 0,
+                            usesNormalHit: false,
+                            specialAttack: [
+                                {
+                                    name: "Frozen Spears",
+                                    maxHit: 20
+                                },
+                                {
+                                    name: "Ice Break",
+                                    maxHit: 32.5
+                                },
+                                {
+                                    name: "Flash Freeze",
+                                    maxHit: 65
+                                },
+                                {
+                                    name: "Winterland",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Frigid Waves",
+                                    maxHit: 90
+                                }
+                            ]
+                        },
+                        {
+                            name: "Earth Guard",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 200,
+                            attackBonus: 29,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Stone Wall",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Earth Monster",
+                            attackStyle: "Melee",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 280,
+                            attackBonus: 28,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Charge",
+                                    maxHit: 65
+                                }
+                            ]
+                        },
+                        {
+                            name: "Earth Golem",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 380,
+                            attackBonus: 20,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Boulder",
+                                    maxHit: 85
+                                }
+                            ]
+                        },
+                        {
+                            name: "Mistral",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 68,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Grasping Roots",
+                                    maxHit: 60
+                                }
+                            ]
+                        },
+                        {
+                            name: "Ophidia",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 525,
+                            attackBonus: 18,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Grasping Roots",
+                                    maxHit: 60
+                                }
+                            ]
+                        },
+                        {
+                            name: "Terran",
+                            attackStyle: "Melee",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 570,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Stone Wall",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Charge",
+                                    maxHit: 65
+                                },
+                                {
+                                    name: "Boulder",
+                                    maxHit: 85
+                                },
+                                {
+                                    name: "Grasping Roots",
+                                    maxHit: 60
+                                },
+                                {
+                                    name: "Seismic Slam",
+                                    maxHit: 95
+                                }
+                            ]
+                        },
+                        {
+                            name: "Fire Guard",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 160,
+                            attackBonus: 70,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Fireball",
+                                    maxHit: 65
+                                }
+                            ]
+                        },
+                        {
+                            name: "Fire Monster",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 280,
+                            attackBonus: 40,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Burning Claws",
+                                    maxHit: 40
+                                }
+                            ]
+                        },
+                        {
+                            name: "Fire Golem",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 58,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Scorching Ray",
+                                    maxHit: 10
+                                }
+                            ]
+                        },
+                        {
+                            name: "Pyra",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 75,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Meteor Shower",
+                                    maxHit: 90
+                                }
+                            ]
+                        },
+                        {
+                            name: "Ignis",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 530,
+                            attackBonus: 25,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Meteor Shower",
+                                    maxHit: 90
+                                }
+                            ]
+                        },
+                        {
+                            name: "Ragnar",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 80,
+                            attackBonus: 0,
+                            usesNormalHit: false,
+                            specialAttack: [
+                                {
+                                    name: "Fireball",
+                                    maxHit: 65
+                                },
+                                {
+                                    name: "Burning Claws",
+                                    maxHit: 40
+                                },
+                                {
+                                    name: "Scorching Ray",
+                                    maxHit: 10
+                                },
+                                {
+                                    name: "Meteor Shower",
+                                    maxHit: 90
+                                },
+                                {
+                                    name: "Cataclysm",
+                                    maxHit: 130
+                                }
+                            ]
+                        },
+                        {
+                            name: "Elder Dragon",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 300,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Furious Horned Elite",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 250,
+                            attackBonus: 30,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Plant",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 1,
+                            attackBonus: -42,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Miolite Sprig",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: true,
+                            attackLevel: 50,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Spores",
+                                    maxHit: 15
+                                }
+                            ]
+                        },
+                        {
+                            name: "Miolite Trio",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: true,
+                            attackLevel: 12.1,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Spores",
+                                    maxHit: 15
+                                }
+                            ]
+                        },
+                        {
+                            name: "Miolite Warden",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: true,
+                            attackLevel: 130,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Spores",
+                                    maxHit: 15
+                                }
+                            ]
+                        },
+                        {
+                            name: "Miolite Monarch",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: true,
+                            attackLevel: 18.5,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Drowsy Spores",
+                                    maxHit: 20
+                                }
+                            ]
+                        },
+                        {
+                            name: "Druid",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 8.1,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Thief",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 95,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Shaman",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 13.7,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Necromancer",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 16.3,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Elementalist",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 24,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Turkul Riders",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 60,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Turkul Archers",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 90,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Turkul Throwers",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 110,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Turkul Giant",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 135,
+                            attackBonus: 15,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Turkul General",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 180,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Sand Beast",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 220,
+                            attackBonus: 5,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Sandstorm",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rancora Spider",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 290,
+                            attackBonus: 20,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Webshot",
+                                    maxHit: 45
+                                }
+                            ]
+                        },
+                        {
+                            name: "Elder Vampire",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 305,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Drain",
+                                    maxHit: 30
+                                }
+                            ]
+                        },
+                        {
+                            name: "Cursed Maiden",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 45,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Curse of Fear",
+                                    maxHit: 40
+                                }
+                            ]
+                        },
+                        {
+                            name: "Bounty Hunter",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 230,
+                            attackBonus: 20,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Hunter Expertise",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Chaotic Greater Dragon",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 350,
+                            attackBonus: 20,
+                            usesNormalHit: false,
+                            specialAttack: [
+                                {
+                                    name: "Greater Dragonbreath",
+                                    maxHit: 12
+                                },
+                                {
+                                    name: "Chaotic Slam",
+                                    maxHit: 60
+                                }
+                            ]
+                        },
+                        {
+                            name: "Hunting Greater Dragon",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 395,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Greater Dragonbreath",
+                                    maxHit: 12
+                                },
+                                {
+                                    name: "Agility",
+                                    maxHit: 60
+                                }
+                            ]
+                        },
+                        {
+                            name: "Wicked Greater Dragon",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 47.7,
+                            attackBonus: 0,
+                            usesNormalHit: false,
+                            specialAttack: [
+                                {
+                                    name: "Greater Dragonbreath",
+                                    maxHit: 12
+                                },
+                                {
+                                    name: "Confusion",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Umbora",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 450,
+                            attackBonus: 40,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Elusiveness",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Rapid Onslaught",
+                                    maxHit: 93
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rokken",
+                            attackStyle: "Ranged",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 600,
+                            attackBonus: 15,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Elusiveness",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Shockwave",
+                                    maxHit: 95
+                                }
+                            ]
+                        },
+                        {
+                            name: "Ku-tul",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 1,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Elusiveness",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Curse of the Deep",
+                                    maxHit: 97
+                                }
+                            ]
+                        },
+                        {
+                            name: "Paladin",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 110,
+                            attackBonus: 16,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Priest",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 21.3,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Wandering Bard",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 11.8,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Cerberus",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 140,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Fearful Eye",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 23.6,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Red Devil",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 270,
+                            attackBonus: 5,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Phoenix",
+                            attackStyle: "Magic",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 37.1,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: []
+                        },
+                        {
+                            name: "Incendius",
+                            attackStyle: "Melee",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 380,
+                            attackBonus: 5,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Burning Trail",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Prat, the Guardian of Secrets",
+                            attackStyle: "Ranged",
+                            canStun: false,
+                            canSleep: false,
+                            attackLevel: 500,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Volley",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Infernal Volley",
+                                    maxHit: 0
+                                }
+                            ]
+                        },
+                        {
+                            name: "Malcs, the Leader of Dragons",
+                            attackStyle: "Melee",
+                            canStun: true,
+                            canSleep: false,
+                            attackLevel: 700,
+                            attackBonus: 0,
+                            usesNormalHit: true,
+                            specialAttack: [
+                                {
+                                    name: "Tail Whip",
+                                    maxHit: 75
+                                },
+                                {
+                                    name: "Penetrating Claws",
+                                    maxHit: 70
+                                },
+                                {
+                                    name: "Inferno",
+                                    maxHit: 20
+                                },
+                                {
+                                    name: "Sealing",
+                                    maxHit: 0
+                                }
+                            ]
+                        }
+                        ]
              };
        },
        methods: {
-            adjustedMaxHit(monster){
-                if(this.gameMode === "Adventure"){
-                    return monster.maxHit*10;
-                } else {
-                    return monster.maxHit;
-                }
-            },
-            isIdleable(monster){
-                return this.reducedMaxHit(monster) <= (this.totalHealth*this.autoEatThreshold);
-            },
-            requiresGuardianAmmy(monster){
-            let reducedHit = this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
-            return (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold && this.reducedMaxHit(monster) <= this.totalHealth*this.autoEatThreshold);
-            },
-            minDR(monster){
-                return Math.max(0, Math.ceil(Math.ceil(100 - this.totalHealth / this.adjustedMaxHit(monster) * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)]));
-            },
-            reducedMaxHit(monster){
-                let reducedHit = this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
-                if (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold){
-                    reducedHit = this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor((parseInt(this.currentDR) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
-                }
-                return reducedHit;
-            },
-            minHP(monster){
-                return Math.max(100, Math.ceil((this.adjustedMaxHit(monster) - Math.floor(this.adjustedMaxHit(monster) * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
-            },
             getCombatStyle(style){
                 switch (style) {
                     case "Melee":
@@ -1378,61 +2451,147 @@
                 let dungeonMonsters = this.dungeons.filter(s => s.name == dungeon)[0].monsters;
                 return this.monsters.filter(m=> dungeonMonsters.includes(m.name));
             },
-            calculateInstance(instance){
-                let instanceMonsters = this.monsters.filter(m=> instance.monsters.includes(m.name));
-                let highesDungeonHit = -1;
-                let currentHighestMonster = null;
-                instanceMonsters.forEach(monster => {
-                    let monsterMaxHit = this.reducedMaxHit(monster);
-                    if (monsterMaxHit>highesDungeonHit){
-                        highesDungeonHit=monsterMaxHit;
-                        currentHighestMonster = {
-                            name: instance.name,
-                            style: monster.attackStyle,
-                            minimumDR: this.minDR(monster),
-                            minimumHP: this.minHP(monster),
-                            maxHit: this.adjustedMaxHit(monster),
-                            reducedMaxHit: this.reducedMaxHit(monster),
-                            isIdleable: this.isIdleable(monster),
-                            requiresGuardianAmmy: this.requiresGuardianAmmy(monster)
-                        }
+            calculateMonsterMaxAttack(monster) {
+                let maxNormalAttack = this.calculateNormalAttack(monster);
+                let maxSpecialAttack = 0;
+
+                monster.specialAttack.forEach(attack => {
+                    let currentSpecialAttack = this.calculateSpecialAttack(attack, monster.canStun, monster.canSleep);
+                    if (currentSpecialAttack > maxSpecialAttack){
+                        maxSpecialAttack = currentSpecialAttack;
                     }
                 });
-                return currentHighestMonster;
+
+                return Math.max(maxNormalAttack, maxSpecialAttack);
+            },
+            calculateNormalAttack(monster) {
+                let maximumNormalAttack = 0;
+
+                // Calculate max 'normal' hit, return 0 if no normal hit
+                if (monster.usesNormalHit){
+                    if (monster.attackStyle === "Melee") {
+                        let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
+                        maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
+                    } 
+                    else if (monster.attackStyle === "Ranged") {
+                        let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
+                        maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
+                    } 
+                    else if (monster.attackStyle === "Magic") {
+                        maximumNormalAttack = Math.floor(this.numberMultiplier * (monster.attackLevel + monster.attackLevel * (monster.attackBonus / 100)));
+                    }
+                }
+
+                let multiplier = 1;
+                if (this.stunDamage == true) {
+                    if (monster.canStun) {
+                        multiplier = 1.3;
+                    } 
+                    else if (monster.canSleep) {
+                        multiplier = 1.2;
+                    }
+                }
+
+                return Math.floor(maximumNormalAttack * multiplier);
+            },
+            calculateSpecialAttack(specialAttack, canStun, canSleep) {
+                let baseDamage = specialAttack.maxHit * this.numberMultiplier;
+
+                let multiplier = 1;
+                if (this.stunDamage == true) {
+                    if (canStun) {
+                        multiplier = 1.3;
+                    } 
+                    else if (canSleep) {
+                        multiplier = 1.2;
+                    }
+                }
+
+                return Math.floor(baseDamage * multiplier);
+            },
+            calculateMinimumDR(monster, attack){
+                return Math.max(0, Math.min(100,Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])));
+            },
+            calculateMinimumHP(monster, attack){
+                return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
+            },
+            isIdleable(attack){
+                return attack <= (this.totalHealth*this.autoEatThreshold);
+            },
+            reducedMaxHit(monster, attack) {
+                let combatAdjustedDr = Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)]);
+                let attackReduction = Math.floor(attack * (Math.min(100, combatAdjustedDr) / 100));
+                let reducedHit = attack - attackReduction;
+                if (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold){
+                    reducedHit = attack - Math.floor(attack * (Math.floor((parseInt(this.currentDR) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
+                }
+                return reducedHit;
+            },
+            calculateInstance(instance){
+                let instanceMonsters = this.monsters.filter(m=> instance.monsters.includes(m.name));
+                let instanceInformation = {
+                            name: instance.name,
+                            minimumDR: 0,
+                            minimumHP: 0,
+                            isIdleable: true,
+                        };
+                instanceMonsters.forEach(monster => {
+                    let monsterMinDR = this.calculateMinimumDR(monster,this.calculateMonsterMaxAttack(monster));
+                    if (monsterMinDR > instanceInformation.minimumDR){
+                        instanceInformation.minimumDR = monsterMinDR;
+                    }
+                    
+                    let monsterMinHP = this.calculateMinimumHP(monster, this.calculateMonsterMaxAttack(monster));
+                    if (monsterMinHP > instanceInformation.minimumHP){
+                        instanceInformation.minimumHP = monsterMinHP;
+                    }
+
+                    if (instanceInformation.isIdleable && !this.isIdleable(this.reducedMaxHit(monster, this.calculateMonsterMaxAttack(monster)))) {
+                        instanceInformation.isIdleable = false;
+                    }
+                });
+                return instanceInformation;
+            },
+       },
+        computed: {
+            autoEatThreshold() {
+                var aethreshold = 0;
+                switch (this.autoEatLevel) {
+                    case "1":
+                        aethreshold = 0.2;
+                    break;
+                    case "2":
+                        aethreshold = 0.3;
+                    break;
+                    case "3":
+                        aethreshold = 0.4;
+                    break;
+                }
+
+                if (this.wastefulRing == "Yes") {
+                    aethreshold = aethreshold + 0.05;
+                }
+
+                return aethreshold;
+            },
+            combatTriangle() {
+                if(this.gameMode === "Normal") {
+                    return [[1, 1.25, 0.5], [0.95, 1, 1.25], [1.25, 0.85, 1]];
+                } else { // GameModes HC/Adventure
+                    return [[1, 1.25, 0.25], [0.75, 1, 1.25], [1.25, 0.75, 1]];
+                }
+            },
+            numberMultiplier() {
+                if(this.gameMode === "Adventure") {
+                    return 100;
+                }
+                else {
+                    return 10;
+                }
             }
-       },
-       computed: {
-           autoEatThreshold(){
-             var aethreshold = 0;
-             switch (this.autoEatLevel) {
-                 case "1":
-                     aethreshold = 0.2;
-                     break;
-                 case "2":
-                     aethreshold = 0.3;
-                     break;
-                 case "3":
-                     aethreshold = 0.4;
-                     break;
-             }
-             
-             if (this.wastefulRing == "Yes") {
-               aethreshold = aethreshold + 0.05;
-             }
-             
-             return aethreshold;
-           },
-           combatTriangle(){
-               if(this.gameMode === "Normal"){
-                   return [[1, 1.25, 0.5], [0.95, 1, 1.25], [1.25, 0.85, 1]];
-               } else { // GameModes HC/Adventure
-                   return [[1, 1.25, 0.25], [0.75, 1, 1.25], [1.25, 0.75, 1]];
-               }
-           },
-       },
+        },
         created() {
             if(window.location.search){
-                //parse out URL parameters
                 let params = new URLSearchParams(document.location.search.substring(1));
                 if (params.has("totalHealth")){
                     this.totalHealth = parseInt(params.get("totalHealth"));
@@ -1486,33 +2645,33 @@
             }
         },
         watch: {
-          totalHealth(newTotalHealth) {
-            localStorage.totalHealth = newTotalHealth;
-          },
-          currentDR(newCurrentDR) {
-            localStorage.currentDR = newCurrentDR;
-          },
-          autoEatLevel(newAutoEatLevel) {
-            localStorage.autoEatLevel = newAutoEatLevel;
-          },
-          combatStyle(newCombatStyle) {
-            localStorage.combatStyle = newCombatStyle;
-          },
-          gameMode(newGameMode) {
-            localStorage.gameMode = newGameMode;
-          },
-          wastefulRing(newWastefulRing) {
-            localStorage.wastefulRing = newWastefulRing;
-          },
-          guardianAmulet(newGuardianAmulet) {
-            localStorage.guardianAmulet = newGuardianAmulet;
-          },
-          dungeonChoice(newDungeonChoice) {
-            localStorage.dungeonChoice = newDungeonChoice;
-          },
-          slayerTier(newSlayerTier) {
-            localStorage.slayerTier = newSlayerTier;
-          }
+            totalHealth(newTotalHealth) {
+                localStorage.totalHealth = newTotalHealth;
+            },
+            currentDR(newCurrentDR) {
+                localStorage.currentDR = newCurrentDR;
+            },
+            autoEatLevel(newAutoEatLevel) {
+                localStorage.autoEatLevel = newAutoEatLevel;
+            },
+            combatStyle(newCombatStyle) {
+                localStorage.combatStyle = newCombatStyle;
+            },
+            gameMode(newGameMode) {
+                localStorage.gameMode = newGameMode;
+            },
+            wastefulRing(newWastefulRing) {
+                localStorage.wastefulRing = newWastefulRing;
+            },
+            guardianAmulet(newGuardianAmulet) {
+                localStorage.guardianAmulet = newGuardianAmulet;
+            },
+            dungeonChoice(newDungeonChoice) {
+                localStorage.dungeonChoice = newDungeonChoice;
+            },
+            slayerTier(newSlayerTier) {
+                localStorage.slayerTier = newSlayerTier;
+            }
         }
-   });
+    });
 </script>
