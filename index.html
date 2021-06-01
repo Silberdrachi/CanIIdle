@@ -54,7 +54,7 @@
                      <div class="input-group-prepend">
                         <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
                      </div>
-                     <select id="wastefulRing" class="custom-select" v-model="wastefulRing">
+                     <select id="wastefulRing" class="custom-select" v-model="wastefulRing" :class="{selected : wastefulRing == 'Yes'}">
                         <option>Yes</option>
                         <option selected>No</option>
                      </select>
@@ -63,7 +63,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
                     </div>
-                    <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet">
+                    <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet" :class="{selected : guardianAmulet == 'Yes'}">
                         <option>Yes</option>
                         <option selected>No</option>
                     </select>

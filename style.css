@@ -13,12 +13,8 @@ a {
   background-color: transparent;
 }
 
-.text-red{
-  color: red;
-}
-
 .idleable{
-    background-color: #324E40!important;
+  background-color: #324E40!important;
 }
 
 .warning{
@@ -31,6 +27,11 @@ a {
 }
 .toggle-off{
   background-color: #ffffff;
+}
+
+.selected{
+  color: #ffffff;
+  background-color: #00a552!important;
 }
 
 hr {
