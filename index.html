@@ -182,17 +182,17 @@
                         <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
                                 <tr>
-                                <th style="width: 20%" scope="col">Monster Name</th>
-                                <th style="width: 11%" scope="col">Style</th>
-                                <th style="width: 11%" scope="col">Attack Name</th>
-                                <th style="width: 11%" scope="col">Max Hit</th>
-                                <th style="width: 11%" scope="col">Reduced Max hit</th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                                </th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                                </th>
+                                    <th style="width: 20%" scope="col">Monster Name</th>
+                                    <th style="width: 11%" scope="col">Style</th>
+                                    <th style="width: 11%" scope="col">Attack Name</th>
+                                    <th style="width: 11%" scope="col">Max Hit</th>
+                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                    </th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -236,22 +236,22 @@
                         <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
                                 <tr>
-                                <th style="width: 20%" scope="col">Monster Name</th>
-                                <th style="width: 11%" scope="col">Style</th>
-                                <th style="width: 11%" scope="col">Attack Name</th>
-                                <th style="width: 11%" scope="col">Max Hit</th>
-                                <th style="width: 11%" scope="col">Reduced Max hit</th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                                </th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                                </th>
+                                    <th style="width: 20%" scope="col">Monster Name</th>
+                                    <th style="width: 11%" scope="col">Style</th>
+                                    <th style="width: 11%" scope="col">Attack Name</th>
+                                    <th style="width: 11%" scope="col">Max Hit</th>
+                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                    </th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
-                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster)))}">
+                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster))), warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td>{{monster.name}}</td>
                                         <td>{{monster.attackStyle}}</td>
                                         <td>Normal Attack</td>
@@ -260,7 +260,7 @@
                                         <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
                                         <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
                                     </tr>
-                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)))}">
+                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))), warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td></td>
                                         <td></td>
                                         <td>{{specialAttack.name}}</td>
@@ -277,21 +277,22 @@
                         <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th style="width: 20%" scope="col">Monster Name</th>
+                                    <th style="width: 11%" scope="col">Style</th>
+                                    <th style="width: 11%" scope="col">Attack Name</th>
+                                    <th style="width: 11%" scope="col">Max Hit</th>
+                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
                                     <th style="width: 11%" scope="col">
                                         <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
                                     </th>
                                     <th style="width: 11%" scope="col">
                                         <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
                                     </th>
-                                    <th style="width: 20%" scope="col">Monster Name</th>
-                                    <th style="width: 11%" scope="col">Style</th>
-                                    <th style="width: 11%" scope="col">Max Hit</th>
-                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <template v-for="monster in monsters.filter(m => m.dungeon != '')">
-                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster)))}">
+                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster))), warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td>{{monster.name}}</td>
                                         <td>{{monster.attackStyle}}</td>
                                         <td>Normal Attack</td>
@@ -300,7 +301,7 @@
                                         <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
                                         <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
                                     </tr>
-                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)))}">
+                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))),warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td></td>
                                         <td></td>
                                         <td>{{specialAttack.name}}</td>
