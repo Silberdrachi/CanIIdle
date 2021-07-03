@@ -197,23 +197,23 @@
                             </thead>
                             <tbody>
                                 <template v-for="monster in findMonstersForDungeon(this.dungeonChoice)">
-                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster)))}">
+                                    <tr :class="{idleable : monster.isIdleable}">
                                         <td>{{monster.name}}</td>
                                         <td>{{monster.attackStyle}}</td>
-                                        <td>Normal Attack</td>
-                                        <td>{{calculateNormalAttack(monster)}}</td>
-                                        <td>{{reducedMaxHit(monster, calculateNormalAttack(monster))}}</td>
-                                        <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
-                                        <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
+                                        <td></td>
+                                        <td>{{monster.maxHit}}</td>
+                                        <td>{{monster.reducedMaxHit}}</td>
+                                        <td>{{monster.minimumDR}}</td>
+                                        <td>{{monster.minimumHP}}</td>
                                     </tr>
-                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)))}">
+                                    <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
                                         <td></td>
                                         <td></td>
-                                        <td>{{specialAttack.name}}</td>
-                                        <td>{{calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)}}</td>
-                                        <td>{{reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
-                                        <td>{{calculateMinimumDR(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
-                                        <td>{{calculateMinimumHP(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{attack.name}}</td>
+                                        <td>{{attack.maxHit}}</td>
+                                        <td>{{attack.reducedMaxHit}}</td>
+                                        <td>{{attack.minimumDR}}</td>
+                                        <td>{{attack.minimumHP}}</td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -251,23 +251,23 @@
                             </thead>
                             <tbody>
                                 <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
-                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster))), warning : monster.name == 'Wicked Greater Dragon'}">
+                                    <tr :class="{idleable :  monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td>{{monster.name}}</td>
                                         <td>{{monster.attackStyle}}</td>
-                                        <td>Normal Attack</td>
-                                        <td>{{calculateNormalAttack(monster)}}</td>
-                                        <td>{{reducedMaxHit(monster, calculateNormalAttack(monster))}}</td>
-                                        <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
-                                        <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
+                                        <td></td>
+                                        <td>{{monster.maxHit}}</td>
+                                        <td>{{monster.reducedMaxHit}}</td>
+                                        <td>{{monster.minimumDR}}</td>
+                                        <td>{{monster.minimumHP}}</td>
                                     </tr>
-                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))), warning : monster.name == 'Wicked Greater Dragon'}">
+                                    <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td></td>
                                         <td></td>
-                                        <td>{{specialAttack.name}}</td>
-                                        <td>{{calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)}}</td>
-                                        <td>{{reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
-                                        <td>{{calculateMinimumDR(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
-                                        <td>{{calculateMinimumHP(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{attack.name}}</td>
+                                        <td>{{attack.maxHit}}</td>
+                                        <td>{{attack.reducedMaxHit}}</td>
+                                        <td>{{attack.minimumDR}}</td>
+                                        <td>{{attack.minimumHP}}</td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -291,24 +291,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <template v-for="monster in monsters.filter(m => m.dungeon != '')">
-                                    <tr :class="{idleable : isIdleable(reducedMaxHit(monster, calculateNormalAttack(monster))), warning : monster.name == 'Wicked Greater Dragon'}">
+                                <template v-for="monster in findMonstersforEverything()">
+                                    <tr :class="{idleable : monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td>{{monster.name}}</td>
                                         <td>{{monster.attackStyle}}</td>
-                                        <td>Normal Attack</td>
-                                        <td>{{calculateNormalAttack(monster)}}</td>
-                                        <td>{{reducedMaxHit(monster, calculateNormalAttack(monster))}}</td>
-                                        <td>{{calculateMinimumDR(monster, calculateNormalAttack(monster))}}</td>
-                                        <td>{{calculateMinimumHP(monster, calculateNormalAttack(monster))}}</td>
+                                        <td></td>
+                                        <td>{{monster.maxHit}}</td>
+                                        <td>{{monster.reducedMaxHit}}</td>
+                                        <td>{{monster.minimumDR}}</td>
+                                        <td>{{monster.minimumHP}}</td>
                                     </tr>
-                                    <tr v-for="specialAttack in monster.specialAttack" :class="{idleable : isIdleable(reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))),warning : monster.name == 'Wicked Greater Dragon'}">
+                                    <tr v-for="attack in monster.attacks" :class="{idleable : monster.isIdleable,warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td></td>
                                         <td></td>
-                                        <td>{{specialAttack.name}}</td>
-                                        <td>{{calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep)}}</td>
-                                        <td>{{reducedMaxHit(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
-                                        <td>{{calculateMinimumDR(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
-                                        <td>{{calculateMinimumHP(monster, calculateSpecialAttack(specialAttack, monster.canStun, monster.canSleep))}}</td>
+                                        <td>{{attack.name}}</td>
+                                        <td>{{attack.maxHit}}</td>
+                                        <td>{{attack.reducedMaxHit}}</td>
+                                        <td>{{attack.minimumDR}}</td>
+                                        <td>{{attack.minimumHP}}</td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -2442,10 +2442,11 @@
                             attackBonus: 40,
                             specialAttack: []
                         }
-                    ]
-             };
+                    ],
+            };
        },
        methods: {
+           //General Functions
             getCombatStyle(style){
                 switch (style) {
                     case "Melee":
@@ -2456,6 +2457,8 @@
                         return 2;
                 }
             },
+
+            // Share URL
             getShareURL(){
                 navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "totalHealth=" + this.totalHealth + 
                         "&" + "currentDR=" + this.currentDR + "&" + "autoEatLevel=" + this.autoEatLevel + "&" + "combatStyle=" + this.combatStyle + "&" + "gameMode=" + this.gameMode +
@@ -2464,15 +2467,10 @@
                         alert('Error in copying text: ', err);
                     });
             },
-            findMonstersForSlayerTier(tier){
-                let teirMonsters = this.slayerTeirs.filter(s => s.name == tier)[0].monsters;
-                return this.monsters.filter(m=> teirMonsters.includes(m.name));
-            },
-            findMonstersForDungeon(dungeon){
-                let dungeonMonsters = this.dungeons.filter(s => s.name == dungeon)[0].monsters;
-                return this.monsters.filter(m=> dungeonMonsters.includes(m.name));
-            },
+
+            // Monster Calculations
             calculateMonsterMaxAttack(monster) {
+
                 let maxNormalAttack = this.calculateNormalAttack(monster);
                 let maxSpecialAttack = 0;
 
@@ -2485,22 +2483,37 @@
 
                 return Math.max(maxNormalAttack, maxSpecialAttack);
             },
+            calculateMinimumDR(attackStyle, attack){
+                return Math.max(0, Math.min(100,Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])));
+            },
+            calculateMinimumHP(attackStyle, attack){
+                return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
+            },
+            calculateReducedMaxHit(attackStyle, attack) {
+                let combatAdjustedDr = Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)]);
+                let attackReduction = Math.floor(attack * (Math.min(100, combatAdjustedDr) / 100));
+                let reducedHit = attack - attackReduction;
+                if (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold){
+                    reducedHit = attack - Math.floor(attack * (Math.floor((parseInt(this.currentDR) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100);
+                }
+                return reducedHit;
+            },
+            calculateIdleability(attack){
+                return attack <= (this.totalHealth*this.autoEatThreshold);
+            },
             calculateNormalAttack(monster) {
                 let maximumNormalAttack = 0;
 
-                // Calculate max 'normal' hit, return 0 if no normal hit
-                if (monster.usesNormalHit){
-                    if (monster.attackStyle === "Melee") {
-                        let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
-                        maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
-                    } 
-                    else if (monster.attackStyle === "Ranged") {
-                        let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
-                        maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
-                    } 
-                    else if (monster.attackStyle === "Magic") {
-                        maximumNormalAttack = Math.floor(this.numberMultiplier * (monster.attackLevel + monster.attackLevel * (monster.attackBonus / 100)));
-                    }
+                if (monster.attackStyle === "Melee") {
+                    let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
+                    maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
+                } 
+                else if (monster.attackStyle === "Ranged") {
+                    let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
+                    maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
+                } 
+                else if (monster.attackStyle === "Magic") {
+                    maximumNormalAttack = Math.floor(this.numberMultiplier * (monster.attackLevel + monster.attackLevel * (monster.attackBonus / 100)));
                 }
 
                 let multiplier = 1;
@@ -2514,7 +2527,7 @@
                 return Math.floor(maximumNormalAttack * multiplier);
             },
             calculateSpecialAttack(specialAttack, canStun, canSleep) {
-                let baseDamage = specialAttack.maxHit * this.numberMultiplier;
+                let baseDamage = specialAttack * this.numberMultiplier;
 
                 let multiplier = 1;
                 if (canStun) {
@@ -2526,24 +2539,8 @@
 
                 return Math.floor(baseDamage * multiplier);
             },
-            calculateMinimumDR(monster, attack){
-                return Math.max(0, Math.min(100,Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])));
-            },
-            calculateMinimumHP(monster, attack){
-                return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
-            },
-            isIdleable(attack){
-                return attack <= (this.totalHealth*this.autoEatThreshold);
-            },
-            reducedMaxHit(monster, attack) {
-                let combatAdjustedDr = Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)]);
-                let attackReduction = Math.floor(attack * (Math.min(100, combatAdjustedDr) / 100));
-                let reducedHit = attack - attackReduction;
-                if (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold){
-                    reducedHit = attack - Math.floor(attack * (Math.floor((parseInt(this.currentDR) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(monster.attackStyle)])) / 100);
-                }
-                return reducedHit;
-            },
+
+            // Calculate instance information for overview
             calculateInstance(instance){
                 let instanceMonsters = this.monsters.filter(m=> instance.monsters.includes(m.name));
                 let instanceInformation = {
@@ -2553,22 +2550,148 @@
                             isIdleable: true,
                         };
                 instanceMonsters.forEach(monster => {
-                    let monsterMinDR = this.calculateMinimumDR(monster,this.calculateMonsterMaxAttack(monster));
+                    let maxMonsterAttack = this.calculateMonsterMaxAttack(monster);
+
+                    let monsterMinDR = this.calculateMinimumDR(monster.attackStyle, maxMonsterAttack);
                     if (monsterMinDR > instanceInformation.minimumDR){
                         instanceInformation.minimumDR = monsterMinDR;
                     }
                     
-                    let monsterMinHP = this.calculateMinimumHP(monster, this.calculateMonsterMaxAttack(monster));
+                    let monsterMinHP = this.calculateMinimumHP(monster.attackStyle, maxMonsterAttack);
                     if (monsterMinHP > instanceInformation.minimumHP){
                         instanceInformation.minimumHP = monsterMinHP;
                     }
 
-                    if (instanceInformation.isIdleable && !this.isIdleable(this.reducedMaxHit(monster, this.calculateMonsterMaxAttack(monster)))) {
+                    if (instanceInformation.isIdleable && !this.calculateIdleability(this.calculateReducedMaxHit(monster.attackStyle, maxMonsterAttack))) {
                         instanceInformation.isIdleable = false;
                     }
                 });
                 return instanceInformation;
             },
+            
+            // Calculate all monster data for display
+            calculateMonster(monster){
+                let monsterInformation = {
+                            name: monster.name,
+                            minimumDR: 0,
+                            minimumHP: 0,
+                            maxHit: 0,
+                            reducedMaxHit: 0,
+                            isIdleable: true,
+                            attackStyle: monster.attackStyle,
+                            canSleep: monster.canSleep,
+                            canStun: monster.canStun,
+                            attackSpeed: monster.attackSpeed,
+                            attacks: [],
+                        };
+
+                if (monster.usesNormalHit){
+                    let attack = {
+                        name: "Normal Attack",
+                        minimumDR: 0,
+                        minimumHP: 0,
+                        isIdleable: true,
+                        maxHit: 0,
+                        reducedMaxHit: 0,
+                    };
+
+                    attack.maxHit = this.calculateNormalAttack(monster);
+                    attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit);
+                    attack.minimumDR = this.calculateMinimumDR(monster.attackStyle, attack.maxHit);
+                    attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit);
+
+                    if (!this.calculateIdleability(attack.reducedMaxHit)){
+                        attack.isIdleable = false;
+                        monsterInformation.isIdleable = false;
+                    }
+                    if (monsterInformation.minimumDR < attack.minimumDR){
+                        monsterInformation.minimumDR = attack.minimumDR;
+                    }
+                    if (monsterInformation.minimumHP < attack.minimumHP){
+                        monsterInformation.minimumHP = attack.minimumHP;
+                    }
+                    if (monsterInformation.maxHit < attack.maxHit){
+                        monsterInformation.maxHit = attack.maxHit;
+                    }
+                    if (monsterInformation.reducedMaxHit < attack.reducedMaxHit){
+                        monsterInformation.reducedMaxHit = attack.reducedMaxHit;
+                    }
+
+                    monsterInformation.attacks.push(attack);
+                }
+
+                if (monster.specialAttack != undefined && monster.specialAttack.length != 0) {
+                    monster.specialAttack.forEach(element => {
+                        let attack = {
+                            name: element.name,
+                            minimumDR: 0,
+                            minimumHP: 0,
+                            isIdleable: true,
+                            maxHit: 0,
+                            reducedMaxHit: 0,
+                        }
+
+                        if (element.name !== "Volley" && element.name !== "Burning Trail" && element.name !== "Infernal Volley"){
+                            attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep);
+                        }
+                        else{
+                            attack.maxHit = this.calculateNormalAttack(monster);
+                        }
+
+                        attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit);
+                        attack.minimumDR = this.calculateMinimumDR(monster.attackStyle, attack.maxHit);
+                        attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit);
+
+                        if (!this.calculateIdleability(attack.reducedMaxHit)){
+                            attack.isIdleable = false;
+                            monsterInformation.isIdleable = false;
+                        }
+                        if (monsterInformation.minimumDR < attack.minimumDR){
+                            monsterInformation.minimumDR = attack.minimumDR;
+                        }
+                        if (monsterInformation.minimumHP < attack.minimumHP){
+                            monsterInformation.minimumHP = attack.minimumHP;
+                        }
+                        if (monsterInformation.maxHit < attack.maxHit){
+                            monsterInformation.maxHit = attack.maxHit;
+                        }
+                        if (monsterInformation.reducedMaxHit < attack.reducedMaxHit){
+                            monsterInformation.reducedMaxHit = attack.reducedMaxHit;
+                        }
+                        
+                        monsterInformation.attacks.push(attack)
+                    });
+                }
+                
+                return monsterInformation;
+            },
+
+            // Functions for UI Tables
+            findMonstersForDungeon(dungeon){
+                let dungeonMonstersNames = this.dungeons.filter(s => s.name == dungeon)[0].monsters;
+                let dungeonMonsters = this.monsters.filter(m=> dungeonMonstersNames.includes(m.name))
+                let monsterInformation = [];
+                dungeonMonsters.forEach(element => {
+                    monsterInformation.push(this.calculateMonster(element));
+                });
+                return monsterInformation;
+            },
+            findMonstersForSlayerTier(tier){
+                let teirMonstersNames = this.slayerTeirs.filter(s => s.name == tier)[0].monsters;
+                let teirMonsters = this.monsters.filter(m=> teirMonstersNames.includes(m.name));
+                let monsterInformation = [];
+                teirMonsters.forEach(element => {
+                    monsterInformation.push(this.calculateMonster(element));
+                });
+                return monsterInformation;
+            },
+            findMonstersforEverything(){
+                let monsterInformation = [];
+                this.monsters.forEach(element => {
+                    monsterInformation.push(this.calculateMonster(element));
+                });
+                return monsterInformation;
+            }
        },
         computed: {
             autoEatThreshold() {
