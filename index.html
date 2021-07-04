@@ -111,6 +111,11 @@
                         <h3>All Monsters</h3>
                      </a>
                   </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="#wickedGreaterDragon">
+                        <h3>Wicked Greater Dragon</h3>
+                     </a>
+                  </li>
                </ul>
                <div class="tab-content">
                     <div id="overview" class="tab-pane fade show active">
@@ -314,6 +319,36 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id="wickedGreaterDragon" class="tab-pane fade">
+                        <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Max Hit in combat">
+                            <div class="input-group-prepend">
+                               <label class="input-group-text" for="playerMaxHit">Max Hit</label>
+                            </div>
+                            <input id="playerMaxHit" type="number" class="form-control" min="0" value="100" step="1" v-model="playerMaxHit" @change="calculateWGDMonsterInfo()" />
+                         </div>
+                         <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%" scope="col">Max Hit</th>
+                                    <th style="width: 11%" scope="col">Reduced Max Hit</th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                    </th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr :class="{idleable : wgdMonsterInfo.isIdleable}">
+                                    <td>{{wgdMonsterInfo.maxHit}}</td>
+                                    <td>{{wgdMonsterInfo.reducedMaxHit}}</td>
+                                    <td>{{wgdMonsterInfo.minimumDR}}</td>
+                                    <td>{{wgdMonsterInfo.minimumHP}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                </div>
             <div class="col-1"></div>
          </div>
@@ -344,6 +379,14 @@
                autoEatLevel: "1",
                combatStyle: "Melee",
                gameMode: "Normal",
+               playerMaxHit: 100,
+               wgdMonsterInfo: {
+                            minimumDR: 0,
+                            minimumHP: 0,
+                            maxHit: 0,
+                            reducedMaxHit: 0,
+                            isIdleable: true,
+                        },
                wastefulRing: "No",
                guardianAmulet: "No",
                dungeonChoice: "Chicken Coop",
@@ -2689,7 +2732,23 @@
                     monsterInformation.push(this.calculateMonster(element));
                 });
                 return monsterInformation;
-            }
+            },
+            
+            calculateWGDMonsterInfo(){
+                let monsterInformation = {
+                            minimumDR: 0,
+                            minimumHP: 0,
+                            maxHit: 0,
+                            reducedMaxHit: 0,
+                            isIdleable: true,
+                        };
+                monsterInformation.maxHit = this.playerMaxHit * 0.75;
+                monsterInformation.reducedMaxHit = this.calculateReducedMaxHit("Magic", monsterInformation.maxHit);
+                monsterInformation.minimumDR = this.calculateMinimumDR("Magic", monsterInformation.maxHit);
+                monsterInformation.minimumHP = this.calculateMinimumHP("Magic", monsterInformation.maxHit);
+                monsterInformation.isIdleable = this.calculateIdleability(monsterInformation.reducedMaxHit);
+                this.wgdMonsterInfo = monsterInformation;
+            },
        },
         computed: {
             autoEatThreshold() {
@@ -2726,7 +2785,7 @@
                 else {
                     return 10;
                 }
-            }
+            },
         },
         created() {
             if(window.location.search){
@@ -2809,7 +2868,7 @@
             },
             slayerTier(newSlayerTier) {
                 localStorage.slayerTier = newSlayerTier;
-            }
+            },
         }
     });
 </script>
