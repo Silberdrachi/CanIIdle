@@ -2475,7 +2475,7 @@
                 let maxSpecialAttack = 0;
 
                 monster.specialAttack.forEach(attack => {
-                    let currentSpecialAttack = this.calculateSpecialAttack(attack, monster.canStun, monster.canSleep);
+                    let currentSpecialAttack = this.calculateSpecialAttack(attack.maxHit, monster.canStun, monster.canSleep);
                     if (currentSpecialAttack > maxSpecialAttack){
                         maxSpecialAttack = currentSpecialAttack;
                     }
