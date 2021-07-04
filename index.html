@@ -2550,19 +2550,17 @@
                             isIdleable: true,
                         };
                 instanceMonsters.forEach(monster => {
-                    let maxMonsterAttack = this.calculateMonsterMaxAttack(monster);
+                    let monsterInformation = this.calculateMonster(monster);
 
-                    let monsterMinDR = this.calculateMinimumDR(monster.attackStyle, maxMonsterAttack);
-                    if (monsterMinDR > instanceInformation.minimumDR){
-                        instanceInformation.minimumDR = monsterMinDR;
+                    if (monsterInformation.minimumDR > instanceInformation.minimumDR){
+                        instanceInformation.minimumDR = monsterInformation.minimumDR;
                     }
                     
-                    let monsterMinHP = this.calculateMinimumHP(monster.attackStyle, maxMonsterAttack);
-                    if (monsterMinHP > instanceInformation.minimumHP){
-                        instanceInformation.minimumHP = monsterMinHP;
+                    if (monsterInformation.minimumHP > instanceInformation.minimumHP){
+                        instanceInformation.minimumHP = monsterInformation.minimumHP;
                     }
 
-                    if (instanceInformation.isIdleable && !this.calculateIdleability(this.calculateReducedMaxHit(monster.attackStyle, maxMonsterAttack))) {
+                    if (instanceInformation.isIdleable && !monsterInformation.isIdleable) {
                         instanceInformation.isIdleable = false;
                     }
                 });
