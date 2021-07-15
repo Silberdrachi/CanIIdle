@@ -88,6 +88,19 @@
                         <option>Adventure</option>
                      </select>
                   </div>
+                  <div class="input-group col-xl col-lg-4 col-md-8">
+                    <div class="input-group-prepend">
+                       <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
+                    </div>
+                    <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
+                       <option>None</option>
+                       <option>Minotaur</option>
+                       <option>Centaur</option>
+                       <option>Witch</option>
+                       <!-- Omitting Cyclops option until UI for indicating that numbers being viewed for Slayer enemies are in the context of a slayer task, as this impacts safety. -->
+                       <!-- <option>Cyclops</option> -->
+                    </select>
+                 </div>
                </div>
                <hr>
                <ul class="nav nav-pills nav-fill">
@@ -379,6 +392,7 @@
                autoEatLevel: "1",
                combatStyle: "Melee",
                gameMode: "Normal",
+               yakSynergy: "None",
                playerMaxHit: 100,
                wgdMonsterInfo: {
                             minimumDR: 0,
@@ -2505,7 +2519,7 @@
             getShareURL(){
                 navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "totalHealth=" + this.totalHealth + 
                         "&" + "currentDR=" + this.currentDR + "&" + "autoEatLevel=" + this.autoEatLevel + "&" + "combatStyle=" + this.combatStyle + "&" + "gameMode=" + this.gameMode +
-                        "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet)
+                        "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet)
                     .catch(err => {
                         alert('Error in copying text: ', err);
                     });
@@ -2526,18 +2540,34 @@
 
                 return Math.max(maxNormalAttack, maxSpecialAttack);
             },
+            calculateYakDRModifier(monsterAttackStyle, monsterIsSlayerTask){
+                let ret = 0;
+                
+                if ((this.yakSynergy == "Minotaur" && monsterAttackStyle == "Ranged")
+                  || (this.yakSynergy == "Centaur" && monsterAttackStyle == "Magic")
+                  || (this.yakSynergy == "Witch" && monsterAttackStyle == "Melee")){
+                    ret = 2;
+                } 
+                else if (this.yakSynergy == "Cyclops" && monsterIsSlayerTask){
+                    ret = 3;
+                }
+
+                return ret;
+            },
             calculateMinimumDR(attackStyle, attack){
                 return Math.max(0, Math.min(100,Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])));
             },
             calculateMinimumHP(attackStyle, attack){
-                return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
+                let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, false));
+                return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
             },
             calculateReducedMaxHit(attackStyle, attack) {
-                let combatAdjustedDr = Math.floor(this.currentDR * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)]);
+                let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, false));
+                let combatAdjustedDr = Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)]);
                 let attackReduction = Math.floor(attack * (Math.min(100, combatAdjustedDr) / 100));
                 let reducedHit = attack - attackReduction;
                 if (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold){
-                    reducedHit = attack - Math.floor(attack * (Math.floor((parseInt(this.currentDR) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100);
+                    reducedHit = attack - Math.floor(attack * (Math.floor((parseInt(yakAdjustedDr) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100);
                 }
                 return reducedHit;
             },
@@ -2805,6 +2835,9 @@
                 if (params.has("gameMode")){
                     this.gameMode = params.get("gameMode");
                 }
+                if (params.has("yakSynergy")){
+                    this.yakSynergy = params.get("yakSynergy");
+                }
                 if (params.has("wastefulRing")){
                     this.wastefulRing = params.get("wastefulRing");
                 }
@@ -2829,6 +2862,9 @@
                 }
                 if (localStorage.gameMode) {
                     this.gameMode = localStorage.gameMode;
+                }
+                if (localStorage.yakSynergy) {
+                    this.yakSynergy = localStorage.yakSynergy;
                 }
                 if (localStorage.wastefulRing) {
                     this.wastefulRing = localStorage.wastefulRing;
@@ -2856,6 +2892,9 @@
             },
             gameMode(newGameMode) {
                 localStorage.gameMode = newGameMode;
+            },
+            yakSynergy(newYakSynergy) {
+                localStorage.yakSynergy = newYakSynergy;
             },
             wastefulRing(newWastefulRing) {
                 localStorage.wastefulRing = newWastefulRing;

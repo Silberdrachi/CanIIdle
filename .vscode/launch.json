@@ -8,7 +8,7 @@
             "type": "pwa-chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "c:\\Users\\Silber\\Documents\\dev\\CanIIdle\\index.html"
+            "file": "${workspaceFolder}/index.html"
         }
     ]
 }
