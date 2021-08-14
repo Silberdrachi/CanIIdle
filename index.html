@@ -1,201 +1,229 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>Can I Idle Melvor?</title>
-      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-      <meta content="utf-8" http-equiv="encoding">
-      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
-      <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
-      
-      <!-- Vue Stuff -->
-      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-      
-      <!-- Bootstrap Stuff 4.6 -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-      
-      <!-- Site specific style --> 
-      <link rel="stylesheet" href="style.css">
-   </head>
-   <body>
-      <div id ='app' class="container-fluid">
-         <h1 class="hotPink text-center my-4">Can I Idle Melvor? - NOW WITH 30% MORE STUN DAMAGE</h1>
-         <p class="text-white text-center my-4">Up to date as of v0.20 - Copy shareable link to Clipboard: <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button></p>
-         <div class="row">
+
+<head>
+    <title>Can I Idle Melvor?</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+
+    <!-- Vue Stuff -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+
+    <!-- Bootstrap Stuff 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+    <!-- Site specific style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id='app' class="container-fluid">
+        <h1 class="hotPink text-center my-4">Can I Idle Melvor?</h1>
+        <p class="text-white text-center my-4">Up to date as of v0.21 - Copy shareable link to Clipboard: <button
+                id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button></p>
+        <div class="row">
             <div class="col-1"></div>
             <div id="content" class="col-10">
-               <div class="row col-12">
-                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Max health value (not level)">
-                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="totalHealth">Total Health</label>
-                     </div>
-                     <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10" v-model="totalHealth" />
-                  </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Current out of combat DR %">
-                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="currentDR">Current DR%</label>
-                     </div>
-                     <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="currentDR" />
-                  </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8">
-                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
-                     </div>
-                     <select class="custom-select" id="autoEatLevel" v-model="autoEatLevel">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                     </select>
-                  </div>
-               </div>
-               <div class="row col-12">
-                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Increases autoeat threshold by 5%">
-                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
-                     </div>
-                     <select id="wastefulRing" class="custom-select" v-model="wastefulRing" :class="{selected : wastefulRing == 'Yes'}">
-                        <option>Yes</option>
-                        <option selected>No</option>
-                     </select>
-                  </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Gives 5% more DR if your health falls below 50% of your max health.">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
+                <div class="row col-12">
+                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
+                        title="Max health value (not level)">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="totalHealth">Total Health</label>
+                        </div>
+                        <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10"
+                            v-model="totalHealth" />
                     </div>
-                    <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet" :class="{selected : guardianAmulet == 'Yes'}">
-                        <option>Yes</option>
-                        <option selected>No</option>
-                    </select>
-                  </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8">
-                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="combatStyle">Combat Style</label>
-                     </div>
-                     <select id="combatStyle" class="custom-select" v-model="combatStyle">
-                        <option>Melee</option>
-                        <option>Ranged</option>
-                        <option>Magic</option>
-                     </select>
-                  </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8">
-                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="gameMode">Game Mode</label>
-                     </div>
-                     <select id="gameMode" class="custom-select" v-model="gameMode">
-                        <option>Normal</option>
-                        <option>Hardcore</option>
-                        <option>Adventure</option>
-                     </select>
-                  </div>
-                  <div class="input-group col-xl col-lg-4 col-md-8">
-                    <div class="input-group-prepend">
-                       <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
+                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
+                        title="Current out of combat DR %">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="currentDR">Current DR%</label>
+                        </div>
+                        <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0"
+                            v-model="currentDR" />
                     </div>
-                    <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
-                       <option>None</option>
-                       <option>Minotaur</option>
-                       <option>Centaur</option>
-                       <option>Witch</option>
-                       <!-- Omitting Cyclops option until UI for indicating that numbers being viewed for Slayer enemies are in the context of a slayer task, as this impacts safety. -->
-                       <!-- <option>Cyclops</option> -->
-                    </select>
-                 </div>
-               </div>
-               <hr>
-               <ul class="nav nav-pills nav-fill">
-                <li class="nav-item">
-                   <a class="nav-link active" data-toggle="tab" href="#overview">
-                      <h3>Overview</h3>
-                   </a>
-                </li>
-                  <li class="nav-item">
-                     <a class="nav-link" data-toggle="tab" href="#dungeons">
-                        <h3>Dungeons</h3>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" data-toggle="tab" href="#slayer">
-                        <h3>Slayer</h3>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" data-toggle="tab" href="#allMonsters">
-                        <h3>All Monsters</h3>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" data-toggle="tab" href="#wickedGreaterDragon">
-                        <h3>Wicked Greater Dragon</h3>
-                     </a>
-                  </li>
-               </ul>
-               <div class="tab-content">
+                    <div class="input-group col-xl col-lg-4 col-md-8">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
+                        </div>
+                        <select class="custom-select" id="autoEatLevel" v-model="autoEatLevel">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
+                        title="Increases autoeat threshold by 5%">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
+                        </div>
+                        <select id="wastefulRing" class="custom-select" v-model="wastefulRing"
+                            :class="{selected : wastefulRing == 'Yes'}">
+                            <option>Yes</option>
+                            <option selected>No</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
+                        title="Gives 5% more DR if your health falls below 50% of your max health.">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
+                        </div>
+                        <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet"
+                            :class="{selected : guardianAmulet == 'Yes'}">
+                            <option>Yes</option>
+                            <option selected>No</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl col-lg-4 col-md-8">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="combatStyle">Combat Style</label>
+                        </div>
+                        <select id="combatStyle" class="custom-select" v-model="combatStyle">
+                            <option>Melee</option>
+                            <option>Ranged</option>
+                            <option>Magic</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl col-lg-4 col-md-8">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="gameMode">Game Mode</label>
+                        </div>
+                        <select id="gameMode" class="custom-select" v-model="gameMode">
+                            <option>Normal</option>
+                            <option>Hardcore</option>
+                            <option>Adventure</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl col-lg-4 col-md-8">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
+                        </div>
+                        <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
+                            <option>None</option>
+                            <option>Minotaur</option>
+                            <option>Centaur</option>
+                            <option>Witch</option>
+                            <!-- Omitting Cyclops option until UI for indicating that numbers being viewed for Slayer enemies are in the context of a slayer task, as this impacts safety. -->
+                            <!-- <option>Cyclops</option> -->
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#overview">
+                            <h3>Overview</h3>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#dungeons">
+                            <h3>Dungeons</h3>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#slayer">
+                            <h3>Slayer</h3>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#allMonsters">
+                            <h3>All Monsters</h3>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#wickedGreaterDragon">
+                            <h3>Wicked Greater Dragon</h3>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
                     <div id="overview" class="tab-pane fade show active">
-                        <table id='dungeonOverview' class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                        <table id='dungeonOverview'
+                            class="table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
-                            <tr>
-                                <th style="width: 20%" scope="col">Dungeon Name</th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                                </th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th style="width: 20%" scope="col">Dungeon Name</th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                            <u>DR% Needed</u></div>
+                                    </th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total HP you need to safely idle this monster with your currently set DR%">
+                                            <u>HP Needed</u></div>
+                                    </th>
+                                </tr>
                             </thead>
-                                <tbody>
-                                    <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon); })" :class="{idleable : calculatedDungeon.isIdleable}">
-                                        <td>{{calculatedDungeon.name}}</td>
-                                        <td>{{calculatedDungeon.minimumDR}}</td>
-                                        <td>{{calculatedDungeon.minimumHP}}</td>
-                                    </tr>
-                                </tbody>
+                            <tbody>
+                                <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon); })"
+                                    :class="{idleable : calculatedDungeon.isIdleable}">
+                                    <td>{{calculatedDungeon.name}}</td>
+                                    <td>{{calculatedDungeon.minimumDR}}</td>
+                                    <td>{{calculatedDungeon.minimumHP}}</td>
+                                </tr>
+                            </tbody>
                         </table>
-                        <table id='slayerOverview' class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                        <table id='slayerOverview'
+                            class="table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
-                            <tr>
-                                <th style="width: 20%" scope="col">Slayer Tier</th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
-                                </th>
-                                <th style="width: 11%" scope="col">
-                                    <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th style="width: 20%" scope="col">Slayer Tier</th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                            <u>DR% Needed</u></div>
+                                    </th>
+                                    <th style="width: 11%" scope="col">
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total HP you need to safely idle this monster with your currently set DR%">
+                                            <u>HP Needed</u></div>
+                                    </th>
+                                </tr>
                             </thead>
-                                <tbody>
-                                    <tr v-for="calculatedTier in this.slayerTeirs.map(function (tier){ return calculateInstance(tier); })" :class="{idleable : calculatedTier.isIdleable}">
-                                        <td>{{calculatedTier.name}}</td>
-                                        <td>{{calculatedTier.minimumDR}}</td>
-                                        <td>{{calculatedTier.minimumHP}}</td>
-                                    </tr>
-                                </tbody>
+                            <tbody>
+                                <tr v-for="calculatedTier in this.slayerTeirs.map(function (tier){ return calculateInstance(tier); })"
+                                    :class="{idleable : calculatedTier.isIdleable}">
+                                    <td>{{calculatedTier.name}}</td>
+                                    <td>{{calculatedTier.minimumDR}}</td>
+                                    <td>{{calculatedTier.minimumHP}}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     <div id="dungeons" class="tab-pane fade">
                         <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
-                        </div>
-                        <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
-                            <option selected hidden>Choose Dungeon</option>
-                            <option>Chicken Coop</option>
-                            <option>Undead Graveyard</option>
-                            <option>Bandit Base</option>
-                            <option>Hall of Wizards</option>
-                            <option>Spider Forest</option>
-                            <option>Miolite Caves</option>
-                            <option>Deep Sea Ship</option>
-                            <option>Frozen Cove</option>
-                            <option>Dragons Den</option>
-                            <option>Volcanic Cave</option>
-                            <option>Infernal Stronghold</option>
-                            <option>Air God Dungeon</option>
-                            <option>Water God Dungeon</option>
-                            <option>Earth God Dungeon</option>
-                            <option>Fire God Dungeon</option>
-                        </select>
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
+                            </div>
+                            <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
+                                <option selected hidden>Choose Dungeon</option>
+                                <option>Chicken Coop</option>
+                                <option>Undead Graveyard</option>
+                                <option>Bandit Base</option>
+                                <option>Hall of Wizards</option>
+                                <option>Spider Forest</option>
+                                <option>Miolite Caves</option>
+                                <option>Deep Sea Ship</option>
+                                <option>Frozen Cove</option>
+                                <option>Dragons Den</option>
+                                <option>Volcanic Cave</option>
+                                <option>Infernal Stronghold</option>
+                                <option>Air God Dungeon</option>
+                                <option>Water God Dungeon</option>
+                                <option>Earth God Dungeon</option>
+                                <option>Fire God Dungeon</option>
+                            </select>
                         </div>
                         <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
@@ -206,10 +234,14 @@
                                     <th style="width: 11%" scope="col">Max Hit</th>
                                     <th style="width: 11%" scope="col">Reduced Max hit</th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                            <u>DR% Needed</u></div>
                                     </th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total HP you need to safely idle this monster with your currently set DR%">
+                                            <u>HP Needed</u></div>
                                     </th>
                                 </tr>
                             </thead>
@@ -239,17 +271,17 @@
                     </div>
                     <div id="slayer" class="tab-pane fade">
                         <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="slayerTier">Slayer Tier:</label>
-                        </div>
-                        <select class="custom-select" id="slayerTier" v-model="slayerTier">
-                            <option selected hidden>Choose Tier</option>
-                            <option>Easy</option>
-                            <option>Normal</option>
-                            <option>Hard</option>
-                            <option>Elite</option>
-                            <option>Master</option>
-                        </select>
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="slayerTier">Slayer Tier:</label>
+                            </div>
+                            <select class="custom-select" id="slayerTier" v-model="slayerTier">
+                                <option selected hidden>Choose Tier</option>
+                                <option>Easy</option>
+                                <option>Normal</option>
+                                <option>Hard</option>
+                                <option>Elite</option>
+                                <option>Master</option>
+                            </select>
                         </div>
                         <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
@@ -260,16 +292,21 @@
                                     <th style="width: 11%" scope="col">Max Hit</th>
                                     <th style="width: 11%" scope="col">Reduced Max hit</th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                            <u>DR% Needed</u></div>
                                     </th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total HP you need to safely idle this monster with your currently set DR%">
+                                            <u>HP Needed</u></div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
-                                    <tr :class="{idleable :  monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
+                                    <tr
+                                        :class="{idleable :  monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td>{{monster.name}}</td>
                                         <td>{{monster.attackStyle}}</td>
                                         <td></td>
@@ -278,7 +315,8 @@
                                         <td>{{monster.minimumDR}}</td>
                                         <td>{{monster.minimumHP}}</td>
                                     </tr>
-                                    <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
+                                    <tr v-for="attack in monster.attacks"
+                                        :class="{idleable : attack.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td></td>
                                         <td></td>
                                         <td>{{attack.name}}</td>
@@ -292,7 +330,8 @@
                         </table>
                     </div>
                     <div id="allMonsters" class="tab-pane fade">
-                        <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
+                        <table
+                            class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th style="width: 20%" scope="col">Monster Name</th>
@@ -301,16 +340,21 @@
                                     <th style="width: 11%" scope="col">Max Hit</th>
                                     <th style="width: 11%" scope="col">Reduced Max hit</th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                            <u>DR% Needed</u></div>
                                     </th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total HP you need to safely idle this monster with your currently set DR%">
+                                            <u>HP Needed</u></div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <template v-for="monster in findMonstersforEverything()">
-                                    <tr :class="{idleable : monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
+                                    <tr
+                                        :class="{idleable : monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td>{{monster.name}}</td>
                                         <td>{{monster.attackStyle}}</td>
                                         <td></td>
@@ -319,7 +363,8 @@
                                         <td>{{monster.minimumDR}}</td>
                                         <td>{{monster.minimumHP}}</td>
                                     </tr>
-                                    <tr v-for="attack in monster.attacks" :class="{idleable : monster.isIdleable,warning : monster.name == 'Wicked Greater Dragon'}">
+                                    <tr v-for="attack in monster.attacks"
+                                        :class="{idleable : monster.isIdleable,warning : monster.name == 'Wicked Greater Dragon'}">
                                         <td></td>
                                         <td></td>
                                         <td>{{attack.name}}</td>
@@ -333,22 +378,28 @@
                         </table>
                     </div>
                     <div id="wickedGreaterDragon" class="tab-pane fade">
-                        <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom" title="Max Hit in combat">
+                        <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
+                            title="Max Hit in combat">
                             <div class="input-group-prepend">
-                               <label class="input-group-text" for="playerMaxHit">Max Hit</label>
+                                <label class="input-group-text" for="playerMaxHit">Max Hit</label>
                             </div>
-                            <input id="playerMaxHit" type="number" class="form-control" min="0" value="100" step="1" v-model="playerMaxHit" @change="calculateWGDMonsterInfo()" />
-                         </div>
-                         <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                            <input id="playerMaxHit" type="number" class="form-control" min="0" value="100" step="1"
+                                v-model="playerMaxHit" @change="calculateWGDMonsterInfo()" />
+                        </div>
+                        <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th style="width: 20%" scope="col">Max Hit</th>
                                     <th style="width: 11%" scope="col">Reduced Max Hit</th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total DR% you need equipt to safely idle this monster with your currently set HP"><u>DR% Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                            <u>DR% Needed</u></div>
                                     </th>
                                     <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top" title="Total HP you need to safely idle this monster with your currently set DR%"><u>HP Needed</u></div>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                            title="Total HP you need to safely idle this monster with your currently set DR%">
+                                            <u>HP Needed</u></div>
                                     </th>
                                 </tr>
                             </thead>
@@ -362,309 +413,316 @@
                             </tbody>
                         </table>
                     </div>
-               </div>
-            <div class="col-1"></div>
-         </div>
-         <div class="text-white text-center my-1 mx-auto">
-            <p>DR is always input and displayed as before triangle. Make sure youre double checking which value you use.</p>
-            <p>For any issues either file a <a href="https://github.com/Silberdrachi/CanIIdle">GitHub ticket</a> or contact @Silber#6947 on the Melvor Idle Discord server.</p>
-            <p>Styling and formulas used are from the original "Can I Idle This?" website: <a href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
-            <p>Further evolved by "Slayer Can I Idle This?" <a href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a></p>
-         </div>
-      </div>
-   </body>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="text-white text-center my-1 mx-auto">
+                <p>DR is always input and displayed as before triangle. Make sure youre double checking which value you
+                    use.</p>
+                <p>For any issues either file a <a href="https://github.com/Silberdrachi/CanIIdle">GitHub ticket</a> or
+                    contact @Silber#6947 on the Melvor Idle Discord server.</p>
+                <p>Styling and formulas used are from the original "Can I Idle This?" website: <a
+                        href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
+                <p>Further evolved by "Slayer Can I Idle This?" <a
+                        href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a>
+                </p>
+            </div>
+        </div>
+</body>
+
 </html>
 <script language="javascript">
-   // Enable Bootstrap4 tooltips
-   $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-   });
+    // Enable Bootstrap4 tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 
 <script>
-   app = new Vue({
-       el: '#app',
-       data() {
-           return {
-               slayerTier: "Easy",
-               totalHealth: 100,
-               currentDR: 0,
-               autoEatLevel: "1",
-               combatStyle: "Melee",
-               gameMode: "Normal",
-               yakSynergy: "None",
-               playerMaxHit: 100,
-               wgdMonsterInfo: {
-                            minimumDR: 0,
-                            minimumHP: 0,
-                            maxHit: 0,
-                            reducedMaxHit: 0,
-                            isIdleable: true,
-                        },
-               wastefulRing: "No",
-               guardianAmulet: "No",
-               dungeonChoice: "Chicken Coop",
-               dungeons:[
-                   {
-                       name: "Chicken Coop",
-                       monsters: [
-                           "Chicken",
-                           "Chick",
-                           "Mumma Chicken"
-                       ]
-                   },
-                   {
-                       name: "Undead Graveyard",
-                       monsters: [
-                           "Zombie Hand",
-                           "Zombie",
-                           "Ghost",
-                           "Zombie Leader"
-                       ]
-                   },
-                   {
-                       name: "Bandit Base",
-                       monsters: [
-                           "Bandit Trainee",
-                           "Bandit",
-                           "Bandit Leader"
-                       ]
-                   },
-                   {
-                       name: "Hall of Wizards",
-                       monsters: [
-                           "Wizard",
-                           "Master Wizard",
-                           "Dark Wizard",
-                           "Elder Wizard"
-                       ]
-                   },
-                   {
-                       name: "Spider Forest",
-                       monsters: [
-                           "Spider",
-                           "Spider2",
-                           "Evil Spider",
-                           "Spider King"
-                       ]
-                   },
-                   {
-                       name: "Miolite Caves",
-                       monsters: [
-                           "Miolite Spring",
-                           "Miolite Trio",
-                           "Miolite Warden",
-                           "Miolite Monarch"
-                       ]
-                   },
-                   {
-                       name: "Deep Sea Ship",
-                       monsters: [
-                           "Pirate",
-                           "First Mate",
-                           "Pirate Captain",
-                           "The Kraken"
-                       ]
-                   },
-                   {
-                       name: "Frozen Cove",
-                       monsters: [
-                           "Ice Monster",
-                           "Ice Troll",
-                           "Ice",
-                           "Protector of Ice"
-                       ]
-                   },
-                   {
-                       name: "Dragons Den",
-                       monsters: [
-                           "Green Dragon",
-                           "Blue Dragon",
-                           "Red Dragon",
-                           "Black Dragon",
-                           "Elder Dragon"
-                       ]
-                   },
-                   {
-                       name: "Volcanic Cave",
-                       monsters: [
-                           "Bat",
-                           "Big Bat",
-                           "The Eye",
-                           "The Resurrected Eye",
-                           "Vicious Serpent",
-                           "Fire Spirit",
-                           "Prat, the Protector of Secrets",
-                           "Malcs, the Guardian of Melvor"
-                       ]
-                   },
-                   {
-                       name: "Infernal Stronghold",
-                       monsters: [
-                           "Cerberus",
-                           "Fearful Eye",
-                           "Red Devil",
-                           "Phoenix",
-                           "Incendius",
-                           "Prat, the Guardian of Secrets",
-                           "Malcs, the Leader of Dragons"
-                       ]
-                   },
-                   {
-                       name: "Air God Dungeon",
-                       monsters: [
-                           "Air Guard",
-                           "Air Monster",
-                           "Air Golem",
-                           "Aleron",
-                           "Voltaire",
-                           "Aeris"
-                       ]
-                   },
-                   {
-                       name: "Water God Dungeon",
-                       monsters: [
-                           "Water Guard",
-                           "Water Monster",
-                           "Water Golem",
-                           "Lissia",
-                           "Murtia",
-                           "Glacia"
-                       ]
-                   },
-                   {
-                       name: "Earth God Dungeon",
-                       monsters: [
-                           "Earth Guard",
-                           "Earth Monster",
-                           "Earth Golem",
-                           "Mistral",
-                           "Ophidia",
-                           "Terran"
-                       ]
-                   },
-                   {
-                       name: "Fire God Dungeon",
-                       monsters: [
-                           "Fire Guard",
-                           "Fire Monster",
-                           "Fire Golem",
-                           "Pyra",
-                           "Ignis",
-                           "Ragnar"
-                       ]
-                   }
-               ],
-               slayerTeirs: [
-                   {
-                       name: "Easy",
-                       monsters: [
-                           "Black Knight",
-                           "Hill Giant",
-                           "Giant Crab",
-                           "Tentacle",
-                           "Seagull",
-                           "Confused Pirate",
-                           "Frozen Archer",
-                           "Mummy",
-                           "Statue",
-                           "Wet Monster",
-                           "Moist Monster",
-                           "Sweaty Monster",
-                           "Many Eyed Monster",
-                           "Lots of Eyes",
-                           "Fairy",
-                           "Goo Monster",
-                           "Green Goo Monster",
-                           "Golbin",
-                           "Ranged Golbin",
-                           "Chicken",
-                           "Cow",
-                           "Junior Farmer",
-                           "Adult Farmer",
-                           "Wizard",
-                           "Steel Knight",
-                           "Mithril Knight",
-                           "Bandit Trainee",
-                           "Bandit",
-                           "Plant",
-                       ]
-                   },
-                   {
-                       name: "Normal",
-                       monsters: [
-                           "Moss Giant",
-                           "Frozen Mammoth",
-                           "Stone Snake",
-                           "Undead Warewolf",
-                           "Vampire",
-                           "Strange Eyed Monser",
-                           "Eyes",
-                           "Valkyrie",
-                           "Angel",
-                           "Holy Archer",
-                           "Purple Goo Monster",
-                           "Scattered Goo Monster",
-                           "Green Dragon",
-                           "Blue Dragon",
-                           "Adamant Knight",
-                           "Master Wizard",
-                           "Druid",
-                           "Thief",
-                           "Shaman",
-                           "Turkul Raiders",
-                           "Turkul Archers",
-                           "Turkul Throwers",
-                           "Wandering Bard",
-                       ]
-                   },
-                   {
-                       name: "Hard",
-                       monsters: [
-                           "Fierce Devil",
-                           "Griffen",
-                           "Pegasus",
-                           "Raging Horned Elite",
-                           "Seething Horned Elite",
-                           "Red Dragon",
-                           "Black Dragon",
-                           "Rune Knight",
-                           "Dark Wizard",
-                           "Necromancer",
-                           "Elementalist",
-                           "Turkul Giant",
-                           "Turkul General",
-                           "Sand Beast",
-                           "Paladin",
-                           "Priest",
-                           "Superior Eyed Monster"
-                       ]
-                   },
-                   {
-                       name: "Elite",
-                       monsters: [
-                           "Dark Horned Elite",
-                           "Furious Horned Elite",
-                           "Rancora Spider",
-                           "Elder Vampire",
-                           "Cursed Maiden",
-                           "Bounty Hunter",
-                           "Eye of Fear"
-                       ]
-                   },
-                   {
-                       name: "Master",
-                       monsters: [
-                           "Chaotic Greater Dragon",
-                           "Hunting Greater Dragon",
-                           "Wicked Greater Dragon",
-                           "Umbora",
-                           "Rokken",
-                           "Ku-tul",
-                       ]
-                   }
-               ],
-               monsters:[
+    app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                slayerTier: "Easy",
+                totalHealth: 100,
+                currentDR: 0,
+                autoEatLevel: "1",
+                combatStyle: "Melee",
+                gameMode: "Normal",
+                yakSynergy: "None",
+                playerMaxHit: 100,
+                wgdMonsterInfo: {
+                    minimumDR: 0,
+                    minimumHP: 0,
+                    maxHit: 0,
+                    reducedMaxHit: 0,
+                    isIdleable: true,
+                },
+                wastefulRing: "No",
+                guardianAmulet: "No",
+                dungeonChoice: "Chicken Coop",
+                dungeons: [
+                    {
+                        name: "Chicken Coop",
+                        monsters: [
+                            "Chicken",
+                            "Chick",
+                            "Mumma Chicken"
+                        ]
+                    },
+                    {
+                        name: "Undead Graveyard",
+                        monsters: [
+                            "Zombie Hand",
+                            "Zombie",
+                            "Ghost",
+                            "Zombie Leader"
+                        ]
+                    },
+                    {
+                        name: "Bandit Base",
+                        monsters: [
+                            "Bandit Trainee",
+                            "Bandit",
+                            "Bandit Leader"
+                        ]
+                    },
+                    {
+                        name: "Hall of Wizards",
+                        monsters: [
+                            "Wizard",
+                            "Master Wizard",
+                            "Dark Wizard",
+                            "Elder Wizard"
+                        ]
+                    },
+                    {
+                        name: "Spider Forest",
+                        monsters: [
+                            "Spider",
+                            "Spider2",
+                            "Evil Spider",
+                            "Spider King"
+                        ]
+                    },
+                    {
+                        name: "Miolite Caves",
+                        monsters: [
+                            "Miolite Spring",
+                            "Miolite Trio",
+                            "Miolite Warden",
+                            "Miolite Monarch"
+                        ]
+                    },
+                    {
+                        name: "Deep Sea Ship",
+                        monsters: [
+                            "Pirate",
+                            "First Mate",
+                            "Pirate Captain",
+                            "The Kraken"
+                        ]
+                    },
+                    {
+                        name: "Frozen Cove",
+                        monsters: [
+                            "Ice Monster",
+                            "Ice Troll",
+                            "Ice",
+                            "Protector of Ice"
+                        ]
+                    },
+                    {
+                        name: "Dragons Den",
+                        monsters: [
+                            "Green Dragon",
+                            "Blue Dragon",
+                            "Red Dragon",
+                            "Black Dragon",
+                            "Elder Dragon"
+                        ]
+                    },
+                    {
+                        name: "Volcanic Cave",
+                        monsters: [
+                            "Bat",
+                            "Big Bat",
+                            "The Eye",
+                            "The Resurrected Eye",
+                            "Vicious Serpent",
+                            "Fire Spirit",
+                            "Prat, the Protector of Secrets",
+                            "Malcs, the Guardian of Melvor"
+                        ]
+                    },
+                    {
+                        name: "Infernal Stronghold",
+                        monsters: [
+                            "Cerberus",
+                            "Fearful Eye",
+                            "Red Devil",
+                            "Phoenix",
+                            "Incendius",
+                            "Prat, the Guardian of Secrets",
+                            "Malcs, the Leader of Dragons"
+                        ]
+                    },
+                    {
+                        name: "Air God Dungeon",
+                        monsters: [
+                            "Air Guard",
+                            "Air Monster",
+                            "Air Golem",
+                            "Aleron",
+                            "Voltaire",
+                            "Aeris"
+                        ]
+                    },
+                    {
+                        name: "Water God Dungeon",
+                        monsters: [
+                            "Water Guard",
+                            "Water Monster",
+                            "Water Golem",
+                            "Lissia",
+                            "Murtia",
+                            "Glacia"
+                        ]
+                    },
+                    {
+                        name: "Earth God Dungeon",
+                        monsters: [
+                            "Earth Guard",
+                            "Earth Monster",
+                            "Earth Golem",
+                            "Mistral",
+                            "Ophidia",
+                            "Terran"
+                        ]
+                    },
+                    {
+                        name: "Fire God Dungeon",
+                        monsters: [
+                            "Fire Guard",
+                            "Fire Monster",
+                            "Fire Golem",
+                            "Pyra",
+                            "Ignis",
+                            "Ragnar"
+                        ]
+                    }
+                ],
+                slayerTeirs: [
+                    {
+                        name: "Easy",
+                        monsters: [
+                            "Black Knight",
+                            "Hill Giant",
+                            "Giant Crab",
+                            "Tentacle",
+                            "Seagull",
+                            "Confused Pirate",
+                            "Frozen Archer",
+                            "Mummy",
+                            "Statue",
+                            "Wet Monster",
+                            "Moist Monster",
+                            "Sweaty Monster",
+                            "Many Eyed Monster",
+                            "Lots of Eyes",
+                            "Fairy",
+                            "Goo Monster",
+                            "Green Goo Monster",
+                            "Golbin",
+                            "Ranged Golbin",
+                            "Chicken",
+                            "Cow",
+                            "Junior Farmer",
+                            "Adult Farmer",
+                            "Wizard",
+                            "Steel Knight",
+                            "Mithril Knight",
+                            "Bandit Trainee",
+                            "Bandit",
+                            "Plant",
+                        ]
+                    },
+                    {
+                        name: "Normal",
+                        monsters: [
+                            "Moss Giant",
+                            "Frozen Mammoth",
+                            "Stone Snake",
+                            "Undead Warewolf",
+                            "Vampire",
+                            "Strange Eyed Monser",
+                            "Eyes",
+                            "Valkyrie",
+                            "Angel",
+                            "Holy Archer",
+                            "Purple Goo Monster",
+                            "Scattered Goo Monster",
+                            "Green Dragon",
+                            "Blue Dragon",
+                            "Adamant Knight",
+                            "Master Wizard",
+                            "Druid",
+                            "Thief",
+                            "Shaman",
+                            "Turkul Raiders",
+                            "Turkul Archers",
+                            "Turkul Throwers",
+                            "Wandering Bard",
+                        ]
+                    },
+                    {
+                        name: "Hard",
+                        monsters: [
+                            "Fierce Devil",
+                            "Griffen",
+                            "Pegasus",
+                            "Raging Horned Elite",
+                            "Seething Horned Elite",
+                            "Red Dragon",
+                            "Black Dragon",
+                            "Rune Knight",
+                            "Dark Wizard",
+                            "Necromancer",
+                            "Elementalist",
+                            "Turkul Giant",
+                            "Turkul General",
+                            "Sand Beast",
+                            "Paladin",
+                            "Priest",
+                            "Superior Eyed Monster"
+                        ]
+                    },
+                    {
+                        name: "Elite",
+                        monsters: [
+                            "Dark Horned Elite",
+                            "Furious Horned Elite",
+                            "Rancora Spider",
+                            "Elder Vampire",
+                            "Cursed Maiden",
+                            "Bounty Hunter",
+                            "Eye of Fear"
+                        ]
+                    },
+                    {
+                        name: "Master",
+                        monsters: [
+                            "Chaotic Greater Dragon",
+                            "Hunting Greater Dragon",
+                            "Wicked Greater Dragon",
+                            "Umbora",
+                            "Rokken",
+                            "Ku-tul",
+                        ]
+                    }
+                ],
+                monsters:
+                    [
                         {
                             name: "Black Knight",
                             attackStyle: "Melee",
@@ -752,7 +810,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 40,
-                            attackBonus: 15,
+                            attackBonus: 10,
                             specialAttack: []
                         },
                         {
@@ -781,8 +839,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 12,
-                            attackBonus: 0,
+                            attackLevel: 75,
+                            attackBonus: 8,
+                            spellMaxHit: 8,
                             specialAttack: []
                         },
                         {
@@ -852,7 +911,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 50,
-                            attackBonus: 20,
+                            attackBonus: 30,
                             specialAttack: []
                         },
                         {
@@ -911,8 +970,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 17,
-                            attackBonus: 0,
+                            attackLevel: 50,
+                            attackBonus: 4,
+                            spellMaxHit: 13,
                             specialAttack: []
                         },
                         {
@@ -931,8 +991,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 19,
-                            attackBonus: 0,
+                            attackLevel: 80,
+                            attackBonus: 22,
+                            spellMaxHit: 11,
                             specialAttack: []
                         },
                         {
@@ -942,7 +1003,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 80,
-                            attackBonus: 50,
+                            attackBonus: 40,
                             specialAttack: []
                         },
                         {
@@ -1131,8 +1192,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 14,
-                            attackBonus: 0,
+                            attackLevel: 120,
+                            attackBonus: 9,
+                            spellMaxHit: 8,
                             specialAttack: []
                         },
                         {
@@ -1141,8 +1203,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 24,
-                            attackBonus: 0,
+                            attackLevel: 200,
+                            attackBonus: -1,
+                            spellMaxHit: 12,
                             specialAttack: []
                         },
                         {
@@ -1154,10 +1217,10 @@
                             attackLevel: 480,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Volley",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Volley",
+                                    maxHit: 100
+                                }
                             ]
                         },
                         {
@@ -1169,14 +1232,14 @@
                             attackLevel: 960,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Razor-Sharp Claws",
-                                maxHit: 52
-                            },
-                            {
-                                name: "Dragonbreath",
-                                maxHit: 6
-                            }
+                                {
+                                    name: "Razor-Sharp Claws",
+                                    maxHit: 52
+                                },
+                                {
+                                    name: "Dragonbreath",
+                                    maxHit: 6
+                                }
                             ]
                         },
                         {
@@ -1385,8 +1448,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 12,
-                            attackBonus: 0,
+                            attackLevel: 40,
+                            attackBonus: -1,
+                            spellMaxHit: 10,
                             specialAttack: []
                         },
                         {
@@ -1436,7 +1500,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 20,
-                            attackBonus: 0,
+                            attackBonus: 15,
                             specialAttack: []
                         },
                         {
@@ -1446,7 +1510,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 60,
-                            attackBonus: 0,
+                            attackBonus: 30,
                             specialAttack: []
                         },
                         {
@@ -1456,7 +1520,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 130,
-                            attackBonus: 10,
+                            attackBonus: 75,
                             specialAttack: []
                         },
                         {
@@ -1465,8 +1529,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 20,
-                            attackBonus: 5,
+                            attackLevel: 90,
+                            attackBonus: 20,
+                            spellMaxHit: 12,
                             specialAttack: []
                         },
                         {
@@ -1475,8 +1540,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 17,
-                            attackBonus: 0,
+                            attackLevel: 75,
+                            attackBonus: 2,
+                            spellMaxHit: 12,
                             specialAttack: []
                         },
                         {
@@ -1485,8 +1551,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 21,
+                            attackLevel: 120,
                             attackBonus: 0,
+                            spellMaxHit: 13,
                             specialAttack: []
                         },
                         {
@@ -1525,8 +1592,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 34,
-                            attackBonus: 0,
+                            attackLevel: 380,
+                            attackBonus: 46,
+                            spellMaxHit: 8,
                             specialAttack: []
                         },
                         {
@@ -1536,12 +1604,12 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 200,
-                            attackBonus: 35,
+                            attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Barrage",
-                                maxHit: 10
-                            }
+                                {
+                                    name: "Barrage",
+                                    maxHit: 10
+                                }
                             ]
                         },
                         {
@@ -1553,10 +1621,10 @@
                             attackLevel: 280,
                             attackBonus: 30,
                             specialAttack: [
-                            {
-                                name: "Wind Blade",
-                                maxHit: 35
-                            }
+                                {
+                                    name: "Wind Blade",
+                                    maxHit: 35
+                                }
                             ]
                         },
                         {
@@ -1568,10 +1636,10 @@
                             attackLevel: 520,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Whirlwind",
-                                maxHit: 55
-                            }
+                                {
+                                    name: "Whirlwind",
+                                    maxHit: 55
+                                }
                             ]
                         },
                         {
@@ -1583,10 +1651,10 @@
                             attackLevel: 500,
                             attackBonus: 22,
                             specialAttack: [
-                            {
-                                name: "Tornado",
-                                maxHit: 40
-                            }
+                                {
+                                    name: "Tornado",
+                                    maxHit: 40
+                                }
                             ]
                         },
                         {
@@ -1596,12 +1664,12 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 670,
-                            attackBonus: 2,
+                            attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Tornado",
-                                maxHit: 40
-                            }
+                                {
+                                    name: "Tornado",
+                                    maxHit: 40
+                                }
                             ]
                         },
                         {
@@ -1611,28 +1679,28 @@
                             canSleep: false,
                             usesNormalHit: false,
                             attackLevel: 800,
-                            attackBonus: 2,
+                            attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Barrage",
-                                maxHit: 10
-                            },
-                            {
-                                name: "Wind Blade",
-                                maxHit: 35
-                            },
-                            {
-                                name: "Whirlwind",
-                                maxHit: 55
-                            },
-                            {
-                                name: "Tornado",
-                                maxHit: 40
-                            },
-                            {
-                                name: "Cyclone",
-                                maxHit: 60
-                            }
+                                {
+                                    name: "Barrage",
+                                    maxHit: 10
+                                },
+                                {
+                                    name: "Wind Blade",
+                                    maxHit: 35
+                                },
+                                {
+                                    name: "Whirlwind",
+                                    maxHit: 55
+                                },
+                                {
+                                    name: "Tornado",
+                                    maxHit: 40
+                                },
+                                {
+                                    name: "Cyclone",
+                                    maxHit: 60
+                                }
                             ]
                         },
                         {
@@ -1641,17 +1709,18 @@
                             canStun: true,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 37,
-                            attackBonus: 0,
+                            attackLevel: 200,
+                            attackBonus: 31,
+                            spellMaxHit: 14,
                             specialAttack: [
-                            {
-                                name: "Icy Chill",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Frozen Spears",
-                                maxHit: 20
-                            }
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Frozen Spears",
+                                    maxHit: 20
+                                }
                             ]
                         },
                         {
@@ -1663,14 +1732,14 @@
                             attackLevel: 280,
                             attackBonus: 18,
                             specialAttack: [
-                            {
-                                name: "Icy Chill",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Ice Break",
-                                maxHit: 36
-                            }
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Ice Break",
+                                    maxHit: 36
+                                }
                             ]
                         },
                         {
@@ -1679,13 +1748,14 @@
                             canStun: true,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 57,
-                            attackBonus: 0,
+                            attackLevel: 520,
+                            attackBonus: 12,
+                            spellMaxHit: 14,
                             specialAttack: [
-                            {
-                                name: "Flash Freeze",
-                                maxHit: 65
-                            }
+                                {
+                                    name: "Flash Freeze",
+                                    maxHit: 65
+                                }
                             ]
                         },
                         {
@@ -1694,17 +1764,18 @@
                             canStun: true,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 72,
-                            attackBonus: 0,
+                            attackLevel: 500,
+                            attackBonus: 14,
+                            spellMaxHit: 18,
                             specialAttack: [
-                            {
-                                name: "Icy Chill",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Winterland",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Winterland",
+                                    maxHit: 0
+                                }
                             ]
                         },
                         {
@@ -1716,14 +1787,14 @@
                             attackLevel: 430,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Icy Chill",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Winterland",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Icy Chill",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Winterland",
+                                    maxHit: 0
+                                }
                             ]
                         },
                         {
@@ -1731,30 +1802,31 @@
                             attackStyle: "Magic",
                             canStun: true,
                             canSleep: false,
-                            usesNormalHit: false,
-                            attackLevel: 85,
-                            attackBonus: 0,
+                            usesNormalHit: true,
+                            attackLevel: 600,
+                            attackBonus: 8,
+                            spellMaxHit: 18,
                             specialAttack: [
-                            {
-                                name: "Frozen Spears",
-                                maxHit: 20
-                            },
-                            {
-                                name: "Ice Break",
-                                maxHit: 36
-                            },
-                            {
-                                name: "Flash Freeze",
-                                maxHit: 65
-                            },
-                            {
-                                name: "Winterland",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Frigid Waves",
-                                maxHit: 78
-                            }
+                                {
+                                    name: "Frozen Spears",
+                                    maxHit: 20
+                                },
+                                {
+                                    name: "Ice Break",
+                                    maxHit: 36
+                                },
+                                {
+                                    name: "Flash Freeze",
+                                    maxHit: 65
+                                },
+                                {
+                                    name: "Winterland",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Frigid Waves",
+                                    maxHit: 78
+                                }
                             ]
                         },
                         {
@@ -1764,12 +1836,12 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 200,
-                            attackBonus: 29,
+                            attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Stone Wall",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Stone Wall",
+                                    maxHit: 0
+                                }
                             ]
                         },
                         {
@@ -1781,10 +1853,10 @@
                             attackLevel: 280,
                             attackBonus: 28,
                             specialAttack: [
-                            {
-                                name: "Charge",
-                                maxHit: 65
-                            }
+                                {
+                                    name: "Charge",
+                                    maxHit: 65
+                                }
                             ]
                         },
                         {
@@ -1796,10 +1868,10 @@
                             attackLevel: 380,
                             attackBonus: 20,
                             specialAttack: [
-                            {
-                                name: "Boulder",
-                                maxHit: 85
-                            }
+                                {
+                                    name: "Boulder",
+                                    maxHit: 85
+                                }
                             ]
                         },
                         {
@@ -1808,13 +1880,14 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 68,
-                            attackBonus: 0,
+                            attackLevel: 500,
+                            attackBonus: 2,
+                            spellMaxHit: 19,
                             specialAttack: [
-                            {
-                                name: "Grasping Roots",
-                                maxHit: 60
-                            }
+                                {
+                                    name: "Grasping Roots",
+                                    maxHit: 60
+                                }
                             ]
                         },
                         {
@@ -1826,10 +1899,10 @@
                             attackLevel: 525,
                             attackBonus: 18,
                             specialAttack: [
-                            {
-                                name: "Grasping Roots",
-                                maxHit: 60
-                            }
+                                {
+                                    name: "Grasping Roots",
+                                    maxHit: 60
+                                }
                             ]
                         },
                         {
@@ -1841,26 +1914,26 @@
                             attackLevel: 570,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Stone Wall",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Charge",
-                                maxHit: 65
-                            },
-                            {
-                                name: "Boulder",
-                                maxHit: 85
-                            },
-                            {
-                                name: "Grasping Roots",
-                                maxHit: 60
-                            },
-                            {
-                                name: "Seismic Slam",
-                                maxHit: 95
-                            }
+                                {
+                                    name: "Stone Wall",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Charge",
+                                    maxHit: 65
+                                },
+                                {
+                                    name: "Boulder",
+                                    maxHit: 85
+                                },
+                                {
+                                    name: "Grasping Roots",
+                                    maxHit: 60
+                                },
+                                {
+                                    name: "Seismic Slam",
+                                    maxHit: 95
+                                }
                             ]
                         },
                         {
@@ -1872,10 +1945,10 @@
                             attackLevel: 160,
                             attackBonus: 70,
                             specialAttack: [
-                            {
-                                name: "Fireball",
-                                maxHit: 65
-                            }
+                                {
+                                    name: "Fireball",
+                                    maxHit: 65
+                                }
                             ]
                         },
                         {
@@ -1887,10 +1960,10 @@
                             attackLevel: 280,
                             attackBonus: 40,
                             specialAttack: [
-                            {
-                                name: "Burning Claws",
-                                maxHit: 40
-                            }
+                                {
+                                    name: "Burning Claws",
+                                    maxHit: 40
+                                }
                             ]
                         },
                         {
@@ -1899,13 +1972,14 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 58,
-                            attackBonus: 0,
+                            attackLevel: 500,
+                            attackBonus: 3,
+                            spellMaxHit: 16,
                             specialAttack: [
-                            {
-                                name: "Scorching Ray",
-                                maxHit: 10
-                            }
+                                {
+                                    name: "Scorching Ray",
+                                    maxHit: 10
+                                }
                             ]
                         },
                         {
@@ -1914,13 +1988,14 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 75,
-                            attackBonus: 0,
+                            attackLevel: 500,
+                            attackBonus: 6,
+                            spellMaxHit: 20,
                             specialAttack: [
-                            {
-                                name: "Meteor Shower",
-                                maxHit: 85
-                            }
+                                {
+                                    name: "Meteor Shower",
+                                    maxHit: 85
+                                }
                             ]
                         },
                         {
@@ -1932,10 +2007,10 @@
                             attackLevel: 530,
                             attackBonus: 25,
                             specialAttack: [
-                            {
-                                name: "Meteor Shower",
-                                maxHit: 85
-                            }
+                                {
+                                    name: "Meteor Shower",
+                                    maxHit: 85
+                                }
                             ]
                         },
                         {
@@ -1944,29 +2019,30 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: false,
-                            attackLevel: 80,
-                            attackBonus: 0,
+                            attackLevel: 400,
+                            attackBonus: 10,
+                            spellMaxHit: 24,
                             specialAttack: [
-                            {
-                                name: "Fireball",
-                                maxHit: 65
-                            },
-                            {
-                                name: "Burning Claws",
-                                maxHit: 40
-                            },
-                            {
-                                name: "Scorching Ray",
-                                maxHit: 10
-                            },
-                            {
-                                name: "Meteor Shower",
-                                maxHit: 85
-                            },
-                            {
-                                name: "Cataclysm",
-                                maxHit: 130
-                            }
+                                {
+                                    name: "Fireball",
+                                    maxHit: 65
+                                },
+                                {
+                                    name: "Burning Claws",
+                                    maxHit: 40
+                                },
+                                {
+                                    name: "Scorching Ray",
+                                    maxHit: 10
+                                },
+                                {
+                                    name: "Meteor Shower",
+                                    maxHit: 85
+                                },
+                                {
+                                    name: "Cataclysm",
+                                    maxHit: 130
+                                }
                             ]
                         },
                         {
@@ -1986,7 +2062,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 250,
-                            attackBonus: 30,
+                            attackBonus: 60,
                             specialAttack: []
                         },
                         {
@@ -2008,10 +2084,10 @@
                             attackLevel: 50,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Spores",
-                                maxHit: 15
-                            }
+                                {
+                                    name: "Spores",
+                                    maxHit: 15
+                                }
                             ]
                         },
                         {
@@ -2020,13 +2096,14 @@
                             canStun: false,
                             canSleep: true,
                             usesNormalHit: true,
-                            attackLevel: 12.1,
-                            attackBonus: 0,
+                            attackLevel: 130,
+                            attackBonus: 21,
+                            spellMaxHit: 6,
                             specialAttack: [
-                            {
-                                name: "Spores",
-                                maxHit: 15
-                            }
+                                {
+                                    name: "Spores",
+                                    maxHit: 15
+                                }
                             ]
                         },
                         {
@@ -2038,10 +2115,10 @@
                             attackLevel: 130,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Spores",
-                                maxHit: 15
-                            }
+                                {
+                                    name: "Spores",
+                                    maxHit: 15
+                                }
                             ]
                         },
                         {
@@ -2050,13 +2127,14 @@
                             canStun: false,
                             canSleep: true,
                             usesNormalHit: true,
-                            attackLevel: 18.5,
-                            attackBonus: 0,
+                            attackLevel: 185,
+                            attackBonus: 59,
+                            spellMaxHit: 6,
                             specialAttack: [
-                            {
-                                name: "Drowsy Spores",
-                                maxHit: 20
-                            }
+                                {
+                                    name: "Drowsy Spores",
+                                    maxHit: 20
+                                }
                             ]
                         },
                         {
@@ -2065,8 +2143,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 8.1,
-                            attackBonus: 0,
+                            attackLevel: 85,
+                            attackBonus: 41,
+                            spellMaxHit: 4,
                             specialAttack: []
                         },
                         {
@@ -2085,8 +2164,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 13.7,
-                            attackBonus: 0,
+                            attackLevel: 110,
+                            attackBonus: -3,
+                            spellMaxHit: 9,
                             specialAttack: []
                         },
                         {
@@ -2095,8 +2175,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 16.3,
-                            attackBonus: 0,
+                            attackLevel: 125,
+                            attackBonus: -24,
+                            spellMaxHit: 13,
                             specialAttack: []
                         },
                         {
@@ -2105,8 +2186,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 24,
-                            attackBonus: 0,
+                            attackLevel: 220,
+                            attackBonus: 14,
+                            spellMaxHit: 10,
                             specialAttack: []
                         },
                         {
@@ -2126,7 +2208,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 90,
-                            attackBonus: 0,
+                            attackBonus: 38,
                             specialAttack: []
                         },
                         {
@@ -2136,7 +2218,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 110,
-                            attackBonus: 0,
+                            attackBonus: 18,
                             specialAttack: []
                         },
                         {
@@ -2156,7 +2238,7 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 180,
-                            attackBonus: 0,
+                            attackBonus: 10,
                             specialAttack: []
                         },
                         {
@@ -2166,12 +2248,12 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 220,
-                            attackBonus: 5,
+                            attackBonus: 15,
                             specialAttack: [
-                            {
-                                name: "Sandstorm",
-                                maxHit: 27.75
-                            }
+                                {
+                                    name: "Sandstorm",
+                                    maxHit: 15
+                                }
                             ]
                         },
                         {
@@ -2181,12 +2263,12 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 290,
-                            attackBonus: 20,
+                            attackBonus: 17,
                             specialAttack: [
-                            {
-                                name: "Webshot",
-                                maxHit: 45
-                            }
+                                {
+                                    name: "Webshot",
+                                    maxHit: 45
+                                }
                             ]
                         },
                         {
@@ -2196,12 +2278,12 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 305,
-                            attackBonus: 0,
+                            attackBonus: 35,
                             specialAttack: [
-                            {
-                                name: "Drain",
-                                maxHit: 30
-                            }
+                                {
+                                    name: "Drain",
+                                    maxHit: 30
+                                }
                             ]
                         },
                         {
@@ -2210,13 +2292,14 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 45,
-                            attackBonus: 0,
+                            attackLevel: 330,
+                            attackBonus: 21,
+                            spellMaxHit: 14,
                             specialAttack: [
-                            {
-                                name: "Curse of Fear",
-                                maxHit: 60
-                            }
+                                {
+                                    name: "Curse of Fear",
+                                    maxHit: 60
+                                }
                             ]
                         },
                         {
@@ -2228,10 +2311,10 @@
                             attackLevel: 230,
                             attackBonus: 20,
                             specialAttack: [
-                            {
-                                name: "Hunter Expertise",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Hunter Expertise",
+                                    maxHit: 0
+                                }
                             ]
                         },
                         {
@@ -2243,14 +2326,14 @@
                             attackLevel: 350,
                             attackBonus: 20,
                             specialAttack: [
-                            {
-                                name: "Greater Dragonbreath",
-                                maxHit: 12
-                            },
-                            {
-                                name: "Chaotic Slam",
-                                maxHit: 65
-                            }
+                                {
+                                    name: "Greater Dragonbreath",
+                                    maxHit: 12
+                                },
+                                {
+                                    name: "Chaotic Slam",
+                                    maxHit: 65
+                                }
                             ]
                         },
                         {
@@ -2258,18 +2341,18 @@
                             attackStyle: "Ranged",
                             canStun: false,
                             canSleep: false,
-                            usesNormalHit: true,
+                            usesNormalHit: false,
                             attackLevel: 395,
-                            attackBonus: 0,
+                            attackBonus: 30,
                             specialAttack: [
-                            {
-                                name: "Greater Dragonbreath",
-                                maxHit: 12
-                            },
-                            {
-                                name: "Agility",
-                                maxHit: 65
-                            }
+                                {
+                                    name: "Greater Dragonbreath",
+                                    maxHit: 12
+                                },
+                                {
+                                    name: "Agility",
+                                    maxHit: 65
+                                }
                             ]
                         },
                         {
@@ -2278,17 +2361,18 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: false,
-                            attackLevel: 47.7,
-                            attackBonus: 0,
+                            attackLevel: 350,
+                            attackBonus: 8,
+                            spellMaxHit: 16,
                             specialAttack: [
-                            {
-                                name: "Greater Dragonbreath",
-                                maxHit: 12
-                            },
-                            {
-                                name: "Confusion",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Greater Dragonbreath",
+                                    maxHit: 12
+                                },
+                                {
+                                    name: "Confusion",
+                                    maxHit: 75
+                                }
                             ]
                         },
                         {
@@ -2300,14 +2384,14 @@
                             attackLevel: 450,
                             attackBonus: 40,
                             specialAttack: [
-                            {
-                                name: "Elusiveness",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Rapid Onslaught",
-                                maxHit: 93
-                            }
+                                {
+                                    name: "Elusiveness",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Rapid Onslaught",
+                                    maxHit: 93
+                                }
                             ]
                         },
                         {
@@ -2317,16 +2401,16 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 600,
-                            attackBonus: 15,
+                            attackBonus: 14,
                             specialAttack: [
-                            {
-                                name: "Elusiveness",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Shockwave",
-                                maxHit: 95
-                            }
+                                {
+                                    name: "Elusiveness",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Shockwave",
+                                    maxHit: 95
+                                }
                             ]
                         },
                         {
@@ -2334,18 +2418,19 @@
                             attackStyle: "Magic",
                             canStun: false,
                             canSleep: false,
-                            usesNormalHit: false,
-                            attackLevel: 1,
+                            usesNormalHit: true,
+                            attackLevel: 650,
                             attackBonus: 0,
+                            spellMaxHit: 18,
                             specialAttack: [
-                            {
-                                name: "Elusiveness",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Curse of the Deep",
-                                maxHit: 97
-                            }
+                                {
+                                    name: "Elusiveness",
+                                    maxHit: 0
+                                },
+                                {
+                                    name: "Curse of the Deep",
+                                    maxHit: 97
+                                }
                             ]
                         },
                         {
@@ -2364,8 +2449,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 21.3,
-                            attackBonus: 0,
+                            attackLevel: 175,
+                            attackBonus: 13,
+                            spellMaxHit: 10,
                             specialAttack: []
                         },
                         {
@@ -2374,8 +2460,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 11.8,
-                            attackBonus: 0,
+                            attackLevel: 70,
+                            attackBonus: 8,
+                            spellMaxHit: 8,
                             specialAttack: []
                         },
                         {
@@ -2394,8 +2481,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 23.6,
-                            attackBonus: 0,
+                            attackLevel: 220,
+                            attackBonus: 12,
+                            spellMaxHit: 10,
                             specialAttack: []
                         },
                         {
@@ -2414,8 +2502,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 37.1,
-                            attackBonus: 0,
+                            attackLevel: 350,
+                            attackBonus: 12,
+                            spellMaxHit: 12,
                             specialAttack: []
                         },
                         {
@@ -2427,10 +2516,10 @@
                             attackLevel: 380,
                             attackBonus: 5,
                             specialAttack: [
-                            {
-                                name: "Burning Trail",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Burning Trail",
+                                    maxHit: 100
+                                }
                             ]
                         },
                         {
@@ -2440,16 +2529,16 @@
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 500,
-                            attackBonus: 0,
+                            attackBonus: 5,
                             specialAttack: [
-                            {
-                                name: "Volley",
-                                maxHit: 0
-                            },
-                            {
-                                name: "Infernal Volley",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Volley",
+                                    maxHit: 100
+                                },
+                                {
+                                    name: "Infernal Volley",
+                                    maxHit: 100
+                                }
                             ]
                         },
                         {
@@ -2457,26 +2546,26 @@
                             attackStyle: "Melee",
                             canStun: true,
                             canSleep: false,
-                            usesNormalHit: false,
-                            attackLevel: 700,
+                            usesNormalHit: true,
+                            attackLevel: 669,
                             attackBonus: 0,
                             specialAttack: [
-                            {
-                                name: "Tail Whip",
-                                maxHit: 69
-                            },
-                            {
-                                name: "Penetrating Claws",
-                                maxHit: 64
-                            },
-                            {
-                                name: "Inferno",
-                                maxHit: 20
-                            },
-                            {
-                                name: "Sealing",
-                                maxHit: 0
-                            }
+                                {
+                                    name: "Tail Whip",
+                                    maxHit: 69
+                                },
+                                {
+                                    name: "Penetrating Claws",
+                                    maxHit: 64
+                                },
+                                {
+                                    name: "Inferno",
+                                    maxHit: 20
+                                },
+                                {
+                                    name: "Sealing",
+                                    maxHit: 0
+                                }
                             ]
                         },
                         {
@@ -2485,8 +2574,9 @@
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
-                            attackLevel: 22,
-                            attackBonus: 0,
+                            attackLevel: 160,
+                            attackBonus: 35,
+                            spellMaxHit: 9,
                             specialAttack: []
                         },
                         {
@@ -2501,10 +2591,10 @@
                         }
                     ],
             };
-       },
-       methods: {
-           //General Functions
-            getCombatStyle(style){
+        },
+        methods: {
+            //General Functions
+            getCombatStyle(style) {
                 switch (style) {
                     case "Melee":
                         return 0;
@@ -2516,10 +2606,10 @@
             },
 
             // Share URL
-            getShareURL(){
-                navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "totalHealth=" + this.totalHealth + 
-                        "&" + "currentDR=" + this.currentDR + "&" + "autoEatLevel=" + this.autoEatLevel + "&" + "combatStyle=" + this.combatStyle + "&" + "gameMode=" + this.gameMode +
-                        "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet)
+            getShareURL() {
+                navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "totalHealth=" + this.totalHealth +
+                    "&" + "currentDR=" + this.currentDR + "&" + "autoEatLevel=" + this.autoEatLevel + "&" + "combatStyle=" + this.combatStyle + "&" + "gameMode=" + this.gameMode +
+                    "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet)
                     .catch(err => {
                         alert('Error in copying text: ', err);
                     });
@@ -2533,31 +2623,31 @@
 
                 monster.specialAttack.forEach(attack => {
                     let currentSpecialAttack = this.calculateSpecialAttack(attack.maxHit, monster.canStun, monster.canSleep);
-                    if (currentSpecialAttack > maxSpecialAttack){
+                    if (currentSpecialAttack > maxSpecialAttack) {
                         maxSpecialAttack = currentSpecialAttack;
                     }
                 });
 
                 return Math.max(maxNormalAttack, maxSpecialAttack);
             },
-            calculateYakDRModifier(monsterAttackStyle, monsterIsSlayerTask){
+            calculateYakDRModifier(monsterAttackStyle, monsterIsSlayerTask) {
                 let ret = 0;
-                
+
                 if ((this.yakSynergy == "Minotaur" && monsterAttackStyle == "Ranged")
-                  || (this.yakSynergy == "Centaur" && monsterAttackStyle == "Magic")
-                  || (this.yakSynergy == "Witch" && monsterAttackStyle == "Melee")){
+                    || (this.yakSynergy == "Centaur" && monsterAttackStyle == "Magic")
+                    || (this.yakSynergy == "Witch" && monsterAttackStyle == "Melee")) {
                     ret = 2;
-                } 
-                else if (this.yakSynergy == "Cyclops" && monsterIsSlayerTask){
+                }
+                else if (this.yakSynergy == "Cyclops" && monsterIsSlayerTask) {
                     ret = 3;
                 }
 
                 return ret;
             },
-            calculateMinimumDR(attackStyle, attack){
-                return Math.max(0, Math.min(100,Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])));
+            calculateMinimumDR(attackStyle, attack) {
+                return Math.max(0, Math.min(100, Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])));
             },
-            calculateMinimumHP(attackStyle, attack){
+            calculateMinimumHP(attackStyle, attack) {
                 let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, false));
                 return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
             },
@@ -2566,33 +2656,33 @@
                 let combatAdjustedDr = Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)]);
                 let attackReduction = Math.floor(attack * (Math.min(100, combatAdjustedDr) / 100));
                 let reducedHit = attack - attackReduction;
-                if (this.guardianAmulet=="Yes" && reducedHit <= this.totalHealth*.5 && reducedHit >= this.totalHealth*this.autoEatThreshold){
+                if (this.guardianAmulet == "Yes" && reducedHit <= this.totalHealth * .5 && reducedHit >= this.totalHealth * this.autoEatThreshold) {
                     reducedHit = attack - Math.floor(attack * (Math.floor((parseInt(yakAdjustedDr) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100);
                 }
                 return reducedHit;
             },
-            calculateIdleability(attack){
-                return attack <= (this.totalHealth*this.autoEatThreshold);
+            calculateIdleability(attack) {
+                return attack <= (this.totalHealth * this.autoEatThreshold);
             },
             calculateNormalAttack(monster) {
                 let maximumNormalAttack = 0;
 
                 if (monster.attackStyle === "Melee") {
-                    let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
-                    maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
-                } 
+                    let effectiveAttackLevel = Math.floor(monster.attackLevel + 9);
+                    maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + effectiveAttackLevel * monster.attackBonus / 640));
+                }
                 else if (monster.attackStyle === "Ranged") {
-                    let effectiveAttackLevel = Math.floor(monster.attackLevel + 8 + 1);
-                    maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + (effectiveAttackLevel * monster.attackBonus) / 640));
-                } 
+                    let effectiveAttackLevel = Math.floor(monster.attackLevel + 9);
+                    maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + effectiveAttackLevel * monster.attackBonus / 640));
+                }
                 else if (monster.attackStyle === "Magic") {
-                    maximumNormalAttack = Math.floor(this.numberMultiplier * (monster.attackLevel + monster.attackLevel * (monster.attackBonus / 100)));
+                    maximumNormalAttack = Math.floor(this.numberMultiplier * monster.spellMaxHit * (1 + monster.attackBonus / 100) * (1 + (monster.attackLevel + 1) / 200));
                 }
 
                 let multiplier = 1;
                 if (monster.canStun) {
                     multiplier = 1.3;
-                } 
+                }
                 else if (monster.canSleep) {
                     multiplier = 1.2;
                 }
@@ -2605,7 +2695,7 @@
                 let multiplier = 1;
                 if (canStun) {
                     multiplier = 1.3;
-                } 
+                }
                 else if (canSleep) {
                     multiplier = 1.2;
                 }
@@ -2614,22 +2704,22 @@
             },
 
             // Calculate instance information for overview
-            calculateInstance(instance){
-                let instanceMonsters = this.monsters.filter(m=> instance.monsters.includes(m.name));
+            calculateInstance(instance) {
+                let instanceMonsters = this.monsters.filter(m => instance.monsters.includes(m.name));
                 let instanceInformation = {
-                            name: instance.name,
-                            minimumDR: 0,
-                            minimumHP: 0,
-                            isIdleable: true,
-                        };
+                    name: instance.name,
+                    minimumDR: 0,
+                    minimumHP: 0,
+                    isIdleable: true,
+                };
                 instanceMonsters.forEach(monster => {
                     let monsterInformation = this.calculateMonster(monster);
 
-                    if (monsterInformation.minimumDR > instanceInformation.minimumDR){
+                    if (monsterInformation.minimumDR > instanceInformation.minimumDR) {
                         instanceInformation.minimumDR = monsterInformation.minimumDR;
                     }
-                    
-                    if (monsterInformation.minimumHP > instanceInformation.minimumHP){
+
+                    if (monsterInformation.minimumHP > instanceInformation.minimumHP) {
                         instanceInformation.minimumHP = monsterInformation.minimumHP;
                     }
 
@@ -2639,24 +2729,24 @@
                 });
                 return instanceInformation;
             },
-            
-            // Calculate all monster data for display
-            calculateMonster(monster){
-                let monsterInformation = {
-                            name: monster.name,
-                            minimumDR: 0,
-                            minimumHP: 0,
-                            maxHit: 0,
-                            reducedMaxHit: 0,
-                            isIdleable: true,
-                            attackStyle: monster.attackStyle,
-                            canSleep: monster.canSleep,
-                            canStun: monster.canStun,
-                            attackSpeed: monster.attackSpeed,
-                            attacks: [],
-                        };
 
-                if (monster.usesNormalHit){
+            // Calculate all monster data for display
+            calculateMonster(monster) {
+                let monsterInformation = {
+                    name: monster.name,
+                    minimumDR: 0,
+                    minimumHP: 0,
+                    maxHit: 0,
+                    reducedMaxHit: 0,
+                    isIdleable: true,
+                    attackStyle: monster.attackStyle,
+                    canSleep: monster.canSleep,
+                    canStun: monster.canStun,
+                    attackSpeed: monster.attackSpeed,
+                    attacks: [],
+                };
+
+                if (monster.usesNormalHit) {
                     let attack = {
                         name: "Normal Attack",
                         minimumDR: 0,
@@ -2671,20 +2761,20 @@
                     attack.minimumDR = this.calculateMinimumDR(monster.attackStyle, attack.maxHit);
                     attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit);
 
-                    if (!this.calculateIdleability(attack.reducedMaxHit)){
+                    if (!this.calculateIdleability(attack.reducedMaxHit)) {
                         attack.isIdleable = false;
                         monsterInformation.isIdleable = false;
                     }
-                    if (monsterInformation.minimumDR < attack.minimumDR){
+                    if (monsterInformation.minimumDR < attack.minimumDR) {
                         monsterInformation.minimumDR = attack.minimumDR;
                     }
-                    if (monsterInformation.minimumHP < attack.minimumHP){
+                    if (monsterInformation.minimumHP < attack.minimumHP) {
                         monsterInformation.minimumHP = attack.minimumHP;
                     }
-                    if (monsterInformation.maxHit < attack.maxHit){
+                    if (monsterInformation.maxHit < attack.maxHit) {
                         monsterInformation.maxHit = attack.maxHit;
                     }
-                    if (monsterInformation.reducedMaxHit < attack.reducedMaxHit){
+                    if (monsterInformation.reducedMaxHit < attack.reducedMaxHit) {
                         monsterInformation.reducedMaxHit = attack.reducedMaxHit;
                     }
 
@@ -2702,10 +2792,10 @@
                             reducedMaxHit: 0,
                         }
 
-                        if (element.name !== "Volley" && element.name !== "Burning Trail" && element.name !== "Infernal Volley"){
+                        if (element.name !== "Volley" && element.name !== "Burning Trail" && element.name !== "Infernal Volley") {
                             attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep);
                         }
-                        else{
+                        else {
                             attack.maxHit = this.calculateNormalAttack(monster);
                         }
 
@@ -2713,65 +2803,65 @@
                         attack.minimumDR = this.calculateMinimumDR(monster.attackStyle, attack.maxHit);
                         attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit);
 
-                        if (!this.calculateIdleability(attack.reducedMaxHit)){
+                        if (!this.calculateIdleability(attack.reducedMaxHit)) {
                             attack.isIdleable = false;
                             monsterInformation.isIdleable = false;
                         }
-                        if (monsterInformation.minimumDR < attack.minimumDR){
+                        if (monsterInformation.minimumDR < attack.minimumDR) {
                             monsterInformation.minimumDR = attack.minimumDR;
                         }
-                        if (monsterInformation.minimumHP < attack.minimumHP){
+                        if (monsterInformation.minimumHP < attack.minimumHP) {
                             monsterInformation.minimumHP = attack.minimumHP;
                         }
-                        if (monsterInformation.maxHit < attack.maxHit){
+                        if (monsterInformation.maxHit < attack.maxHit) {
                             monsterInformation.maxHit = attack.maxHit;
                         }
-                        if (monsterInformation.reducedMaxHit < attack.reducedMaxHit){
+                        if (monsterInformation.reducedMaxHit < attack.reducedMaxHit) {
                             monsterInformation.reducedMaxHit = attack.reducedMaxHit;
                         }
-                        
+
                         monsterInformation.attacks.push(attack)
                     });
                 }
-                
+
                 return monsterInformation;
             },
 
             // Functions for UI Tables
-            findMonstersForDungeon(dungeon){
+            findMonstersForDungeon(dungeon) {
                 let dungeonMonstersNames = this.dungeons.filter(s => s.name == dungeon)[0].monsters;
-                let dungeonMonsters = this.monsters.filter(m=> dungeonMonstersNames.includes(m.name))
+                let dungeonMonsters = this.monsters.filter(m => dungeonMonstersNames.includes(m.name))
                 let monsterInformation = [];
                 dungeonMonsters.forEach(element => {
                     monsterInformation.push(this.calculateMonster(element));
                 });
                 return monsterInformation;
             },
-            findMonstersForSlayerTier(tier){
+            findMonstersForSlayerTier(tier) {
                 let teirMonstersNames = this.slayerTeirs.filter(s => s.name == tier)[0].monsters;
-                let teirMonsters = this.monsters.filter(m=> teirMonstersNames.includes(m.name));
+                let teirMonsters = this.monsters.filter(m => teirMonstersNames.includes(m.name));
                 let monsterInformation = [];
                 teirMonsters.forEach(element => {
                     monsterInformation.push(this.calculateMonster(element));
                 });
                 return monsterInformation;
             },
-            findMonstersforEverything(){
+            findMonstersforEverything() {
                 let monsterInformation = [];
                 this.monsters.forEach(element => {
                     monsterInformation.push(this.calculateMonster(element));
                 });
                 return monsterInformation;
             },
-            
-            calculateWGDMonsterInfo(){
+
+            calculateWGDMonsterInfo() {
                 let monsterInformation = {
-                            minimumDR: 0,
-                            minimumHP: 0,
-                            maxHit: 0,
-                            reducedMaxHit: 0,
-                            isIdleable: true,
-                        };
+                    minimumDR: 0,
+                    minimumHP: 0,
+                    maxHit: 0,
+                    reducedMaxHit: 0,
+                    isIdleable: true,
+                };
                 monsterInformation.maxHit = this.playerMaxHit * 0.75;
                 monsterInformation.reducedMaxHit = this.calculateReducedMaxHit("Magic", monsterInformation.maxHit);
                 monsterInformation.minimumDR = this.calculateMinimumDR("Magic", monsterInformation.maxHit);
@@ -2779,20 +2869,20 @@
                 monsterInformation.isIdleable = this.calculateIdleability(monsterInformation.reducedMaxHit);
                 this.wgdMonsterInfo = monsterInformation;
             },
-       },
+        },
         computed: {
             autoEatThreshold() {
                 var aethreshold = 0;
                 switch (this.autoEatLevel) {
                     case "1":
                         aethreshold = 0.2;
-                    break;
+                        break;
                     case "2":
                         aethreshold = 0.3;
-                    break;
+                        break;
                     case "3":
                         aethreshold = 0.4;
-                    break;
+                        break;
                 }
 
                 if (this.wastefulRing == "Yes") {
@@ -2802,14 +2892,14 @@
                 return aethreshold;
             },
             combatTriangle() {
-                if(this.gameMode === "Normal") {
+                if (this.gameMode === "Normal") {
                     return [[1, 1.25, 0.5], [0.95, 1, 1.25], [1.25, 0.85, 1]];
                 } else { // GameModes HC/Adventure
                     return [[1, 1.25, 0.25], [0.75, 1, 1.25], [1.25, 0.75, 1]];
                 }
             },
             numberMultiplier() {
-                if(this.gameMode === "Adventure") {
+                if (this.gameMode === "Adventure") {
                     return 100;
                 }
                 else {
@@ -2818,30 +2908,30 @@
             },
         },
         created() {
-            if(window.location.search){
+            if (window.location.search) {
                 let params = new URLSearchParams(document.location.search.substring(1));
-                if (params.has("totalHealth")){
+                if (params.has("totalHealth")) {
                     this.totalHealth = parseInt(params.get("totalHealth"));
                 }
-                if (params.has("currentDR")){
+                if (params.has("currentDR")) {
                     this.currentDR = parseInt(params.get("currentDR"));
                 }
-                if (params.has("autoEatLevel")){
+                if (params.has("autoEatLevel")) {
                     this.autoEatLevel = params.get("autoEatLevel");
                 }
-                if (params.has("combatStyle")){
+                if (params.has("combatStyle")) {
                     this.combatStyle = params.get("combatStyle");
                 }
-                if (params.has("gameMode")){
+                if (params.has("gameMode")) {
                     this.gameMode = params.get("gameMode");
                 }
-                if (params.has("yakSynergy")){
+                if (params.has("yakSynergy")) {
                     this.yakSynergy = params.get("yakSynergy");
                 }
-                if (params.has("wastefulRing")){
+                if (params.has("wastefulRing")) {
                     this.wastefulRing = params.get("wastefulRing");
                 }
-                if (params.has("guardianAmulet")){
+                if (params.has("guardianAmulet")) {
                     this.guardianAmulet = params.get("guardianAmulet");
                 }
             } else {
