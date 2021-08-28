@@ -86,7 +86,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 40,
-        attackBonus: 10,
+        attackBonus: 15,
         specialAttack: []
     },
     {
@@ -187,7 +187,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 50,
-        attackBonus: 30,
+        attackBonus: 20,
         specialAttack: []
     },
     {
@@ -279,7 +279,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 80,
-        attackBonus: 40,
+        attackBonus: 50,
         specialAttack: []
     },
     {
@@ -776,7 +776,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 20,
-        attackBonus: 15,
+        attackBonus: 0,
         specialAttack: []
     },
     {
@@ -786,7 +786,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 60,
-        attackBonus: 30,
+        attackBonus: 0,
         specialAttack: []
     },
     {
@@ -796,7 +796,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 130,
-        attackBonus: 75,
+        attackBonus: 10,
         specialAttack: []
     },
     {
@@ -880,7 +880,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 200,
-        attackBonus: 0,
+        attackBonus: 35,
         specialAttack: [
             {
                 name: "Barrage",
@@ -940,7 +940,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 670,
-        attackBonus: 0,
+        attackBonus: 2,
         specialAttack: [
             {
                 name: "Tornado",
@@ -955,7 +955,7 @@
         canSleep: false,
         usesNormalHit: false,
         attackLevel: 800,
-        attackBonus: 0,
+        attackBonus: 2,
         specialAttack: [
             {
                 name: "Barrage",
@@ -1112,7 +1112,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 200,
-        attackBonus: 0,
+        attackBonus: 29,
         specialAttack: [
             {
                 name: "Stone Wall",
@@ -1338,7 +1338,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 250,
-        attackBonus: 60,
+        attackBonus: 30,
         specialAttack: []
     },
     {
@@ -1484,7 +1484,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 90,
-        attackBonus: 38,
+        attackBonus: 0,
         specialAttack: []
     },
     {
@@ -1494,7 +1494,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 110,
-        attackBonus: 18,
+        attackBonus: 0,
         specialAttack: []
     },
     {
@@ -1514,7 +1514,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 180,
-        attackBonus: 10,
+        attackBonus: 0,
         specialAttack: []
     },
     {
@@ -1524,7 +1524,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 220,
-        attackBonus: 15,
+        attackBonus: 5,
         specialAttack: [
             {
                 name: "Sandstorm",
@@ -1539,7 +1539,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 290,
-        attackBonus: 17,
+        attackBonus: 20,
         specialAttack: [
             {
                 name: "Webshot",
@@ -1554,7 +1554,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 305,
-        attackBonus: 35,
+        attackBonus: 0,
         specialAttack: [
             {
                 name: "Drain",
@@ -1619,7 +1619,7 @@
         canSleep: false,
         usesNormalHit: false,
         attackLevel: 395,
-        attackBonus: 30,
+        attackBonus: 0,
         specialAttack: [
             {
                 name: "Greater Dragonbreath",
@@ -1677,7 +1677,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 600,
-        attackBonus: 14,
+        attackBonus: 15,
         specialAttack: [
             {
                 name: "Elusiveness",
@@ -1805,7 +1805,7 @@
         canSleep: false,
         usesNormalHit: true,
         attackLevel: 500,
-        attackBonus: 5,
+        attackBonus: 0,
         specialAttack: [
             {
                 name: "Volley",

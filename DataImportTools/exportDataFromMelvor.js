@@ -17,8 +17,8 @@ let monsterMap = MONSTERS.map(x=>{
 	}
 	if (res.attackStyle === "Ranged") {
 		res.attackLevel = x.levels.Ranged;
-		if (x.equipmentStats && x.equipmentStats.length != 0 && x.equipmentStats.find(o => o.key === "rangedAttackBonus")) {
-			res.attackBonus = x.equipmentStats.find(o => o.key === 'rangedAttackBonus').value;
+		if (x.equipmentStats && x.equipmentStats.length != 0 && x.equipmentStats.find(o => o.key === "rangedStrengthBonus")) {
+			res.attackBonus = x.equipmentStats.find(o => o.key === 'rangedStrengthBonus').value;
 		} else {
 			res.attackBonus = 0;
 		}
