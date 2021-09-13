@@ -113,8 +113,7 @@
                             <option>Minotaur</option>
                             <option>Centaur</option>
                             <option>Witch</option>
-                            <!-- Omitting Cyclops option until UI for indicating that numbers being viewed for Slayer enemies are in the context of a slayer task, as this impacts safety. -->
-                            <!-- <option>Cyclops</option> -->
+                            <option>Cyclops</option>
                         </select>
                     </div>
                 </div>
@@ -168,7 +167,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon); })"
+                                <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })"
                                     :class="{idleable : calculatedDungeon.isIdleable}">
                                     <td>{{calculatedDungeon.name}}</td>
                                     <td>{{calculatedDungeon.minimumDR}}</td>
@@ -196,7 +195,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="calculatedTier in this.slayerTeirs.map(function (tier){ return calculateInstance(tier); })"
+                                <tr v-for="calculatedTier in this.slayerTeirs.map(function (tier){ return calculateInstance(tier, true); })"
                                     :class="{idleable : calculatedTier.isIdleable}">
                                     <td>{{calculatedTier.name}}</td>
                                     <td>{{calculatedTier.minimumDR}}</td>
@@ -2643,7 +2642,7 @@
 
                 return Math.max(maxNormalAttack, maxSpecialAttack);
             },
-            calculateYakDRModifier(monsterAttackStyle, monsterIsSlayerTask) {
+            calculateYakDRModifier(monsterAttackStyle, isSlayer) {
                 let ret = 0;
 
                 if ((this.yakSynergy == "Minotaur" && monsterAttackStyle == "Ranged")
@@ -2651,7 +2650,7 @@
                     || (this.yakSynergy == "Witch" && monsterAttackStyle == "Melee")) {
                     ret = 2;
                 }
-                else if (this.yakSynergy == "Cyclops" && monsterIsSlayerTask) {
+                else if (this.yakSynergy == "Cyclops" && isSlayer) {
                     ret = 3;
                 }
 
@@ -2660,12 +2659,12 @@
             calculateMinimumDR(attackStyle, attack) {
                 return Math.max(0, Math.min(100, Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])));
             },
-            calculateMinimumHP(attackStyle, attack) {
-                let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, false));
+            calculateMinimumHP(attackStyle, attack, isSlayer) {
+                let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, isSlayer));
                 return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
             },
-            calculateReducedMaxHit(attackStyle, attack) {
-                let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, false));
+            calculateReducedMaxHit(attackStyle, attack, isSlayer) {
+                let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, isSlayer));
                 let combatAdjustedDr = Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)]);
                 let attackReduction = Math.floor(attack * (Math.min(100, combatAdjustedDr) / 100));
                 let reducedHit = attack - attackReduction;
@@ -2717,7 +2716,7 @@
             },
 
             // Calculate instance information for overview
-            calculateInstance(instance) {
+            calculateInstance(instance, isSlayer) {
                 let instanceMonsters = this.monsters.filter(m => instance.monsters.includes(m.name));
                 let instanceInformation = {
                     name: instance.name,
@@ -2726,7 +2725,7 @@
                     isIdleable: true,
                 };
                 instanceMonsters.forEach(monster => {
-                    let monsterInformation = this.calculateMonster(monster);
+                    let monsterInformation = this.calculateMonster(monster, isSlayer);
 
                     if (monsterInformation.minimumDR > instanceInformation.minimumDR) {
                         instanceInformation.minimumDR = monsterInformation.minimumDR;
@@ -2744,7 +2743,7 @@
             },
 
             // Calculate all monster data for display
-            calculateMonster(monster) {
+            calculateMonster(monster, isSlayer) {
                 let monsterInformation = {
                     name: monster.name,
                     minimumDR: 0,
@@ -2770,9 +2769,9 @@
                     };
 
                     attack.maxHit = this.calculateNormalAttack(monster);
-                    attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit);
+                    attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit, isSlayer);
                     attack.minimumDR = this.calculateMinimumDR(monster.attackStyle, attack.maxHit);
-                    attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit);
+                    attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit, isSlayer);
 
                     if (!this.calculateIdleability(attack.reducedMaxHit)) {
                         attack.isIdleable = false;
@@ -2812,9 +2811,9 @@
                             attack.maxHit = this.calculateNormalAttack(monster);
                         }
 
-                        attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit);
+                        attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit, isSlayer);
                         attack.minimumDR = this.calculateMinimumDR(monster.attackStyle, attack.maxHit);
-                        attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit);
+                        attack.minimumHP = this.calculateMinimumHP(monster.attackStyle, attack.maxHit, isSlayer);
 
                         if (!this.calculateIdleability(attack.reducedMaxHit)) {
                             attack.isIdleable = false;
@@ -2846,7 +2845,7 @@
                 let dungeonMonsters = this.monsters.filter(m => dungeonMonstersNames.includes(m.name))
                 let monsterInformation = [];
                 dungeonMonsters.forEach(element => {
-                    monsterInformation.push(this.calculateMonster(element));
+                    monsterInformation.push(this.calculateMonster(element, false));
                 });
                 return monsterInformation;
             },
@@ -2855,14 +2854,14 @@
                 let teirMonsters = this.monsters.filter(m => teirMonstersNames.includes(m.name));
                 let monsterInformation = [];
                 teirMonsters.forEach(element => {
-                    monsterInformation.push(this.calculateMonster(element));
+                    monsterInformation.push(this.calculateMonster(element, true));
                 });
                 return monsterInformation;
             },
             findMonstersforEverything() {
                 let monsterInformation = [];
                 this.monsters.forEach(element => {
-                    monsterInformation.push(this.calculateMonster(element));
+                    monsterInformation.push(this.calculateMonster(element, false));
                 });
                 return monsterInformation;
             },
@@ -2876,9 +2875,9 @@
                     isIdleable: true,
                 };
                 monsterInformation.maxHit = this.playerMaxHit * 0.75;
-                monsterInformation.reducedMaxHit = this.calculateReducedMaxHit("Magic", monsterInformation.maxHit);
+                monsterInformation.reducedMaxHit = this.calculateReducedMaxHit("Magic", monsterInformation.maxHit, isSlayer);
                 monsterInformation.minimumDR = this.calculateMinimumDR("Magic", monsterInformation.maxHit);
-                monsterInformation.minimumHP = this.calculateMinimumHP("Magic", monsterInformation.maxHit);
+                monsterInformation.minimumHP = this.calculateMinimumHP("Magic", monsterInformation.maxHit, isSlayer);
                 monsterInformation.isIdleable = this.calculateIdleability(monsterInformation.reducedMaxHit);
                 this.wgdMonsterInfo = monsterInformation;
             },
