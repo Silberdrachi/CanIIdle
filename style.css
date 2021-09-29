@@ -53,3 +53,17 @@ tr th div {
   color: #ffffff;
   background-color: #00a552!important;
 }
+
+.unselected{
+  color: #ffffff;
+  background-color: #a50000!important;
+}
+
+.statusIcon{
+  height: 20px;
+  max-width: auto;
+}
+
+.hide{
+  display:none;
+}

@@ -27,30 +27,31 @@
 
 <body>
     <div id='app' class="container-fluid">
-        <h1 class="text-white text-center my-4">Can I Idle Melvor?</h1>
-        <p class="text-white text-center my-4">Up to date as of v0.21 - Copy shareable link to Clipboard: <button
+        <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom"
+            title="Now with more freezerburn">Can I Idle Melvor?</h1>
+        <p class="text-white text-center my-4">Up to date as of v0.22 - Copy shareable link to Clipboard: <button
                 id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button></p>
         <div class="row">
             <div class="col-1"></div>
             <div id="content" class="col-10">
                 <div class="row col-12">
-                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
-                        title="Max health value (not level)">
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
+                        data-placement="bottom" title="Max health value (not level)">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="totalHealth">Total Health</label>
                         </div>
                         <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10"
                             v-model="totalHealth" />
                     </div>
-                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
-                        title="Current out of combat DR %">
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
+                        data-placement="bottom" title="Current out of combat DR %">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="currentDR">Current DR%</label>
                         </div>
                         <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0"
                             v-model="currentDR" />
                     </div>
-                    <div class="input-group col-xl col-lg-4 col-md-8">
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
                         </div>
@@ -60,10 +61,35 @@
                             <option>3</option>
                         </select>
                     </div>
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="combatStyle">Combat Style</label>
+                        </div>
+                        <select id="combatStyle" class="custom-select" v-model="combatStyle">
+                            <option>Melee</option>
+                            <option>Ranged</option>
+                            <option>Magic</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="gameMode">Game Mode</label>
+                        </div>
+                        <select id="gameMode" class="custom-select" v-model="gameMode">
+                            <option>Normal</option>
+                            <option>Hardcore</option>
+                            <option>Adventure</option>
+                        </select>
+                    </div>
+                    <a class="btn btn-primary col-xl col-lg-4 col-md-6 col-sm-12" type="button" data-toggle="collapse"
+                        data-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptionsButton">
+                        Advanced Options
+                    </a>
                 </div>
-                <div class="row col-12">
-                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
-                        title="Increases autoeat threshold by 5%">
+                <div class="row col-12 collapse" id="advancedOptions">
+                    <hr>
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
+                        data-placement="bottom" title="Increases autoeat threshold by 5%">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
                         </div>
@@ -73,7 +99,8 @@
                             <option selected>No</option>
                         </select>
                     </div>
-                    <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
+                        data-placement="bottom"
                         title="Gives 5% more DR if your health falls below 50% of your max health.">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
@@ -84,27 +111,7 @@
                             <option selected>No</option>
                         </select>
                     </div>
-                    <div class="input-group col-xl col-lg-4 col-md-8">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="combatStyle">Combat Style</label>
-                        </div>
-                        <select id="combatStyle" class="custom-select" v-model="combatStyle">
-                            <option>Melee</option>
-                            <option>Ranged</option>
-                            <option>Magic</option>
-                        </select>
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-8">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="gameMode">Game Mode</label>
-                        </div>
-                        <select id="gameMode" class="custom-select" v-model="gameMode">
-                            <option>Normal</option>
-                            <option>Hardcore</option>
-                            <option>Adventure</option>
-                        </select>
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-8">
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
                         </div>
@@ -114,6 +121,26 @@
                             <option>Centaur</option>
                             <option>Witch</option>
                             <option>Cyclops</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Max Hit in combat on Magic Monsters. This is used to calculate the damage of a player on Wicked Greater Dragons">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="playerMaxHit">Max Hit on Magic</label>
+                        </div>
+                        <input id="playerMaxHit" type="number" class="form-control" min="0" value="0" step="1"
+                            v-model="playerMaxHit" v-model="playerMaxHit" />
+                    </div>
+                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
+                        data-placement="bottom" title="Enables or disables stun/sleep damage">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="stunDamage">Status Damage</label>
+                        </div>
+                        <select id="stunDamage" class="custom-select" v-model="stunDamage"
+                            :class="{unselected : stunDamage == 'No'}">
+                            <option selected>Yes</option>
+                            <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -137,11 +164,6 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#allMonsters">
                             <h3>All Monsters</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#wickedGreaterDragon">
-                            <h3>Wicked Greater Dragon</h3>
                         </a>
                     </li>
                 </ul>
@@ -195,7 +217,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="calculatedTier in this.slayerTeirs.map(function (tier){ return calculateInstance(tier, true); })"
+                                <tr v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })"
                                     :class="{idleable : calculatedTier.isIdleable}">
                                     <td>{{calculatedTier.name}}</td>
                                     <td>{{calculatedTier.minimumDR}}</td>
@@ -253,7 +275,12 @@
                             <tbody>
                                 <template v-for="monster in findMonstersForDungeon(this.dungeonChoice)">
                                     <tr :class="{idleable : monster.isIdleable}">
-                                        <td>{{monster.name}}</td>
+                                        <td>{{monster.name}}
+                                            <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
+                                                src="assets/sleep.png" title="Monster is able to sleep">
+                                            <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
+                                                src="assets/stun.png" title="Monster is able to stun">
+                                        </td>
                                         <td>{{monster.attackStyle}}</td>
                                         <td></td>
                                         <td>{{monster.maxHit}}</td>
@@ -313,8 +340,13 @@
                             <tbody>
                                 <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
                                     <tr
-                                        :class="{idleable :  monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
-                                        <td>{{monster.name}}</td>
+                                        :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
+                                        <td>{{monster.name}}
+                                            <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
+                                                src="assets/sleep.png" title="Monster is able to sleep">
+                                            <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
+                                                src="assets/stun.png" title="Monster is able to stun">
+                                        </td>
                                         <td>{{monster.attackStyle}}</td>
                                         <td></td>
                                         <td>{{monster.maxHit}}</td>
@@ -323,7 +355,7 @@
                                         <td>{{monster.minimumHP}}</td>
                                     </tr>
                                     <tr v-for="attack in monster.attacks"
-                                        :class="{idleable : attack.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
+                                        :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
                                         <td></td>
                                         <td></td>
                                         <td>{{attack.name}}</td>
@@ -363,8 +395,13 @@
                             <tbody>
                                 <template v-for="monster in findMonstersforEverything()">
                                     <tr
-                                        :class="{idleable : monster.isIdleable, warning : monster.name == 'Wicked Greater Dragon'}">
-                                        <td>{{monster.name}}</td>
+                                        :class="{idleable : monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && this.playerMaxHit !== 0)}">
+                                        <td>{{monster.name}}
+                                            <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
+                                                src="assets/sleep.png" title="Monster is able to sleep">
+                                            <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
+                                                src="assets/stun.png" title="Monster is able to stun">
+                                        </td>
                                         <td>{{monster.attackStyle}}</td>
                                         <td></td>
                                         <td>{{monster.maxHit}}</td>
@@ -373,7 +410,7 @@
                                         <td>{{monster.minimumHP}}</td>
                                     </tr>
                                     <tr v-for="attack in monster.attacks"
-                                        :class="{idleable : monster.isIdleable,warning : monster.name == 'Wicked Greater Dragon'}">
+                                        :class="{idleable : monster.isIdleable,warning : (monster.name == 'Wicked Greater Dragon' && this.playerMaxHit !== 0)}">
                                         <td></td>
                                         <td></td>
                                         <td>{{attack.name}}</td>
@@ -383,44 +420,6 @@
                                         <td>{{attack.minimumHP}}</td>
                                     </tr>
                                 </template>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="wickedGreaterDragon" class="tab-pane fade">
-                        <div class="input-group col-xl col-lg-4 col-md-8" data-toggle="tooltip" data-placement="bottom"
-                            title="Max Hit in combat">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="playerMaxHit">Max Hit</label>
-                            </div>
-                            <input id="playerMaxHit" type="number" class="form-control" min="0" value="100" step="1"
-                                v-model="playerMaxHit" @change="calculateWGDMonsterInfo()" />
-                        </div>
-                        <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20%" scope="col">Max Hit</th>
-                                    <th style="width: 11%" scope="col">Reduced Max Hit</th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
-                                            <u>DR% Needed</u>
-                                        </div>
-                                    </th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total HP you need to safely idle this monster with your currently set DR%">
-                                            <u>HP Needed</u>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr :class="{idleable : wgdMonsterInfo.isIdleable}">
-                                    <td>{{wgdMonsterInfo.maxHit}}</td>
-                                    <td>{{wgdMonsterInfo.reducedMaxHit}}</td>
-                                    <td>{{wgdMonsterInfo.minimumDR}}</td>
-                                    <td>{{wgdMonsterInfo.minimumHP}}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -437,6 +436,7 @@
                 <p>Further evolved by "Slayer Can I Idle This?" <a
                         href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a>
                 </p>
+                <p>Thanks to Hazel for the status icon pics.</p>
             </div>
         </div>
 </body>
@@ -461,17 +461,11 @@
                 combatStyle: "Melee",
                 gameMode: "Normal",
                 yakSynergy: "None",
-                playerMaxHit: 100,
-                wgdMonsterInfo: {
-                    minimumDR: 0,
-                    minimumHP: 0,
-                    maxHit: 0,
-                    reducedMaxHit: 0,
-                    isIdleable: true,
-                },
+                playerMaxHit: 0,
                 wastefulRing: "No",
                 guardianAmulet: "No",
                 dungeonChoice: "Chicken Coop",
+                stunDamage: "Yes",
                 dungeons: [
                     {
                         name: "Chicken Coop",
@@ -511,7 +505,7 @@
                         name: "Spider Forest",
                         monsters: [
                             "Spider",
-                            "Spider2",
+                            "Brown Spider",
                             "Evil Spider",
                             "Spider King"
                         ]
@@ -623,7 +617,7 @@
                         ]
                     }
                 ],
-                slayerTeirs: [
+                slayerTiers: [
                     {
                         name: "Easy",
                         monsters: [
@@ -813,7 +807,12 @@
                             usesNormalHit: true,
                             attackLevel: 60,
                             attackBonus: 50,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Frostburn",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Frozen Archer",
@@ -823,7 +822,12 @@
                             usesNormalHit: true,
                             attackLevel: 40,
                             attackBonus: 15,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Frostburn",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Mummy",
@@ -1262,17 +1266,27 @@
                             usesNormalHit: true,
                             attackLevel: 50,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Venom",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
-                            name: "Spider2",
+                            name: "Brown Spider",
                             attackStyle: "Melee",
                             canStun: false,
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 50,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Venom",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Evil Spider",
@@ -1282,7 +1296,12 @@
                             usesNormalHit: true,
                             attackLevel: 80,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Venom",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Spider King",
@@ -1292,7 +1311,12 @@
                             usesNormalHit: true,
                             attackLevel: 120,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Venom",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Ice Monster",
@@ -1302,7 +1326,12 @@
                             usesNormalHit: true,
                             attackLevel: 70,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Frostburn",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Ice Troll",
@@ -1312,7 +1341,12 @@
                             usesNormalHit: true,
                             attackLevel: 80,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Frostburn",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Ice",
@@ -1322,7 +1356,12 @@
                             usesNormalHit: true,
                             attackLevel: 80,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Frostburn",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Protector of Ice",
@@ -1332,7 +1371,12 @@
                             usesNormalHit: true,
                             attackLevel: 150,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Frostburn",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "First Mate",
@@ -1392,7 +1436,12 @@
                             usesNormalHit: true,
                             attackLevel: 68,
                             attackBonus: 40,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Dragonbreath",
+                                    maxHit: 3
+                                }
+                            ]
                         },
                         {
                             name: "Blue Dragon",
@@ -1402,7 +1451,12 @@
                             usesNormalHit: true,
                             attackLevel: 75,
                             attackBonus: 50,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Dragonbreath",
+                                    maxHit: 3
+                                }
+                            ]
                         },
                         {
                             name: "Red Dragon",
@@ -1412,7 +1466,12 @@
                             usesNormalHit: true,
                             attackLevel: 90,
                             attackBonus: 60,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Dragonbreath",
+                                    maxHit: 3
+                                }
+                            ]
                         },
                         {
                             name: "Black Dragon",
@@ -1422,7 +1481,12 @@
                             usesNormalHit: true,
                             attackLevel: 100,
                             attackBonus: 80,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Dragonbreath",
+                                    maxHit: 3
+                                }
+                            ]
                         },
                         {
                             name: "Junior Farmer",
@@ -1533,7 +1597,12 @@
                             usesNormalHit: true,
                             attackLevel: 130,
                             attackBonus: 10,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Rapid Fire",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Dark Wizard",
@@ -2065,7 +2134,12 @@
                             usesNormalHit: true,
                             attackLevel: 300,
                             attackBonus: 30,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Burning Fireball",
+                                    maxHit: 45
+                                }
+                            ]
                         },
                         {
                             name: "Furious Horned Elite",
@@ -2195,63 +2269,105 @@
                         {
                             name: "Elementalist",
                             attackStyle: "Magic",
-                            canStun: false,
+                            canStun: true,
                             canSleep: false,
                             usesNormalHit: true,
                             attackLevel: 220,
                             attackBonus: 14,
                             spellMaxHit: 10,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Elemental Impact (Stun)",
+                                    maxHit: 100
+                                },
+                                {
+                                    name: "Elemental Impact (Freeze)",
+                                    maxHit: 100
+                                },
+                                {
+                                    name: "Elemental Impact (Burn)",
+                                    maxHit: 100
+                                },
+                                {
+                                    name: "Elemental Impact (Frostburn)",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Turkul Riders",
                             attackStyle: "Melee",
                             canStun: false,
                             canSleep: false,
-                            usesNormalHit: true,
+                            usesNormalHit: false,
                             attackLevel: 60,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Sandstorm",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Turkul Archers",
                             attackStyle: "Ranged",
                             canStun: false,
                             canSleep: false,
-                            usesNormalHit: true,
+                            usesNormalHit: false,
                             attackLevel: 90,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Sandstorm",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Turkul Throwers",
                             attackStyle: "Ranged",
                             canStun: false,
                             canSleep: false,
-                            usesNormalHit: true,
+                            usesNormalHit: false,
                             attackLevel: 110,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Sandstorm",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Turkul Giant",
                             attackStyle: "Melee",
                             canStun: false,
                             canSleep: false,
-                            usesNormalHit: true,
+                            usesNormalHit: false,
                             attackLevel: 135,
                             attackBonus: 15,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Sandstorm",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Turkul General",
                             attackStyle: "Ranged",
                             canStun: false,
                             canSleep: false,
-                            usesNormalHit: true,
+                            usesNormalHit: false,
                             attackLevel: 180,
                             attackBonus: 0,
-                            specialAttack: []
+                            specialAttack: [
+                                {
+                                    name: "Lesser Sandstorm",
+                                    maxHit: 100
+                                }
+                            ]
                         },
                         {
                             name: "Sand Beast",
@@ -2263,7 +2379,7 @@
                             attackBonus: 5,
                             specialAttack: [
                                 {
-                                    name: "Sandstorm",
+                                    name: "Greater Sandstorm",
                                     maxHit: 15
                                 }
                             ]
@@ -2601,7 +2717,7 @@
                             attackBonus: 40,
                             specialAttack: []
                         }
-                    ],
+                    ]
             };
         },
         methods: {
@@ -2621,7 +2737,7 @@
             getShareURL() {
                 navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "totalHealth=" + this.totalHealth +
                     "&" + "currentDR=" + this.currentDR + "&" + "autoEatLevel=" + this.autoEatLevel + "&" + "combatStyle=" + this.combatStyle + "&" + "gameMode=" + this.gameMode +
-                    "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet)
+                    "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet + "&" + "stunDamage=" + this.stunDamage)
                     .catch(err => {
                         alert('Error in copying text: ', err);
                     });
@@ -2692,11 +2808,13 @@
                 }
 
                 let multiplier = 1;
-                if (monster.canStun) {
-                    multiplier = 1.3;
-                }
-                else if (monster.canSleep) {
-                    multiplier = 1.2;
+                if (this.stunDamage == "Yes") {
+                    if (monster.canStun) {
+                        multiplier = 1.3;
+                    }
+                    else if (monster.canSleep) {
+                        multiplier = 1.2;
+                    }
                 }
 
                 return Math.floor(maximumNormalAttack * multiplier);
@@ -2705,16 +2823,17 @@
                 let baseDamage = specialAttack * this.numberMultiplier;
 
                 let multiplier = 1;
-                if (canStun) {
-                    multiplier = 1.3;
-                }
-                else if (canSleep) {
-                    multiplier = 1.2;
+                if (this.stunDamage == "Yes") {
+                    if (canStun) {
+                        multiplier = 1.3;
+                    }
+                    else if (canSleep) {
+                        multiplier = 1.2;
+                    }
                 }
 
                 return Math.floor(baseDamage * multiplier);
             },
-
             // Calculate instance information for overview
             calculateInstance(instance, isSlayer) {
                 let instanceMonsters = this.monsters.filter(m => instance.monsters.includes(m.name));
@@ -2804,11 +2923,35 @@
                             reducedMaxHit: 0,
                         }
 
-                        if (element.name !== "Volley" && element.name !== "Burning Trail" && element.name !== "Infernal Volley") {
-                            attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep);
+                        let normalHitAttacks = [
+                            "Volley",
+                            "Burning Trail",
+                            "Infernal Volley",
+                            "Frostburn",
+                            "Venom",
+                            "Rapid Fire",
+                            "Elemental Impact (Stun)",
+                            "Elemental Impact (Freeze)",
+                            "Elemental Impact (Burn)",
+                            "Elemental Impact (Frostburn)",
+                        ];
+                        if (normalHitAttacks.includes(element.name)) {
+                            attack.maxHit = this.calculateNormalAttack(monster);
+                        }
+                        else if (element.name === "Lesser Sandstorm") {
+                            let normalAttack = this.calculateNormalAttack(monster);
+                            let adjustedAttack = normalAttack + (((this.totalHealth * this.autoEatThreshold) + 1) * .05);
+                            attack.maxHit = Math.ceil(adjustedAttack);
+                        }
+                        else if (element.name === "Greater Sandstorm") {
+                            let adjustedAttack = (((this.totalHealth * this.autoEatThreshold) + 1) * .15);
+                            attack.maxHit = Math.ceil(adjustedAttack);
+                        }
+                        else if (element.name === "Confusion") {
+                            attack.maxHit = Math.ceil(this.playerMaxHit * 0.75);
                         }
                         else {
-                            attack.maxHit = this.calculateNormalAttack(monster);
+                            attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep);
                         }
 
                         attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit, isSlayer);
@@ -2850,10 +2993,10 @@
                 return monsterInformation;
             },
             findMonstersForSlayerTier(tier) {
-                let teirMonstersNames = this.slayerTeirs.filter(s => s.name == tier)[0].monsters;
-                let teirMonsters = this.monsters.filter(m => teirMonstersNames.includes(m.name));
+                let tierMonstersNames = this.slayerTiers.filter(s => s.name == tier)[0].monsters;
+                let tierMonsters = this.monsters.filter(m => tierMonstersNames.includes(m.name));
                 let monsterInformation = [];
-                teirMonsters.forEach(element => {
+                tierMonsters.forEach(element => {
                     monsterInformation.push(this.calculateMonster(element, true));
                 });
                 return monsterInformation;
@@ -2864,22 +3007,6 @@
                     monsterInformation.push(this.calculateMonster(element, false));
                 });
                 return monsterInformation;
-            },
-
-            calculateWGDMonsterInfo() {
-                let monsterInformation = {
-                    minimumDR: 0,
-                    minimumHP: 0,
-                    maxHit: 0,
-                    reducedMaxHit: 0,
-                    isIdleable: true,
-                };
-                monsterInformation.maxHit = this.playerMaxHit * 0.75;
-                monsterInformation.reducedMaxHit = this.calculateReducedMaxHit("Magic", monsterInformation.maxHit, isSlayer);
-                monsterInformation.minimumDR = this.calculateMinimumDR("Magic", monsterInformation.maxHit);
-                monsterInformation.minimumHP = this.calculateMinimumHP("Magic", monsterInformation.maxHit, isSlayer);
-                monsterInformation.isIdleable = this.calculateIdleability(monsterInformation.reducedMaxHit);
-                this.wgdMonsterInfo = monsterInformation;
             },
         },
         computed: {
@@ -2945,6 +3072,9 @@
                 }
                 if (params.has("guardianAmulet")) {
                     this.guardianAmulet = params.get("guardianAmulet");
+                }
+                if (params.has("stunDamage")) {
+                    this.stunDamage = params.get("stunDamage");
                 }
             } else {
                 if (localStorage.slayerTier) {
