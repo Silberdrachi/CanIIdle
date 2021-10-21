@@ -23,13 +23,23 @@
 
     <!-- Site specific style -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Tracking Stuff because i think its interesting -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZGSWQ92Z2B"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ZGSWQ92Z2B');
+    </script>
 </head>
 
 <body>
     <div id='app' class="container-fluid">
         <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom"
-            title="Now with more freezerburn">Can I Idle Melvor?</h1>
-        <p class="text-white text-center my-4">Up to date as of v0.22 - Copy shareable link to Clipboard: <button
+            title="Now with more Git Gud - Prat">Can I Idle Melvor?</h1>
+        <p class="text-white text-center my-4">Up to date as of v1.0 - Copy shareable link to Clipboard: <button
                 id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button></p>
         <div class="row">
             <div class="col-1"></div>
