@@ -405,7 +405,7 @@
                             <tbody>
                                 <template v-for="monster in findMonstersforEverything()">
                                     <tr
-                                        :class="{idleable : monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && this.playerMaxHit !== 0)}">
+                                        :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
                                         <td>{{monster.name}}
                                             <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
                                                 src="assets/sleep.png" title="Monster is able to sleep">
@@ -420,7 +420,7 @@
                                         <td>{{monster.minimumHP}}</td>
                                     </tr>
                                     <tr v-for="attack in monster.attacks"
-                                        :class="{idleable : monster.isIdleable,warning : (monster.name == 'Wicked Greater Dragon' && this.playerMaxHit !== 0)}">
+                                        :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
                                         <td></td>
                                         <td></td>
                                         <td>{{attack.name}}</td>
