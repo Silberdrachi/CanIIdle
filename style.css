@@ -67,3 +67,11 @@ tr th div {
 .hide{
   display:none;
 }
+
+.container-lg {
+  max-width: 1500px;
+}
+
+.input-group {
+  flex-wrap: nowrap;
+}

@@ -36,420 +36,440 @@
 </head>
 
 <body>
-    <div id='app' class="container-fluid">
-        <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom"
-        title="Now with more freezerburn">Can I Idle Melvor?</h1>
-        <p class="text-white text-center my-4">Up to date as of v0.22 - Copy shareable link to Clipboard: <button
-               id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button></p>
+  <div id='app' class="container-fluid">
+    <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom" title="Now with more freezerburn">Can I Idle Melvor?</h1>
+    <p class="text-white text-center my-4">Up to date as of v0.22 - Copy shareable link to Clipboard: 
+      <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button>
+    </p>
+    <div id="content" class="container-lg">
         <div class="row">
-            <div class="col-1"></div>
-            <div id="content" class="col-10">
-                <div class="row col-12">
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
-                        data-placement="bottom" title="Max health value (not level)">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="totalHealth">Total Health</label>
-                        </div>
-                        <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10"
-                            v-model="totalHealth" />
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
-                        data-placement="bottom" title="Current out of combat Damage Resistance %">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="currentDR">Current DR%</label>
-                        </div>
-                        <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0"
-                            v-model="currentDR" />
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
-                        </div>
-                        <select class="custom-select" id="autoEatLevel" v-model="autoEatLevel">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="combatStyle">Combat Style</label>
-                        </div>
-                        <select id="combatStyle" class="custom-select" v-model="combatStyle">
-                            <option>Melee</option>
-                            <option>Ranged</option>
-                            <option>Magic</option>
-                        </select>
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="gameMode">Game Mode</label>
-                        </div>
-                        <select id="gameMode" class="custom-select" v-model="gameMode">
-                            <option>Normal</option>
-                            <option>Hardcore</option>
-                            <option>Adventure</option>
-                        </select>
-                    </div>
-                    <a class="btn btn-primary col-xl col-lg-4 col-md-6 col-sm-12" type="button" data-toggle="collapse"
-                        data-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptionsButton">
-                        Advanced Options
-                    </a>
-                </div>
-                <div class="row col-12 collapse" id="advancedOptions">
-                    <hr>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
-                        data-placement="bottom" title="Increases autoeat threshold by 5%">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
-                        </div>
-                        <select id="wastefulRing" class="custom-select" v-model="wastefulRing"
-                            :class="{selected : wastefulRing == 'Yes'}">
-                            <option>Yes</option>
-                            <option selected>No</option>
-                        </select>
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Gives 5% more DR if your health falls below 50% of your max health.">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
-                        </div>
-                        <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet"
-                            :class="{selected : guardianAmulet == 'Yes'}">
-                            <option>Yes</option>
-                            <option selected>No</option>
-                        </select>
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
-                        </div>
-                        <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
-                            <option>None</option>
-                            <option>Minotaur</option>
-                            <option>Centaur</option>
-                            <option>Witch</option>
-                            <option>Cyclops</option>
-                        </select>
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Max Hit in combat on Magic Monsters. This is used to calculate the damage of a player on Wicked Greater Dragons">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="playerMaxHit">Max Hit on Magic</label>
-                        </div>
-                        <input id="playerMaxHit" type="number" class="form-control" min="0" value="0" step="1"
-                            v-model="playerMaxHit" v-model="playerMaxHit" />
-                    </div>
-                    <div class="input-group col-xl col-lg-4 col-md-6 col-sm-12" data-toggle="tooltip"
-                        data-placement="bottom" title="Enables or disables enemy stun/sleep damage">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="stunDamage">Status Damage</label>
-                        </div>
-                        <select id="stunDamage" class="custom-select" v-model="stunDamage"
-                            :class="{unselected : stunDamage == 'No'}">
-                            <option selected>Yes</option>
-                            <option>No</option>
-                        </select>
-                    </div>
-                </div>
-                <hr>
-                <ul class="nav nav-pills nav-fill">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#overview">
-                            <h3>Overview</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#dungeons">
-                            <h3>Dungeons</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#slayer">
-                            <h3>Slayer</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#allMonsters">
-                            <h3>All Monsters</h3>
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div id="overview" class="tab-pane fade show active">
-                        <table id='dungeonOverview'
-                            class="table table-responsive-md table-striped table-dark table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20%" scope="col">Dungeon Name</th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
-                                            <u>DR% Needed</u>
-                                        </div>
-                                    </th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total HP you need to safely idle this monster with your currently set DR%">
-                                            <u>HP Needed</u>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })"
-                                    :class="{idleable : calculatedDungeon.isIdleable}">
-                                    <td>{{calculatedDungeon.name}}</td>
-                                    <td>{{calculatedDungeon.minimumDR}}</td>
-                                    <td>{{calculatedDungeon.minimumHP}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table id='slayerOverview'
-                            class="table table-responsive-md table-striped table-dark table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20%" scope="col">Slayer Tier</th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
-                                            <u>DR% Needed</u>
-                                        </div>
-                                    </th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total HP you need to safely idle this monster with your currently set DR%">
-                                            <u>HP Needed</u>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })"
-                                    :class="{idleable : calculatedTier.isIdleable}">
-                                    <td>{{calculatedTier.name}}</td>
-                                    <td>{{calculatedTier.minimumDR}}</td>
-                                    <td>{{calculatedTier.minimumHP}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="dungeons" class="tab-pane fade">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
-                            </div>
-                            <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
-                                <option selected hidden>Choose Dungeon</option>
-                                <option>Chicken Coop</option>
-                                <option>Undead Graveyard</option>
-                                <option>Bandit Base</option>
-                                <option>Hall of Wizards</option>
-                                <option>Spider Forest</option>
-                                <option>Miolite Caves</option>
-                                <option>Deep Sea Ship</option>
-                                <option>Frozen Cove</option>
-                                <option>Dragons Den</option>
-                                <option>Volcanic Cave</option>
-                                <option>Infernal Stronghold</option>
-                                <option>Air God Dungeon</option>
-                                <option>Water God Dungeon</option>
-                                <option>Earth God Dungeon</option>
-                                <option>Fire God Dungeon</option>
-                            </select>
-                        </div>
-                        <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20%" scope="col">Monster Name</th>
-                                    <th style="width: 11%" scope="col">Style</th>
-                                    <th style="width: 11%" scope="col">Attack Name</th>
-                                    <th style="width: 11%" scope="col">Max Hit</th>
-                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
-                                            <u>DR% Needed</u>
-                                        </div>
-                                    </th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total HP you need to safely idle this monster with your currently set DR%">
-                                            <u>HP Needed</u>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-for="monster in findMonstersForDungeon(this.dungeonChoice)">
-                                    <tr :class="{idleable : monster.isIdleable}">
-                                        <td>{{monster.name}}
-                                            <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
-                                                src="assets/sleep.png" title="Monster is able to sleep">
-                                            <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
-                                                src="assets/stun.png" title="Monster is able to stun">
-                                        </td>
-                                        <td>{{monster.attackStyle}}</td>
-                                        <td></td>
-                                        <td>{{monster.maxHit}}</td>
-                                        <td>{{monster.reducedMaxHit}}</td>
-                                        <td>{{monster.minimumDR}}</td>
-                                        <td>{{monster.minimumHP}}</td>
-                                    </tr>
-                                    <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{attack.name}}</td>
-                                        <td>{{attack.maxHit}}</td>
-                                        <td>{{attack.reducedMaxHit}}</td>
-                                        <td>{{attack.minimumDR}}</td>
-                                        <td>{{attack.minimumHP}}</td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="slayer" class="tab-pane fade">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="slayerTier">Slayer Tier:</label>
-                            </div>
-                            <select class="custom-select" id="slayerTier" v-model="slayerTier">
-                                <option selected hidden>Choose Tier</option>
-                                <option>Easy</option>
-                                <option>Normal</option>
-                                <option>Hard</option>
-                                <option>Elite</option>
-                                <option>Master</option>
-                            </select>
-                        </div>
-                        <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20%" scope="col">Monster Name</th>
-                                    <th style="width: 11%" scope="col">Style</th>
-                                    <th style="width: 11%" scope="col">Attack Name</th>
-                                    <th style="width: 11%" scope="col">Max Hit</th>
-                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
-                                            <u>DR% Needed</u>
-                                        </div>
-                                    </th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total HP you need to safely idle this monster with your currently set DR%">
-                                            <u>HP Needed</u>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
-                                    <tr
-                                        :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
-                                        <td>{{monster.name}}
-                                            <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
-                                                src="assets/sleep.png" title="Monster is able to sleep">
-                                            <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
-                                                src="assets/stun.png" title="Monster is able to stun">
-                                        </td>
-                                        <td>{{monster.attackStyle}}</td>
-                                        <td></td>
-                                        <td>{{monster.maxHit}}</td>
-                                        <td>{{monster.reducedMaxHit}}</td>
-                                        <td>{{monster.minimumDR}}</td>
-                                        <td>{{monster.minimumHP}}</td>
-                                    </tr>
-                                    <tr v-for="attack in monster.attacks"
-                                        :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{attack.name}}</td>
-                                        <td>{{attack.maxHit}}</td>
-                                        <td>{{attack.reducedMaxHit}}</td>
-                                        <td>{{attack.minimumDR}}</td>
-                                        <td>{{attack.minimumHP}}</td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="allMonsters" class="tab-pane fade">
-                        <table
-                            class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20%" scope="col">Monster Name</th>
-                                    <th style="width: 11%" scope="col">Style</th>
-                                    <th style="width: 11%" scope="col">Attack Name</th>
-                                    <th style="width: 11%" scope="col">Max Hit</th>
-                                    <th style="width: 11%" scope="col">Reduced Max hit</th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total DR% you need equipt to safely idle this monster with your currently set HP">
-                                            <u>DR% Needed</u>
-                                        </div>
-                                    </th>
-                                    <th style="width: 11%" scope="col">
-                                        <div data-toggle="tooltip" data-placement="top"
-                                            title="Total HP you need to safely idle this monster with your currently set DR%">
-                                            <u>HP Needed</u>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-for="monster in findMonstersforEverything()">
-                                    <tr
-                                        :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
-                                        <td>{{monster.name}}
-                                            <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
-                                                src="assets/sleep.png" title="Monster is able to sleep">
-                                            <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
-                                                src="assets/stun.png" title="Monster is able to stun">
-                                        </td>
-                                        <td>{{monster.attackStyle}}</td>
-                                        <td></td>
-                                        <td>{{monster.maxHit}}</td>
-                                        <td>{{monster.reducedMaxHit}}</td>
-                                        <td>{{monster.minimumDR}}</td>
-                                        <td>{{monster.minimumHP}}</td>
-                                    </tr>
-                                    <tr v-for="attack in monster.attacks"
-                                        :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{attack.name}}</td>
-                                        <td>{{attack.maxHit}}</td>
-                                        <td>{{attack.reducedMaxHit}}</td>
-                                        <td>{{attack.minimumDR}}</td>
-                                        <td>{{attack.minimumHP}}</td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-1"></div>
+          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 my-2">
+            <div class="input-group" data-toggle="tooltip"
+              data-placement="bottom" title="Max health value (not level)">
+              <div class="input-group-prepend">
+                  <label class="input-group-text" for="totalHealth">Total Health</label>
+              </div>
+              <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10"
+                  v-model="totalHealth" />
             </div>
-            <div class="text-white text-center my-1 mx-auto">
-                <p>DR is always input and displayed as before triangle. Make sure youre double checking which value you
-                    use.</p>
-                <p>For any issues either file a <a href="https://github.com/Silberdrachi/CanIIdle">GitHub ticket</a> or
-                    contact @Silber#6947 on the Melvor Idle Discord server.</p>
-                <p>Styling and formulas used are from the original "Can I Idle This?" website: <a
-                        href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
-                <p>Further evolved by "Slayer Can I Idle This?" <a
-                        href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a>
-                </p>
-                <p>Thanks to Hazel for the status icon pics.</p>
-                <p>"Melvor Idle" is a trademark of Games by Malcs Pty Ltd and is used with the permission of Games by Malcs.</p>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 my-2">
+            <div class="input-group" data-toggle="tooltip"
+              data-placement="bottom" title="Current out of combat Damage Resistance %">
+              <div class="input-group-prepend">
+                  <label class="input-group-text" for="currentDR">Current DR%</label>
+              </div>
+              <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0"
+                  v-model="currentDR" />
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12 my-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                  <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
+              </div>
+              <select class="custom-select" id="autoEatLevel" v-model="autoEatLevel">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 my-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                  <label class="input-group-text" for="combatStyle">Combat Style</label>
+              </div>
+              <select id="combatStyle" class="custom-select" v-model="combatStyle">
+                  <option>Melee</option>
+                  <option>Ranged</option>
+                  <option>Magic</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-6 col-md-4 col-sm-6 my-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                  <label class="input-group-text" for="gameMode">Game Mode</label>
+              </div>
+              <select id="gameMode" class="custom-select" v-model="gameMode">
+                  <option>Normal</option>
+                  <option>Hardcore</option>
+                  <option>Adventure</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-6 col-md-4 my-2">
+            <a class="btn btn-primary col" type="button" data-toggle="collapse"
+              data-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptionsButton">
+              Advanced Options
+            </a>
+          </div>
+          
+        </div>
+        <div class="row collapse" id="advancedOptions">
+            <hr>
+            <div class="col-xl-2 col-md-4 my-2">
+              <div class="input-group" data-toggle="tooltip"
+                data-placement="bottom" title="Increases autoeat threshold by 5%">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
+                </div>
+                <select id="wastefulRing" class="custom-select" v-model="wastefulRing"
+                    :class="{selected : wastefulRing == 'Yes'}">
+                    <option>Yes</option>
+                    <option selected>No</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-4 my-2">
+              <div class="input-group" data-toggle="tooltip"
+                data-placement="bottom"
+                title="Gives 5% more DR if your health falls below 50% of your max health.">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
+                </div>
+                <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet"
+                    :class="{selected : guardianAmulet == 'Yes'}">
+                    <option>Yes</option>
+                    <option selected>No</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-4 my-2">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
+                </div>
+                <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
+                    <option>None</option>
+                    <option>Minotaur</option>
+                    <option>Centaur</option>
+                    <option>Witch</option>
+                    <option>Cyclops</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 my-2">
+              <div class="input-group" data-toggle="tooltip"
+                data-placement="bottom"
+                title="Max Hit in combat on Magic Monsters. This is used to calculate the damage of a player on Wicked Greater Dragons">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="playerMaxHit">Max Hit on Magic</label>
+                </div>
+                <input id="playerMaxHit" type="number" class="form-control" min="0" value="0" step="1"
+                    v-model="playerMaxHit" v-model="playerMaxHit" />
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-6 my-2">
+              <div class="input-group" data-toggle="tooltip"
+                data-placement="bottom" title="Enables or disables enemy stun/sleep damage">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="stunDamage">Status Damage</label>
+                </div>
+                <select id="stunDamage" class="custom-select" v-model="stunDamage"
+                    :class="{unselected : stunDamage == 'No'}">
+                    <option selected>Yes</option>
+                    <option>No</option>
+                </select>
+              </div>
             </div>
         </div>
+        <hr>
+        <ul class="nav nav-pills nav-fill mb-2">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#overview">
+                    <h3>Overview</h3>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#dungeons">
+                    <h3>Dungeons</h3>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#slayer">
+                    <h3>Slayer</h3>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#allMonsters">
+                    <h3>All Monsters</h3>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="overview" class="tab-pane fade show active">
+                <table id='dungeonOverview'
+                    class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%" scope="col">Dungeon Name</th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                    <u>DR% Needed</u>
+                                </div>
+                            </th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total HP you need to safely idle this monster with your currently set DR%">
+                                    <u>HP Needed</u>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })"
+                            :class="{idleable : calculatedDungeon.isIdleable}">
+                            <td>{{calculatedDungeon.name}}</td>
+                            <td>{{calculatedDungeon.minimumDR}}</td>
+                            <td>{{calculatedDungeon.minimumHP}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id='slayerOverview'
+                    class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%" scope="col">Slayer Tier</th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                    <u>DR% Needed</u>
+                                </div>
+                            </th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total HP you need to safely idle this monster with your currently set DR%">
+                                    <u>HP Needed</u>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })"
+                            :class="{idleable : calculatedTier.isIdleable}">
+                            <td>{{calculatedTier.name}}</td>
+                            <td>{{calculatedTier.minimumDR}}</td>
+                            <td>{{calculatedTier.minimumHP}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="dungeons" class="tab-pane fade">
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
+                    </div>
+                    <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
+                        <option selected hidden>Choose Dungeon</option>
+                        <option>Chicken Coop</option>
+                        <option>Undead Graveyard</option>
+                        <option>Bandit Base</option>
+                        <option>Hall of Wizards</option>
+                        <option>Spider Forest</option>
+                        <option>Miolite Caves</option>
+                        <option>Deep Sea Ship</option>
+                        <option>Frozen Cove</option>
+                        <option>Dragons Den</option>
+                        <option>Volcanic Cave</option>
+                        <option>Infernal Stronghold</option>
+                        <option>Air God Dungeon</option>
+                        <option>Water God Dungeon</option>
+                        <option>Earth God Dungeon</option>
+                        <option>Fire God Dungeon</option>
+                    </select>
+                </div>
+                <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%" scope="col">Monster Name</th>
+                            <th style="width: 11%" scope="col">Style</th>
+                            <th style="width: 11%" scope="col">Attack Name</th>
+                            <th style="width: 11%" scope="col">Max Hit</th>
+                            <th style="width: 11%" scope="col">Reduced Max hit</th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                    <u>DR% Needed</u>
+                                </div>
+                            </th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total HP you need to safely idle this monster with your currently set DR%">
+                                    <u>HP Needed</u>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="monster in findMonstersForDungeon(this.dungeonChoice)">
+                            <tr :class="{idleable : monster.isIdleable}">
+                                <td>{{monster.name}}
+                                    <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
+                                        src="assets/sleep.png" title="Monster is able to sleep">
+                                    <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
+                                        src="assets/stun.png" title="Monster is able to stun">
+                                </td>
+                                <td>{{monster.attackStyle}}</td>
+                                <td></td>
+                                <td>{{monster.maxHit}}</td>
+                                <td>{{monster.reducedMaxHit}}</td>
+                                <td>{{monster.minimumDR}}</td>
+                                <td>{{monster.minimumHP}}</td>
+                            </tr>
+                            <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
+                                <td></td>
+                                <td></td>
+                                <td>{{attack.name}}</td>
+                                <td>{{attack.maxHit}}</td>
+                                <td>{{attack.reducedMaxHit}}</td>
+                                <td>{{attack.minimumDR}}</td>
+                                <td>{{attack.minimumHP}}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <div id="slayer" class="tab-pane fade">
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="slayerTier">Slayer Tier:</label>
+                    </div>
+                    <select class="custom-select" id="slayerTier" v-model="slayerTier">
+                        <option selected hidden>Choose Tier</option>
+                        <option>Easy</option>
+                        <option>Normal</option>
+                        <option>Hard</option>
+                        <option>Elite</option>
+                        <option>Master</option>
+                    </select>
+                </div>
+                <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%" scope="col">Monster Name</th>
+                            <th style="width: 11%" scope="col">Style</th>
+                            <th style="width: 11%" scope="col">Attack Name</th>
+                            <th style="width: 11%" scope="col">Max Hit</th>
+                            <th style="width: 11%" scope="col">Reduced Max hit</th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                    <u>DR% Needed</u>
+                                </div>
+                            </th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total HP you need to safely idle this monster with your currently set DR%">
+                                    <u>HP Needed</u>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
+                            <tr
+                                :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
+                                <td>{{monster.name}}
+                                    <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
+                                        src="assets/sleep.png" title="Monster is able to sleep">
+                                    <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
+                                        src="assets/stun.png" title="Monster is able to stun">
+                                </td>
+                                <td>{{monster.attackStyle}}</td>
+                                <td></td>
+                                <td>{{monster.maxHit}}</td>
+                                <td>{{monster.reducedMaxHit}}</td>
+                                <td>{{monster.minimumDR}}</td>
+                                <td>{{monster.minimumHP}}</td>
+                            </tr>
+                            <tr v-for="attack in monster.attacks"
+                                :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
+                                <td></td>
+                                <td></td>
+                                <td>{{attack.name}}</td>
+                                <td>{{attack.maxHit}}</td>
+                                <td>{{attack.reducedMaxHit}}</td>
+                                <td>{{attack.minimumDR}}</td>
+                                <td>{{attack.minimumHP}}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <div id="allMonsters" class="tab-pane fade">
+                <table
+                    class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%" scope="col">Monster Name</th>
+                            <th style="width: 11%" scope="col">Style</th>
+                            <th style="width: 11%" scope="col">Attack Name</th>
+                            <th style="width: 11%" scope="col">Max Hit</th>
+                            <th style="width: 11%" scope="col">Reduced Max hit</th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                                    <u>DR% Needed</u>
+                                </div>
+                            </th>
+                            <th style="width: 11%" scope="col">
+                                <div data-toggle="tooltip" data-placement="top"
+                                    title="Total HP you need to safely idle this monster with your currently set DR%">
+                                    <u>HP Needed</u>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="monster in findMonstersforEverything()">
+                            <tr
+                                :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
+                                <td>{{monster.name}}
+                                    <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}"
+                                        src="assets/sleep.png" title="Monster is able to sleep">
+                                    <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}"
+                                        src="assets/stun.png" title="Monster is able to stun">
+                                </td>
+                                <td>{{monster.attackStyle}}</td>
+                                <td></td>
+                                <td>{{monster.maxHit}}</td>
+                                <td>{{monster.reducedMaxHit}}</td>
+                                <td>{{monster.minimumDR}}</td>
+                                <td>{{monster.minimumHP}}</td>
+                            </tr>
+                            <tr v-for="attack in monster.attacks"
+                                :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0)}">
+                                <td></td>
+                                <td></td>
+                                <td>{{attack.name}}</td>
+                                <td>{{attack.maxHit}}</td>
+                                <td>{{attack.reducedMaxHit}}</td>
+                                <td>{{attack.minimumDR}}</td>
+                                <td>{{attack.minimumHP}}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="text-white text-center my-1 mx-auto">
+        <p>DR is always input and displayed as before triangle. Make sure youre double checking which value you
+            use.</p>
+        <p>For any issues either file a <a href="https://github.com/Silberdrachi/CanIIdle">GitHub ticket</a> or
+            contact @Silber#6947 on the Melvor Idle Discord server.</p>
+        <p>Styling and formulas used are from the original "Can I Idle This?" website: <a
+                href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
+        <p>Further evolved by "Slayer Can I Idle This?" <a
+                href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a>
+        </p>
+        <p>Thanks to Hazel for the status icon pics.</p>
+        <p>"Melvor Idle" is a trademark of Games by Malcs Pty Ltd and is used with the permission of Games by Malcs.</p>
+    </div>
+  </div>
 </body>
 
 </html>
