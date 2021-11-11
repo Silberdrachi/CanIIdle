@@ -30,7 +30,7 @@ hr {
 }
 
 tr th div { 
-  display: inline 
+  display: inline;
 }
 
 .idleable{
@@ -66,10 +66,6 @@ tr th div {
 
 .hide{
   display:none;
-}
-
-.container-lg {
-  max-width: 1500px;
 }
 
 .input-group {
