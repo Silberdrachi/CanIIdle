@@ -30,7 +30,7 @@ hr {
 }
 
 tr th div { 
-  display: inline 
+  display: inline;
 }
 
 .idleable{
@@ -66,4 +66,8 @@ tr th div {
 
 .hide{
   display:none;
+}
+
+.input-group {
+  flex-wrap: nowrap;
 }
