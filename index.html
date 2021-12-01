@@ -583,7 +583,7 @@
               "Bat",
               "Big Bat",
               "The Eye",
-              "The Resurrected Eye",
+              "Resurrected Eye",
               "Vicious Serpent",
               "Fire Spirit",
               "Prat, the Protector of Secrets",
@@ -3082,6 +3082,7 @@
 
         return Math.floor(baseDamage * multiplier);
       },
+      
       // Calculate instance information for overview
       calculateInstance(instance, isSlayer) {
         let instanceMonsters = this.monsters.filter(m => instance.monsters.includes(m.name));
@@ -3238,7 +3239,7 @@
       // Functions for UI Tables
       findMonstersForDungeon(dungeon) {
         let dungeonMonstersNames = this.dungeons.filter(s => s.name == dungeon)[0].monsters;
-        let dungeonMonsters = this.monsters.filter(m => dungeonMonstersNames.includes(m.name))
+        let dungeonMonsters = this.monsters.filter(m => dungeonMonstersNames.includes(m.name)).sort((first, second) => dungeonMonstersNames.indexOf(first.name) - dungeonMonstersNames.indexOf(second.name));
         let monsterInformation = [];
         dungeonMonsters.forEach(element => {
           monsterInformation.push(this.calculateMonster(element, false));
