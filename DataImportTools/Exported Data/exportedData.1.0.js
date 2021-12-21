@@ -7,7 +7,8 @@
       usesNormalHit: true,
       attackLevel: 1,
       attackBonus: -42,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Chick",
@@ -17,7 +18,8 @@
       usesNormalHit: true,
       attackLevel: 1,
       attackBonus: -45,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Plant",
@@ -27,7 +29,8 @@
       usesNormalHit: true,
       attackLevel: 1,
       attackBonus: -42,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Seagull",
@@ -37,7 +40,8 @@
       usesNormalHit: true,
       attackLevel: 1,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Golbin",
@@ -47,7 +51,8 @@
       usesNormalHit: true,
       attackLevel: 1,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Cow",
@@ -57,7 +62,8 @@
       usesNormalHit: true,
       attackLevel: 1,
       attackBonus: -15,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Junior Farmer",
@@ -67,7 +73,8 @@
       usesNormalHit: true,
       attackLevel: 5,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Ranged Golbin",
@@ -77,7 +84,8 @@
       usesNormalHit: true,
       attackLevel: 5,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Skeleton",
@@ -87,7 +95,8 @@
       usesNormalHit: true,
       attackLevel: 10,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Steel Knight",
@@ -97,7 +106,8 @@
       usesNormalHit: true,
       attackLevel: 10,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Tentacle",
@@ -107,7 +117,8 @@
       usesNormalHit: true,
       attackLevel: 10,
       attackBonus: 5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Goo Monster",
@@ -117,7 +128,8 @@
       usesNormalHit: true,
       attackLevel: 12,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Leech",
@@ -127,7 +139,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Bat",
@@ -137,7 +150,8 @@
       usesNormalHit: true,
       attackLevel: 30,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Black Knight",
@@ -147,7 +161,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Zombie Hand",
@@ -157,7 +172,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Adult Farmer",
@@ -167,7 +183,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Bandit Trainee",
@@ -177,7 +194,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Frozen Archer",
@@ -192,7 +210,8 @@
           name: "Frostburn",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Sweaty Monster",
@@ -202,7 +221,8 @@
       usesNormalHit: true,
       attackLevel: 24,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Hill Giant",
@@ -212,7 +232,8 @@
       usesNormalHit: true,
       attackLevel: 22,
       attackBonus: 16,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Mummy",
@@ -222,7 +243,8 @@
       usesNormalHit: true,
       attackLevel: 27,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Wizard",
@@ -233,7 +255,8 @@
       attackLevel: 40,
       attackBonus: -6,
       spellMaxHit: 10.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Giant Crab",
@@ -243,7 +266,8 @@
       usesNormalHit: true,
       attackLevel: 15,
       attackBonus: 10,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Mithril Knight",
@@ -253,7 +277,8 @@
       usesNormalHit: true,
       attackLevel: 30,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Confused Pirate",
@@ -263,7 +288,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 8,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Wet Monster",
@@ -273,7 +299,8 @@
       usesNormalHit: true,
       attackLevel: 30,
       attackBonus: 31,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Zombie",
@@ -283,7 +310,8 @@
       usesNormalHit: true,
       attackLevel: 30,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Moist Monster",
@@ -293,7 +321,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Green Goo Monster",
@@ -303,7 +332,8 @@
       usesNormalHit: true,
       attackLevel: 20,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Statue",
@@ -313,7 +343,8 @@
       usesNormalHit: true,
       attackLevel: 37,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Mumma Chicken",
@@ -323,7 +354,8 @@
       usesNormalHit: true,
       attackLevel: 30,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Many Eyed Monster",
@@ -333,7 +365,10 @@
       usesNormalHit: true,
       attackLevel: 50,
       attackBonus: 20,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Mirror_Shield"
+      ]
     },
     {
       name: "Fairy",
@@ -344,7 +379,8 @@
       attackLevel: 50,
       attackBonus: 4,
       spellMaxHit: 13,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Bandit",
@@ -354,7 +390,8 @@
       usesNormalHit: true,
       attackLevel: 60,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Big Bat",
@@ -364,7 +401,8 @@
       usesNormalHit: true,
       attackLevel: 60,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Lots of Eyes",
@@ -374,7 +412,10 @@
       usesNormalHit: true,
       attackLevel: 46,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Mirror_Shield"
+      ]
     },
     {
       name: "Ghost",
@@ -384,7 +425,8 @@
       usesNormalHit: true,
       attackLevel: 40,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Master Farmer",
@@ -394,7 +436,8 @@
       usesNormalHit: true,
       attackLevel: 45,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Purple Goo Monster",
@@ -404,7 +447,8 @@
       usesNormalHit: true,
       attackLevel: 42,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Spider",
@@ -419,7 +463,8 @@
           name: "Venom",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Brown Spider",
@@ -434,7 +479,8 @@
           name: "Venom",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Miolite Sprig",
@@ -449,7 +495,8 @@
           name: "Spores",
           maxHit: 15
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Vampire",
@@ -459,7 +506,8 @@
       usesNormalHit: true,
       attackLevel: 70,
       attackBonus: 10,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Master Wizard",
@@ -470,7 +518,8 @@
       attackLevel: 75,
       attackBonus: -9,
       spellMaxHit: 13.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Turkul Riders",
@@ -485,6 +534,9 @@
           name: "Lesser Sandstorm",
           maxHit: 100
         }
+      ],
+      slayerRequirement: [
+        "Desert_Hat"
       ]
     },
     {
@@ -500,7 +552,8 @@
           name: "Frostburn",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Moss Giant",
@@ -510,7 +563,8 @@
       usesNormalHit: true,
       attackLevel: 50,
       attackBonus: 50,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Undead Werewolf",
@@ -520,7 +574,8 @@
       usesNormalHit: true,
       attackLevel: 55,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Druid",
@@ -531,7 +586,8 @@
       attackLevel: 85,
       attackBonus: 25,
       spellMaxHit: 4.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Pirate",
@@ -541,7 +597,8 @@
       usesNormalHit: true,
       attackLevel: 50,
       attackBonus: 12,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Stone Snake",
@@ -552,7 +609,8 @@
       attackLevel: 75,
       attackBonus: -9,
       spellMaxHit: 9.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Scattered Goo Monster",
@@ -562,7 +620,8 @@
       usesNormalHit: true,
       attackLevel: 50,
       attackBonus: 30,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Adamant Knight",
@@ -572,7 +631,8 @@
       usesNormalHit: true,
       attackLevel: 60,
       attackBonus: 30,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Wandering Bard",
@@ -583,7 +643,8 @@
       attackLevel: 70,
       attackBonus: -9,
       spellMaxHit: 9.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Valkyrie",
@@ -593,7 +654,8 @@
       usesNormalHit: true,
       attackLevel: 79,
       attackBonus: 10,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Angel",
@@ -604,7 +666,8 @@
       attackLevel: 80,
       attackBonus: 12,
       spellMaxHit: 12,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Zombie Leader",
@@ -614,7 +677,8 @@
       usesNormalHit: true,
       attackLevel: 60,
       attackBonus: 20,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Elerine Archer",
@@ -629,7 +693,8 @@
           name: "Fleetness",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Strange Eyed Monster",
@@ -639,7 +704,10 @@
       usesNormalHit: true,
       attackLevel: 65,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Mirror_Shield"
+      ]
     },
     {
       name: "Ice Monster",
@@ -654,7 +722,8 @@
           name: "Frostburn",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Ice",
@@ -669,7 +738,8 @@
           name: "Frostburn",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Green Dragon",
@@ -684,7 +754,8 @@
           name: "Lesser Dragonbreath",
           maxHit: 3
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Holy Archer",
@@ -694,7 +765,8 @@
       usesNormalHit: true,
       attackLevel: 80,
       attackBonus: 50,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Turkul Archers",
@@ -709,6 +781,9 @@
           name: "Lesser Sandstorm",
           maxHit: 100
         }
+      ],
+      slayerRequirement: [
+        "Desert_Hat"
       ]
     },
     {
@@ -719,7 +794,10 @@
       usesNormalHit: true,
       attackLevel: 70,
       attackBonus: 25,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Mirror_Shield"
+      ]
     },
     {
       name: "First Mate",
@@ -729,7 +807,8 @@
       usesNormalHit: true,
       attackLevel: 65,
       attackBonus: 35,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Thief",
@@ -739,7 +818,8 @@
       usesNormalHit: true,
       attackLevel: 95,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Ice Troll",
@@ -754,7 +834,8 @@
           name: "Frostburn",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "The Eye",
@@ -765,7 +846,8 @@
       attackLevel: 120,
       attackBonus: -8,
       spellMaxHit: 9.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Evil Spider",
@@ -780,7 +862,8 @@
           name: "Venom",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Blue Dragon",
@@ -795,7 +878,8 @@
           name: "Lesser Dragonbreath",
           maxHit: 3
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Shaman",
@@ -806,7 +890,8 @@
       attackLevel: 110,
       attackBonus: -3,
       spellMaxHit: 9,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Turkul Throwers",
@@ -821,6 +906,9 @@
           name: "Lesser Sandstorm",
           maxHit: 100
         }
+      ],
+      slayerRequirement: [
+        "Desert_Hat"
       ]
     },
     {
@@ -836,7 +924,8 @@
           name: "Fleetness",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Fierce Devil",
@@ -846,7 +935,8 @@
       usesNormalHit: true,
       attackLevel: 90,
       attackBonus: 10,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Rune Knight",
@@ -856,7 +946,8 @@
       usesNormalHit: true,
       attackLevel: 90,
       attackBonus: 60,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Miolite Trio",
@@ -872,7 +963,8 @@
           name: "Spores",
           maxHit: 15
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Pirate Captain",
@@ -882,7 +974,8 @@
       usesNormalHit: true,
       attackLevel: 80,
       attackBonus: 50,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Elerine Mage",
@@ -898,7 +991,8 @@
           name: "Fleetness",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Red Dragon",
@@ -913,7 +1007,8 @@
           name: "Lesser Dragonbreath",
           maxHit: 3
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Dark Wizard",
@@ -924,7 +1019,8 @@
       attackLevel: 90,
       attackBonus: 7,
       spellMaxHit: 13.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Necromancer",
@@ -935,7 +1031,8 @@
       attackLevel: 125,
       attackBonus: -24,
       spellMaxHit: 13,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Bandit Leader",
@@ -950,7 +1047,8 @@
           name: "Rapid Fire",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Black Dragon",
@@ -965,7 +1063,8 @@
           name: "Lesser Dragonbreath",
           maxHit: 3
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Elder Wizard",
@@ -976,7 +1075,8 @@
       attackLevel: 120,
       attackBonus: 0,
       spellMaxHit: 13,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Griffin",
@@ -986,7 +1086,10 @@
       usesNormalHit: true,
       attackLevel: 67,
       attackBonus: 30,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Magical_Ring"
+      ]
     },
     {
       name: "Miolite Warden",
@@ -1001,7 +1104,8 @@
           name: "Spores",
           maxHit: 15
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Raging Horned Elite",
@@ -1011,7 +1115,8 @@
       usesNormalHit: true,
       attackLevel: 79,
       attackBonus: 30,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Turkul Giant",
@@ -1026,6 +1131,9 @@
           name: "Lesser Sandstorm",
           maxHit: 100
         }
+      ],
+      slayerRequirement: [
+        "Desert_Hat"
       ]
     },
     {
@@ -1036,7 +1144,8 @@
       usesNormalHit: true,
       attackLevel: 140,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Paladin",
@@ -1046,7 +1155,8 @@
       usesNormalHit: true,
       attackLevel: 110,
       attackBonus: 16,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Superior Eyed Monster",
@@ -1057,7 +1167,10 @@
       attackLevel: 160,
       attackBonus: 35,
       spellMaxHit: 9,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Mirror_Shield"
+      ]
     },
     {
       name: "Priest",
@@ -1068,7 +1181,8 @@
       attackLevel: 175,
       attackBonus: 8,
       spellMaxHit: 10.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Spider King",
@@ -1083,7 +1197,8 @@
           name: "Venom",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Seething Horned Elite",
@@ -1094,7 +1209,8 @@
       attackLevel: 192,
       attackBonus: 3,
       spellMaxHit: 12,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Turkul General",
@@ -1109,6 +1225,9 @@
           name: "Lesser Sandstorm",
           maxHit: 100
         }
+      ],
+      slayerRequirement: [
+        "Desert_Hat"
       ]
     },
     {
@@ -1124,7 +1243,8 @@
           name: "Barrage",
           maxHit: 10
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Elementalist",
@@ -1152,7 +1272,8 @@
           name: "Elemental Impact (Frostburn)",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Fearful Eye",
@@ -1163,7 +1284,8 @@
       attackLevel: 220,
       attackBonus: 7,
       spellMaxHit: 10.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Water Guard",
@@ -1183,7 +1305,8 @@
           name: "Frozen Spears",
           maxHit: 20
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Fire Guard",
@@ -1198,7 +1321,8 @@
           name: "Fireball",
           maxHit: 65
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "The Kraken",
@@ -1208,7 +1332,8 @@
       usesNormalHit: true,
       attackLevel: 100,
       attackBonus: 45,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Earth Guard",
@@ -1223,7 +1348,8 @@
           name: "Stone Wall",
           maxHit: 0
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Miolite Monarch",
@@ -1239,7 +1365,8 @@
           name: "Drowsy Spores",
           maxHit: 20
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Resurrected Eye",
@@ -1250,7 +1377,8 @@
       attackLevel: 200,
       attackBonus: -12,
       spellMaxHit: 13.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Pegasus",
@@ -1260,7 +1388,10 @@
       usesNormalHit: true,
       attackLevel: 160,
       attackBonus: 30,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Magical_Ring"
+      ]
     },
     {
       name: "Protector of Ice",
@@ -1275,7 +1406,8 @@
           name: "Frostburn",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Vicious Serpent",
@@ -1285,7 +1417,8 @@
       usesNormalHit: true,
       attackLevel: 260,
       attackBonus: 0,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Sand Beast",
@@ -1300,6 +1433,9 @@
           name: "Greater Sandstorm",
           maxHit: 15
         }
+      ],
+      slayerRequirement: [
+        "Desert_Hat"
       ]
     },
     {
@@ -1315,7 +1451,8 @@
           name: "Poison Breath",
           maxHit: 15
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Venomous Snake",
@@ -1330,7 +1467,8 @@
           name: "Toxic Bite",
           maxHit: 30
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Giant Moth",
@@ -1346,7 +1484,8 @@
           name: "Noxious Powder",
           maxHit: 0
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Dark Horned Elite",
@@ -1361,7 +1500,8 @@
           name: "Ram",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Furious Horned Elite",
@@ -1376,7 +1516,8 @@
           name: "Horn Shots",
           maxHit: 60
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Fire Spirit",
@@ -1387,7 +1528,8 @@
       attackLevel: 380,
       attackBonus: 23,
       spellMaxHit: 9.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Red Devil",
@@ -1397,7 +1539,8 @@
       usesNormalHit: true,
       attackLevel: 270,
       attackBonus: 5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Fire Monster",
@@ -1412,7 +1555,8 @@
           name: "Burning Claws",
           maxHit: 40
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Air Monster",
@@ -1427,7 +1571,8 @@
           name: "Wind Blade",
           maxHit: 35
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Water Monster",
@@ -1446,7 +1591,8 @@
           name: "Ice Break",
           maxHit: 36
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Earth Monster",
@@ -1461,7 +1607,8 @@
           name: "Charge",
           maxHit: 65
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Elder Dragon",
@@ -1476,7 +1623,8 @@
           name: "Burning Fireball",
           maxHit: 45
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Rancora Spider",
@@ -1491,6 +1639,9 @@
           name: "Webshot",
           maxHit: 45
         }
+      ],
+      slayerRequirement: [
+        "Blazing_Lantern"
       ]
     },
     {
@@ -1502,7 +1653,8 @@
       attackLevel: 350,
       attackBonus: 0,
       spellMaxHit: 13.5,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: []
     },
     {
       name: "Elder Vampire",
@@ -1517,6 +1669,9 @@
           name: "Drain",
           maxHit: 30
         }
+      ],
+      slayerRequirement: [
+        "Blazing_Lantern"
       ]
     },
     {
@@ -1527,7 +1682,10 @@
       usesNormalHit: true,
       attackLevel: 260,
       attackBonus: 40,
-      specialAttack: []
+      specialAttack: [],
+      slayerRequirement: [
+        "Mirror_Shield"
+      ]
     },
     {
       name: "Cursed Maiden",
@@ -1543,6 +1701,9 @@
           name: "Curse of Fear",
           maxHit: 60
         }
+      ],
+      slayerRequirement: [
+        "Blazing_Lantern"
       ]
     },
     {
@@ -1558,6 +1719,9 @@
           name: "Hunter Expertise",
           maxHit: 0
         }
+      ],
+      slayerRequirement: [
+        "Blazing_Lantern"
       ]
     },
     {
@@ -1573,7 +1737,8 @@
           name: "Volley",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Wicked Greater Dragon",
@@ -1593,6 +1758,9 @@
           name: "Confusion",
           maxHit: 75
         }
+      ],
+      slayerRequirement: [
+        "Climbing_Boots"
       ]
     },
     {
@@ -1609,7 +1777,8 @@
           name: "Scorching Ray",
           maxHit: 10
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Incendius",
@@ -1624,7 +1793,8 @@
           name: "Burning Trail",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Air Golem",
@@ -1639,7 +1809,8 @@
           name: "Whirlwind",
           maxHit: 55
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Water Golem",
@@ -1655,7 +1826,8 @@
           name: "Flash Freeze",
           maxHit: 65
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Hunting Greater Dragon",
@@ -1674,6 +1846,9 @@
           name: "Agility",
           maxHit: 65
         }
+      ],
+      slayerRequirement: [
+        "Climbing_Boots"
       ]
     },
     {
@@ -1689,7 +1864,8 @@
           name: "Boulder",
           maxHit: 85
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Chaotic Greater Dragon",
@@ -1708,6 +1884,9 @@
           name: "Chaotic Slam",
           maxHit: 65
         }
+      ],
+      slayerRequirement: [
+        "Climbing_Boots"
       ]
     },
     {
@@ -1727,7 +1906,8 @@
           name: "Infernal Volley",
           maxHit: 100
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Murtia",
@@ -1746,7 +1926,8 @@
           name: "Winterland",
           maxHit: 0
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Voltaire",
@@ -1761,7 +1942,8 @@
           name: "Tornado",
           maxHit: 40
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Umbora",
@@ -1780,6 +1962,9 @@
           name: "Rapid Onslaught",
           maxHit: 95
         }
+      ],
+      slayerRequirement: [
+        "Into_the_Mist"
       ]
     },
     {
@@ -1795,7 +1980,8 @@
           name: "Grasping Roots",
           maxHit: 60
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Lissia",
@@ -1815,7 +2001,8 @@
           name: "Winterland",
           maxHit: 0
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Pyra",
@@ -1831,7 +2018,8 @@
           name: "Meteor Shower",
           maxHit: 85
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Aleron",
@@ -1846,7 +2034,8 @@
           name: "Tornado",
           maxHit: 40
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Rokken",
@@ -1865,6 +2054,9 @@
           name: "Shockwave",
           maxHit: 97
         }
+      ],
+      slayerRequirement: [
+        "Into_the_Mist"
       ]
     },
     {
@@ -1881,7 +2073,8 @@
           name: "Grasping Roots",
           maxHit: 60
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Ignis",
@@ -1896,7 +2089,8 @@
           name: "Meteor Shower",
           maxHit: 85
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Ku-tul",
@@ -1916,6 +2110,9 @@
           name: "Curse of the Deep",
           maxHit: 99
         }
+      ],
+      slayerRequirement: [
+        "Into_the_Mist"
       ]
     },
     {
@@ -1939,6 +2136,9 @@
           name: "Toxic Needles",
           maxHit: 62
         }
+      ],
+      slayerRequirement: [
+        "Map to the Unhallowed Wasteland"
       ]
     },
     {
@@ -1963,6 +2163,9 @@
           name: "Cursed Tether",
           maxHit: 50
         }
+      ],
+      slayerRequirement: [
+        "Map to the Unhallowed Wasteland"
       ]
     },
     {
@@ -1982,7 +2185,8 @@
           name: "Dragonbreath",
           maxHit: 6
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Malcs, the Leader of Dragons",
@@ -2009,7 +2213,8 @@
           name: "Sealing",
           maxHit: 0
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Spiked Red Claw",
@@ -2032,6 +2237,9 @@
           name: "Savage Spike",
           maxHit: 100
         }
+      ],
+      slayerRequirement: [
+        "Map to the Unhallowed Wasteland"
       ]
     },
     {
@@ -2063,7 +2271,8 @@
           name: "Cyclone",
           maxHit: 60
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Greater Skeletal Dragon",
@@ -2086,6 +2295,9 @@
           name: "Desecration",
           maxHit: 0
         }
+      ],
+      slayerRequirement: [
+        "Map to the Unhallowed Wasteland"
       ]
     },
     {
@@ -2118,7 +2330,8 @@
           name: "Frigid Waves",
           maxHit: 78
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Terran",
@@ -2149,7 +2362,8 @@
           name: "Seismic Slam",
           maxHit: 95
         }
-      ]
+      ],
+      slayerRequirement: []
     },
     {
       name: "Ragnar",
@@ -2181,6 +2395,7 @@
           name: "Cataclysm",
           maxHit: 130
         }
-      ]
+      ],
+      slayerRequirement: []
     }
   ]
