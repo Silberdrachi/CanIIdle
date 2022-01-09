@@ -265,7 +265,7 @@
             <tbody>
               <tr
                 v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })"
-                :class="{idleable : calculatedTier.isIdleable}">
+                :class="{idleable : calculatedTier.isIdleable, warning : calculatedTier.name == 'Master'}">
                 <td>{{calculatedTier.name}}</td>
                 <td>{{calculatedTier.minimumDR}}</td>
                 <td>{{calculatedTier.minimumHP}}</td>
@@ -386,13 +386,16 @@
             </thead>
             <tbody>
               <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
-                <tr
-                  :class="{idleable :  monster.isIdleable, warning : ((monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0) || (monster.name == 'Greater Skeletal Dragon'))}">
+                <tr :class="{idleable :  monster.isIdleable, warning : ((monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0) || (monster.name == 'Greater Skeletal Dragon'))}">
                   <td>{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="Monster is able to sleep">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
                       title="Monster is able to stun">
+                    <img :class="{statusIcon : (monster.name === 'Wicked Greater Dragon' && playerMaxHit == 0) , hide : !(monster.name === 'Wicked Greater Dragon' && playerMaxHit == 0)}" src="assets/warning.png"
+                      title="Enter player max hit on magic in advanced options.">
+                    <img :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}" src="assets/warning.png"
+                      title="Unable to determine with certainty due to affliction.">
                   </td>
                   <td>{{monster.attackStyle}}</td>
                   <td></td>
