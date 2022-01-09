@@ -95,18 +95,6 @@ let monsterMap = MONSTERS
 				res.usesNormalHit = true;
 			}
 		}
-    
-		res.slayerRequirement = slayerAreas.filter((i) => i.monsters.includes(x.id) && i.entryRequirements
-											.find(req=>["SlayerItem","Dungeon","ShopPurchase"].includes(req.type)))
-											.map((area)=>{
-												if (area.entryRequirements.find(req=>req.type === "SlayerItem")) {
-													return Items[area.entryRequirements.find(req=>req.type === "SlayerItem").itemID];
-												} else if (area.entryRequirements.find(req=>req.type === "Dungeon")) {
-													return Dungeons[area.entryRequirements.find(req=>req.type === "Dungeon").dungeons[0].dungeonID];
-												} else {
-													return SHOP.Slayer[area.entryRequirements.find(req=>req.type === "ShopPurchase").id].name;
-												}
-											});
 
 		return res;
 	});

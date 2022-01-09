@@ -148,7 +148,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-4 col-sm-12 my-2">
+        <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
             title="Max Hit in combat on Magic Monsters. This is used to calculate the damage of a player on Wicked Greater Dragons">
             <div class="input-group-prepend">
@@ -158,7 +158,7 @@
               v-model="playerMaxHit" v-model="playerMaxHit" />
           </div>
         </div>
-        <div class="col-md-4 col-sm-12 my-2">
+        <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
             title="Enables or disables enemy stun/sleep damage">
             <div class="input-group-prepend">
@@ -168,23 +168,6 @@
               :class="{unselected : stunDamage == 'No'}">
               <option selected>Yes</option>
               <option>No</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-12 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="AutoSlayer Required Items">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="slayerReq">AutoSlayer</label>
-            </div>
-            <select id="slayerReq" class="selectpicker w-100" data-live-search="true" multiple v-model="slayerReq" disabled>
-              <option value="Mirror_Shield">Mirror Shield</option>
-              <option value="Desert_Hat">Desert Hat</option>
-              <option value="Magical_Ring">Magical Ring</option>
-              <option value="Blazing_Lantern">Blazing Lantern</option>
-              <option value="Climbing_Boots">Climbing Boots</option>
-              <option value="Slayer_Cape">Slayer Cape</option>
-              <option value="Into_the_Mist">Into the Mist</option>
-              <option value="Map to the Unhallowed Wasteland">Map to the Unhallowed Wasteland</option>
             </select>
           </div>
         </div>
@@ -515,7 +498,6 @@
         guardianAmulet: "No",
         dungeonChoice: "Chicken Coop",
         stunDamage: "Yes",
-        slayerReq: [],
         dungeons: [
           {
             name: "Chicken Coop",
@@ -3322,12 +3304,6 @@
       calculateInstance(instance, isSlayer) {
         let instanceMonsters = this.monsters.filter(m => instance.monsters.includes(m.name));
 
-        if (isSlayer && this.slayerReq.length) {
-          instanceMonsters = instanceMonsters.filter(m => m.slayerRequirement.some((req)=>{
-                                                    return (this.slayerReq.includes(req)) || (this.slayerReq.includes("Slayer_Cape") && ["Mirror_Shield","Desert_Hat","Magical_Ring","Blazing Lantern","Climbing_Boots"].includes(req));
-                                                  }));
-        }
-
         let instanceInformation = {
           name: instance.name,
           minimumDR: 0,
@@ -3491,12 +3467,6 @@
       findMonstersForSlayerTier(tier) {
         let tierMonstersNames = this.slayerTiers.filter(s => s.name == tier)[0].monsters;
         let tierMonsters = this.monsters.filter(m => tierMonstersNames.includes(m.name));
-
-        if (this.slayerReq.length) {
-          tierMonsters = tierMonsters.filter(m => m.slayerRequirement.some((req)=>{
-                                                    return (this.slayerReq.includes(req)) || (this.slayerReq.includes("Slayer_Cape") && ["Mirror_Shield","Desert_Hat","Magical_Ring","Blazing Lantern","Climbing_Boots"].includes(req));
-                                                  }));
-        }
 
         let monsterInformation = [];
         tierMonsters.forEach(element => {
