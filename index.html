@@ -3422,6 +3422,9 @@
             else if (element.name === "Savage Spike") {
               attack.maxHit = this.calculateSpecialAttack((element.maxHit + 18), monster.canStun, monster.canSleep);
             }
+            else if (element.name === "Horn Shots") {
+              attack.maxHit = Math.floor(this.calculateNormalAttack(monster) * .6);
+            }
             else {
               attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep);
             }
