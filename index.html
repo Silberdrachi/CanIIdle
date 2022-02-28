@@ -37,9 +37,9 @@
 
 <body>
   <div id='app' class="container-fluid">
-    <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom" title="No it doesnt work on Golbin Raid">
+    <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom" title="Tick all the things">
       Can I Idle Melvor?</h1>
-    <p class="text-white text-center my-4">Up to date as of v1.0.2 Open - Copy shareable link to Clipboard:
+    <p class="text-white text-center my-4">Up to date as of v1.0.3 Open - Copy shareable link to Clipboard:
       <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button>
     </p>
     <div id="content" class="container">
@@ -108,7 +108,7 @@
       </div>
       <div class="row collapse" id="advancedOptions">
         <hr>
-        <div class="col-md-4 col-sm-6 my-2">
+        <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
             title="Increases autoeat threshold by 5%">
             <div class="input-group-prepend">
@@ -121,7 +121,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6 my-2">
+        <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
             title="Gives 5% more DR if your health falls below 50% of your max health.">
             <div class="input-group-prepend">
@@ -134,7 +134,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-4 col-sm-12 my-2">
+        <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group">
             <div class="input-group-prepend">
               <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
@@ -146,16 +146,6 @@
               <option>Witch</option>
               <option>Cyclops</option>
             </select>
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-12 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Max Hit in combat on Magic Monsters. This is used to calculate the damage of a player on Wicked Greater Dragons">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="playerMaxHit">Max Hit on Magic</label>
-            </div>
-            <input id="playerMaxHit" type="number" class="form-control" min="0" value="0" step="1"
-              v-model="playerMaxHit" v-model="playerMaxHit" />
           </div>
         </div>
         <div class="col-md-6 col-xs-12 my-2">
@@ -369,14 +359,14 @@
             </thead>
             <tbody>
               <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
-                <tr :class="{idleable :  monster.isIdleable, warning : ((monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0) || (monster.name == 'Greater Skeletal Dragon'))}">
+                <tr :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
                   <td>{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="Monster is able to sleep">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
                       title="Monster is able to stun">
-                    <img :class="{statusIcon : (monster.name === 'Wicked Greater Dragon' && playerMaxHit == 0) , hide : !(monster.name === 'Wicked Greater Dragon' && playerMaxHit == 0)}" src="assets/warning.png"
-                      title="Enter player max hit on magic in advanced options.">
+                    <img :class="{statusIcon : monster.name === 'Wicked Greater Dragon' , hide : !(monster.name === 'Wicked Greater Dragon')}" src="assets/warning.png"
+                      title="Unable to fully calculate due to modifers such as slayer crossbow and astrology.">
                     <img :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}" src="assets/warning.png"
                       title="Unable to determine with certainty due to affliction.">
                   </td>
@@ -388,7 +378,7 @@
                   <td>{{monster.minimumHP}}</td>
                 </tr>
                 <tr v-for="attack in monster.attacks"
-                  :class="{idleable : attack.isIdleable, warning : ((monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0) || (monster.name == 'Greater Skeletal Dragon'))}">
+                  :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
                   <td></td>
                   <td></td>
                   <td>{{attack.name}}</td>
@@ -427,12 +417,16 @@
             <tbody>
               <template v-for="monster in findMonstersforEverything()">
                 <tr
-                  :class="{idleable :  monster.isIdleable, warning : ((monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0) || (monster.name == 'Greater Skeletal Dragon'))}">
+                  :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
                   <td>{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="Monster is able to sleep">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
                       title="Monster is able to stun">
+                    <img :class="{statusIcon : monster.name === 'Wicked Greater Dragon' , hide : !(monster.name === 'Wicked Greater Dragon')}" src="assets/warning.png"
+                      title="Unable to fully calculate due to modifers such as slayer crossbow and astrology.">
+                    <img :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}" src="assets/warning.png"
+                      title="Unable to determine with certainty due to affliction.">
                   </td>
                   <td>{{monster.attackStyle}}</td>
                   <td></td>
@@ -442,7 +436,7 @@
                   <td>{{monster.minimumHP}}</td>
                 </tr>
                 <tr v-for="attack in monster.attacks"
-                  :class="{idleable : attack.isIdleable, warning : ((monster.name == 'Wicked Greater Dragon' && playerMaxHit == 0) || (monster.name == 'Greater Skeletal Dragon'))}">
+                  :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
                   <td></td>
                   <td></td>
                   <td>{{attack.name}}</td>
@@ -486,18 +480,17 @@
     el: '#app',
     data() {
       return {
-        slayerTier: "Easy",
         totalHealth: 100,
         currentDR: 0,
         autoEatLevel: "1",
         combatStyle: "Melee",
         gameMode: "Normal",
         yakSynergy: "None",
-        playerMaxHit: 0,
         wastefulRing: "No",
         guardianAmulet: "No",
-        dungeonChoice: "Chicken Coop",
         stunDamage: "Yes",
+        dungeonChoice: "Chicken Coop",
+        slayerTier: "Easy",
         dungeons: [
           {
             name: "Chicken Coop",
@@ -3196,8 +3189,7 @@
       getShareURL() {
         navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "totalHealth=" + this.totalHealth +
           "&" + "currentDR=" + this.currentDR + "&" + "autoEatLevel=" + this.autoEatLevel + "&" + "combatStyle=" + this.combatStyle + "&" + "gameMode=" + this.gameMode +
-          "&" + "playerMaxHit=" + this.playerMaxHit + "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing +
-          "&" + "guardianAmulet=" + this.guardianAmulet + "&" + "stunDamage=" + this.stunDamage)
+          "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet + "&" + "stunDamage=" + this.stunDamage)
           .catch(err => {
             alert('Error in copying text: ', err);
           });
@@ -3417,7 +3409,7 @@
               attack.maxHit = Math.ceil(adjustedAttack);
             }
             else if (element.name === "Confusion") {
-              attack.maxHit = Math.ceil(this.playerMaxHit * 0.75);
+              attack.maxHit = 0;
             }
             else if (element.name === "Savage Spike") {
               attack.maxHit = this.calculateSpecialAttack((element.maxHit + 18), monster.canStun, monster.canSleep);
@@ -3551,9 +3543,6 @@
         }
         if (params.has("stunDamage")) {
           this.stunDamage = params.get("stunDamage");
-        }
-        if (params.has("playerMaxHit")) {
-          this.stunDamage = params.get("playerMaxHit");
         }
       } else {
         if (localStorage.slayerTier) {
