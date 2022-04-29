@@ -211,8 +211,8 @@
                 v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })"
                 :class="{idleable : calculatedDungeon.isIdleable}">
                 <td>{{calculatedDungeon.name}}</td>
-                <td>{{calculatedDungeon.minimumDR}}</td>
-                <td>{{calculatedDungeon.minimumHP}}</td>
+                <td>{{calculatedDungeon.minimumDR}} DR% for {{totalHealth}} HP</td>
+                <td>{{calculatedDungeon.minimumHP}} HP for {{currentDR}} DR%</td>
               </tr>
             </tbody>
           </table>
@@ -240,8 +240,8 @@
                 v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })"
                 :class="{idleable : calculatedTier.isIdleable, warning : calculatedTier.name == 'Master'}">
                 <td>{{calculatedTier.name}}</td>
-                <td>{{calculatedTier.minimumDR}}</td>
-                <td>{{calculatedTier.minimumHP}}</td>
+                <td>{{calculatedTier.minimumDR}} DR% for {{totalHealth}} HP</td>
+                <td>{{calculatedTier.minimumHP}} HP for {{currentDR}} DR%</td>
               </tr>
             </tbody>
           </table>
@@ -305,8 +305,8 @@
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}}</td>
-                  <td>{{monster.minimumHP}}</td>
+                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
                   <td></td>
@@ -314,8 +314,8 @@
                   <td>{{attack.name}}</td>
                   <td>{{attack.maxHit}}</td>
                   <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}}</td>
-                  <td>{{attack.minimumHP}}</td>
+                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
               </template>
             </tbody>
@@ -374,8 +374,8 @@
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}}</td>
-                  <td>{{monster.minimumHP}}</td>
+                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td>{{monster.minimumHP}} for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks"
                   :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
@@ -384,8 +384,8 @@
                   <td>{{attack.name}}</td>
                   <td>{{attack.maxHit}}</td>
                   <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}}</td>
-                  <td>{{attack.minimumHP}}</td>
+                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
               </template>
             </tbody>
@@ -432,7 +432,7 @@
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}}</td>
+                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
                   <td>{{monster.minimumHP}}</td>
                 </tr>
                 <tr v-for="attack in monster.attacks"
@@ -442,7 +442,7 @@
                   <td>{{attack.name}}</td>
                   <td>{{attack.maxHit}}</td>
                   <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}}</td>
+                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
                   <td>{{attack.minimumHP}}</td>
                 </tr>
               </template>
