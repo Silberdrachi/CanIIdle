@@ -3522,6 +3522,8 @@
       numberMultiplier() {
         if (this.gameMode === "Adventure") {
           return 100;
+        } else if (this.gameMode === "Internal Suffering") {
+          return 1000;
         }
         else {
           return 10;
