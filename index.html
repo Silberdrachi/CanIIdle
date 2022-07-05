@@ -37,9 +37,9 @@
 
 <body>
   <div id='app' class="container-fluid">
-    <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom" title="Tick all the things">
+    <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom" title="Now with more suffering">
       Can I Idle Melvor?</h1>
-    <p class="text-white text-center my-4">Up to date as of v1.0.4 Open - Copy shareable link to Clipboard:
+    <p class="text-white text-center my-4">Up to date as of v1.0.5 Open - Copy shareable link to Clipboard:
       <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button>
     </p>
     <div id="content" class="container">
@@ -95,6 +95,7 @@
               <option>Normal</option>
               <option>Hardcore</option>
               <option>Adventure</option>
+              <option>Internal Suffering</option>
             </select>
           </div>
         </div>
@@ -3215,6 +3216,7 @@
 
         return Math.max(maxNormalAttack, maxSpecialAttack);
       },
+      
       calculateYakDRModifier(monsterAttackStyle, isSlayer) {
         let ret = 0;
 
@@ -3229,13 +3231,16 @@
 
         return ret;
       },
+
       calculateMinimumDR(attackStyle, attack) {
         return Math.max(0, Math.min(100, Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])));
       },
+
       calculateMinimumHP(attackStyle, attack, isSlayer) {
         let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, isSlayer));
         return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
       },
+
       calculateReducedMaxHit(attackStyle, attack, isSlayer) {
         let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, isSlayer));
         let combatAdjustedDr = Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)]);
@@ -3246,9 +3251,11 @@
         }
         return reducedHit;
       },
+
       calculateIdleability(attack) {
         return attack <= (this.totalHealth * this.autoEatThreshold);
       },
+
       calculateNormalAttack(monster) {
         let maximumNormalAttack = 0;
 
@@ -3276,6 +3283,7 @@
 
         return Math.floor(maximumNormalAttack * multiplier);
       },
+
       calculateSpecialAttack(specialAttack, canStun, canSleep) {
         let baseDamage = specialAttack * this.numberMultiplier;
 
@@ -3459,6 +3467,7 @@
         });
         return monsterInformation;
       },
+
       findMonstersForSlayerTier(tier) {
         let tierMonstersNames = this.slayerTiers.filter(s => s.name == tier)[0].monsters;
         let tierMonsters = this.monsters.filter(m => tierMonstersNames.includes(m.name));
@@ -3469,6 +3478,7 @@
         });
         return monsterInformation;
       },
+
       findMonstersforEverything() {
         let monsterInformation = [];
         this.monsters.forEach(element => {
@@ -3498,13 +3508,17 @@
 
         return aethreshold;
       },
+
       combatTriangle() {
         if (this.gameMode === "Normal") {
           return [[1, 1.25, 0.75], [0.95, 1, 1.25], [1.25, 0.85, 1]];
+        } else if (this.gameMode === "Internal Suffering") {
+          return [[1.25, 0.5, 1], [1, 1.25, 0.75], [0.75, 1, 1.25]];
         } else { // GameModes HC/Adventure
           return [[1, 1.25, 0.5], [0.75, 1, 1.25], [1.25, 0.75, 1]];
         }
       },
+
       numberMultiplier() {
         if (this.gameMode === "Adventure") {
           return 100;
@@ -3514,6 +3528,7 @@
         }
       },
     },
+
     created() {
       if (window.location.search) {
         let params = new URLSearchParams(document.location.search.substring(1));
@@ -3568,6 +3583,7 @@
         }
       }
     },
+
     watch: {
       totalHealth(newTotalHealth) {
         localStorage.totalHealth = newTotalHealth;
