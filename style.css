@@ -74,6 +74,7 @@ tr th div {
 
 .options-bar {
   position: sticky;
-   top: 0;
-    background: #224680;
+  top: 0;
+  background: #224680;
+  z-index: 1;
 }
