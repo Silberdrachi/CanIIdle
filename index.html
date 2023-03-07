@@ -49,123 +49,125 @@
       <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button>
     </p>
     <div id="content" class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Max health value (not level)">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="totalHealth">Total Health</label>
+      <div class="options-bar">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+            <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Max health value (not level)">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="totalHealth">Total Health</label>
+              </div>
+              <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10"
+                v-model="totalHealth" />
             </div>
-            <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10"
-              v-model="totalHealth" />
           </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Current out of combat Damage Reduction %">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="currentDR">Current DR%</label>
+          <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+            <div class="input-group" data-toggle="tooltip" data-placement="bottom"
+              title="Current out of combat Damage Reduction %">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="currentDR">Current DR%</label>
+              </div>
+              <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="currentDR" />
             </div>
-            <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="currentDR" />
           </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-12 my-2">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
+          <div class="col-lg-3 col-md-4 col-sm-12 my-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
+              </div>
+              <select class="custom-select" id="autoEatLevel" v-model="autoEatLevel">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
             </div>
-            <select class="custom-select" id="autoEatLevel" v-model="autoEatLevel">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
           </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="combatStyle">Combat Style</label>
+          <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="combatStyle">Combat Style</label>
+              </div>
+              <select id="combatStyle" class="custom-select" v-model="combatStyle">
+                <option>Melee</option>
+                <option>Ranged</option>
+                <option>Magic</option>
+              </select>
             </div>
-            <select id="combatStyle" class="custom-select" v-model="combatStyle">
-              <option>Melee</option>
-              <option>Ranged</option>
-              <option>Magic</option>
-            </select>
           </div>
-        </div>
-        <div class="col-lg-6 col-md-4 col-sm-6 my-2">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="gameMode">Game Mode</label>
+          <div class="col-lg-6 col-md-4 col-sm-6 my-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="gameMode">Game Mode</label>
+              </div>
+              <select id="gameMode" class="custom-select" v-model="gameMode">
+                <option>Normal</option>
+                <option>Hardcore</option>
+                <option>Adventure</option>
+                <option>Internal Suffering</option>
+              </select>
             </div>
-            <select id="gameMode" class="custom-select" v-model="gameMode">
-              <option>Normal</option>
-              <option>Hardcore</option>
-              <option>Adventure</option>
-              <option>Internal Suffering</option>
-            </select>
           </div>
-        </div>
-        <div class="col-lg-6 col-md-4 my-2">
-          <a class="btn btn-primary col" type="button" data-toggle="collapse" data-target="#advancedOptions"
-            aria-expanded="false" aria-controls="advancedOptionsButton">
-            Advanced Options
-          </a>
-        </div>
+          <div class="col-lg-6 col-md-4 my-2">
+            <a class="btn btn-primary col" type="button" data-toggle="collapse" data-target="#advancedOptions"
+              aria-expanded="false" aria-controls="advancedOptionsButton">
+              Advanced Options
+            </a>
+          </div>
 
-      </div>
-      <div class="row collapse" id="advancedOptions">
-        <hr>
-        <div class="col-md-6 col-xs-12 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Increases autoeat threshold by 5%">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
-            </div>
-            <select id="wastefulRing" class="custom-select" v-model="wastefulRing"
-              :class="{selected : wastefulRing == 'Yes'}">
-              <option>Yes</option>
-              <option selected>No</option>
-            </select>
-          </div>
         </div>
-        <div class="col-md-6 col-xs-12 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Gives 5% more DR if your health falls below 50% of your max health.">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
+        <div class="row collapse" id="advancedOptions">
+          <hr>
+          <div class="col-md-6 col-xs-12 my-2">
+            <div class="input-group" data-toggle="tooltip" data-placement="bottom"
+              title="Increases autoeat threshold by 5%">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
+              </div>
+              <select id="wastefulRing" class="custom-select" v-model="wastefulRing"
+                :class="{selected : wastefulRing == 'Yes'}">
+                <option>Yes</option>
+                <option selected>No</option>
+              </select>
             </div>
-            <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet"
-              :class="{selected : guardianAmulet == 'Yes'}">
-              <option>Yes</option>
-              <option selected>No</option>
-            </select>
           </div>
-        </div>
-        <div class="col-md-6 col-xs-12 my-2">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
+          <div class="col-md-6 col-xs-12 my-2">
+            <div class="input-group" data-toggle="tooltip" data-placement="bottom"
+              title="Gives 5% more DR if your health falls below 50% of your max health.">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
+              </div>
+              <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet"
+                :class="{selected : guardianAmulet == 'Yes'}">
+                <option>Yes</option>
+                <option selected>No</option>
+              </select>
             </div>
-            <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
-              <option>None</option>
-              <option>Minotaur</option>
-              <option>Centaur</option>
-              <option>Witch</option>
-              <option>Cyclops</option>
-            </select>
           </div>
-        </div>
-        <div class="col-md-6 col-xs-12 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Enables or disables enemy stun/sleep damage">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="stunDamage">Status Damage</label>
+          <div class="col-md-6 col-xs-12 my-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
+              </div>
+              <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
+                <option>None</option>
+                <option>Minotaur</option>
+                <option>Centaur</option>
+                <option>Witch</option>
+                <option>Cyclops</option>
+              </select>
             </div>
-            <select id="stunDamage" class="custom-select" v-model="stunDamage"
-              :class="{unselected : stunDamage == 'No'}">
-              <option selected>Yes</option>
-              <option>No</option>
-            </select>
+          </div>
+          <div class="col-md-6 col-xs-12 my-2">
+            <div class="input-group" data-toggle="tooltip" data-placement="bottom"
+              title="Enables or disables enemy stun/sleep damage">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="stunDamage">Status Damage</label>
+              </div>
+              <select id="stunDamage" class="custom-select" v-model="stunDamage"
+                :class="{unselected : stunDamage == 'No'}">
+                <option selected>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

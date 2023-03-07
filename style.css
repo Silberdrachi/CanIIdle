@@ -71,3 +71,9 @@ tr th div {
 .input-group {
   flex-wrap: nowrap;
 }
+
+.options-bar {
+  position: sticky;
+   top: 0;
+    background: #224680;
+}
